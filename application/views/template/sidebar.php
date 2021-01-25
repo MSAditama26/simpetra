@@ -1,5 +1,5 @@
  <!-- Sidebar -->
- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+ <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
      <!-- Sidebar - Brand -->
      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -60,16 +60,6 @@
              <hr class="sidebar-divider mt-3">
 
          <?php endforeach ?>
-
-         <!-- Nav Item - Logout -->
-         <li class="nav-item">
-             <a class="nav-link" href="<?= base_url('auth/logout'); ?>">
-                 <i class="fas fa-fw fa-sign-out-alt"></i>
-                 <span>Logout</span></a>
-         </li>
-
-         <!-- Divider -->
-         <hr class="sidebar-divider d-none d-md-block">
 
          <!-- Sidebar Toggler (Sidebar) -->
          <div class="text-center d-none d-md-inline">
