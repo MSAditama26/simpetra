@@ -48,6 +48,15 @@
  <!-- Custom scripts for all pages-->
  <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
+ <!-- Page level plugins -->
+ <script src="<?= base_url('assets/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
+ <script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+ <!-- Page level custom scripts -->
+ <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
+
+
+
  <script>
      $('.alert').alert().delay(3000).slideUp('slow');
      $('.custom-file-input').on('change', function() {
@@ -72,6 +81,18 @@
              }
          });
 
+     });
+ </script>
+
+
+ <script>
+     $(document).ready(function() {
+         $('#mydata').DataTable({
+             paging: true,
+             searching: false,
+             ordering: false,
+             pagingType: "full_numbers"
+         });
      });
  </script>
 
