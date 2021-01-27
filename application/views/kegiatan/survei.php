@@ -35,17 +35,19 @@
                             <td><?= $s['k_pencacah']; ?></td>
                             <td>
 
-                                <a href="<?= base_url('kegiatan/tambahpengawas/') . $s['id']; ?>" class="badge badge-primary">tambah pengawas</a>
+                                <a href="<?= base_url('kegiatan/tambahpengawas/') . $s['id']; ?>" class="badge badge-success">tambah pengawas</a>
                                 <a href="<?= base_url('kegiatan/tambahpencacah/') . $s['id']; ?>" class="badge badge-info">tambah pencacah</a>
-                                <a href="" class="badge badge-success">edit</a>
+                                <a href="" class="badge badge-primary">edit</a>
                                 <a href="<?= base_url('kegiatan/deletesensus/') . $s['id']; ?>" class="badge badge-danger">delete</a>
                             </td>
-                            <?php if ($s['status'] == '1') : ?>
-                                <td class="badge badge-warning">sedang berjalan</td>
-                            <?php elseif ($s['status'] == '2') : ?>
-                                <td class="badge badge-danger">selesai</td>
+
+                            <?php $now = (time()); ?>
+                            <?php if ($now < strtotime($s['start'])) : ?>
+                                <td><a class="badge badge-warning">belum mulai</a></td>
+                            <?php elseif ($now > strtotime($s['finish'])) : ?>
+                                <td><a class="badge badge-danger">selesai</a></td>
                             <?php else : ?>
-                                <td class="badge badge-primary">belum mulai</td>
+                                <td><a class="badge badge-primary">sedang berjalan</a></td>
                             <?php endif; ?>
                         </tr>
                         <?php $i++; ?>
