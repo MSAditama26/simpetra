@@ -17,6 +17,8 @@
 
                                 <?= $this->session->flashdata('message'); ?>
 
+                                <hr>
+
                                 <form class="user" method="post" action="<?= base_url('auth/forgotpassword') ?>">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address..." value="<?= set_value('email'); ?>">

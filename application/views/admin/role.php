@@ -26,7 +26,7 @@
                             <td>
                                 <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-warning">access</a>
                                 <a href="" class="badge badge-success">edit</a>
-                                <a href="" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('admin/deleterole/') . $r['id']; ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -50,7 +50,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newRoleModalLabel">Add New Menu</h5>
+                <h5 class="modal-title" id="newRoleModalLabel">Add New Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

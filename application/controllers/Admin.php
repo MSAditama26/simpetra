@@ -8,6 +8,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Role_model');
     }
 
     public function index()
@@ -29,11 +30,19 @@ class Admin extends CI_Controller
 
         $data['role'] = $this->db->get('user_role')->result_array();
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('admin/role', $data);
-        $this->load->view('template/footer');
+        $this->form_validation->set_rules('role', 'Role', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('admin/role', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->db->insert('user_role', ['role' => $this->input->post('role')]);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New role added!</div>');
+            redirect('admin/role');
+        }
     }
 
     public function roleaccess($role_id)
@@ -72,5 +81,11 @@ class Admin extends CI_Controller
         }
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Access changed!</div>');
+    }
+
+    function deleterole($id)
+    {
+        $this->Role_model->delete($id);
+        redirect('admin/role');
     }
 }

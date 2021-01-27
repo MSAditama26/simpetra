@@ -58,7 +58,8 @@
 
 
  <script>
-     $('.alert').alert().delay(3000).slideUp('slow');
+     $('.alert').alert().delay(2000).slideUp('slow');
+
      $('.custom-file-input').on('change', function() {
          let fileName = $(this).val().split('\\').pop();
          $(this).next('.custom-file-label').addClass("selected").html(fileName);
