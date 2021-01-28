@@ -22,7 +22,7 @@
                 <div class="col-sm-10">
                     <div class="row">
                         <div class="col-sm-3">
-                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail">
+                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail" width="100" height="100">
                         </div>
                         <div class="col-sm-9">
                             <div class="custom-file">
@@ -42,9 +42,7 @@
         </div>
     </div>
 
-
 </div>
 <!-- /.container-fluid -->
-
 </div>
 <!-- End of Main Content -->

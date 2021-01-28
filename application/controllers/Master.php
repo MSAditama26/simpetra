@@ -27,7 +27,6 @@ class Master extends CI_Controller
     {
         $data['title'] = 'Data Mitra';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
         $data['mitra'] = $this->db->get('mitra')->result_array();
 
         $this->form_validation->set_rules('ID_mitra', 'ID Mitra');

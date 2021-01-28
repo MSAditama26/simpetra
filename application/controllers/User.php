@@ -72,6 +72,90 @@ class User extends CI_Controller
         }
     }
 
+    public function editprofilemitra()
+    {
+        $data['title'] = 'Edit Profile';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['mitra'] = $this->db->get_where('mitra', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
+        $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat');
+        $this->form_validation->set_rules('no_hp', 'No. HP', 'required');
+        $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required');
+        $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required');
+        $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama');
+        $this->form_validation->set_rules('kompetensi', 'Kompetensi');
+        $this->form_validation->set_rules('bahasa', 'Bahasa', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('user/editprofilemitra', $data);
+            $this->load->view('template/footer');
+        } else {
+
+            $email = $this->input->post('email');
+            $data = [
+                'ID_mitra' => $this->input->post('ID_mitra'),
+                'nama_lengkap' => $this->input->post('nama_lengkap'),
+                'nama_panggilan' => $this->input->post('nama_panggilan'),
+                'email' => $this->input->post('email'),
+                'alamat' => $this->input->post('alamat'),
+                'no_hp' => $this->input->post('no_hp'),
+                'no_wa' => $this->input->post('no_wa'),
+                'no_tsel' => $this->input->post('no_tsel'),
+                'pekerjaan_utama' => $this->input->post('pekerjaan_utama'),
+                'kompetensi' => $this->input->post('kompetensi'),
+                'bahasa' => $this->input->post('bahasa')
+            ];
+
+            $data2 = [
+                'name' => $this->input->post('nama_lengkap'),
+                'email' => $this->input->post('email')
+            ];
+
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = '2048';
+                $config['upload_path'] = './assets/img/profile/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $old_image = $data['user']['image'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/profile/' . $old_image);
+                    }
+
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
+                    $this->db->where('email', $email);
+                    $this->db->update('user');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                    redirect('user');
+                }
+            }
+
+            $this->db->set($data);
+            $this->db->where('email', $email);
+            $this->db->update('mitra');
+
+            $this->db->set($data2);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+
+
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your profile has been updated!</div>');
+            redirect('user');
+        }
+    }
+
     public function changePassword()
     {
         $data['title'] = 'Change Password';

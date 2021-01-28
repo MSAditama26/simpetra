@@ -16,6 +16,11 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    <tr>
+                        <th>Picture</th>
+                        <td><img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail" alt="Responsive image" width="100" height="100"></td>
+                    </tr>
                     <tr>
                         <th>ID Mitra</th>
                         <td><?= $mitra['ID_mitra']; ?></td>
@@ -93,15 +98,8 @@
 
     </div>
 
-    </br>
-    </br>
-    </br>
-    </br>
-    </br>
-    </br>
-    </br>
-
-
+</div>
+<!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

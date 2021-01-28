@@ -10,10 +10,10 @@
     <?php if ($user['role_id'] == 5) : ?>
 
         <div class="row">
-            <div class="col-lg-2 mb-5">
-                <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="card-img">
+            <div class="col-lg-2 mb-5" align=center>
+                <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail" width="100" height="100">
                 <hr>
-                <p class="card-text" align=center><small class="text-muted">User since <?= date('d F Y', $user['date_created']); ?></small></p>
+                <p class="card-text"><small class="text-muted">User since <?= date('d F Y', $user['date_created']); ?></small></p>
             </div>
             <div class="col-lg-5 mb-5">
                 <table class="table table-bordered table-striped">
@@ -83,7 +83,7 @@
                             <td><?= $mitra['bahasa']; ?></td>
                         </tr>
                         <tr>
-                            <th>Total Nilai</th>
+                            <th>Rata-rata Nilai</th>
                             <td><?= $mitra['nilai']; ?></td>
                         </tr>
 
@@ -96,12 +96,12 @@
     <?php else : ?>
 
 
-        <div class="card mb-3 col-lg">
+        <div class="card mb-3 col-lg-6">
             <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="card-img">
+                <div class="col-md-3">
+                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail" width="100" height="100">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <div class="card-body">
                         <h5 class="card-title"><?= $user['name']; ?></h5>
                         <p class="card-text"><?= $user['email']; ?></p>
