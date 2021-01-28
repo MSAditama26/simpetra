@@ -94,23 +94,43 @@
         </div>
 
     <?php else : ?>
-
-
-        <div class="card mb-3 col-lg-6">
-            <div class="row g-0">
-                <div class="col-md-3">
+        <div class="card col-lg-6">
+            <div class="row">
+                <div class="col-lg-2 mt-2" align=center>
+                    <hr>
                     <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail" width="100" height="100">
+                    <hr>
+
                 </div>
-                <div class="col-md-5">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $user['name']; ?></h5>
-                        <p class="card-text"><?= $user['email']; ?></p>
-                        <p class="card-text"><small class="text-muted">User since
-                                <?= date('d F Y', $user['date_created']); ?></small></p>
-                    </div>
+                <div class="col-lg-10 mt-2">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr align=center>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Nama</th>
+                                <td><?= $user['name']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td><?= $user['email']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Since</th>
+                                <td><?= date('d F Y', $user['date_created']); ?></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
+
 
     <?php endif; ?>
 
