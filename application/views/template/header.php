@@ -21,6 +21,14 @@
     <!-- Custom styles for this page -->
     <link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <link href="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.css" rel="stylesheet">
+    <link href="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.theme.css" rel="stylesheet">
+    <link href="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.structure.css" rel="stylesheet">
+
+
+
+
+
 </head>
 
 <body id="page-top">

@@ -55,6 +55,9 @@
  <!-- Page level custom scripts -->
  <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
 
+ <script src="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.js"></script>
+ <script src="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.min.js"></script>
+
 
 
  <script>
@@ -95,6 +98,20 @@
              pagingType: "full_numbers"
          });
      });
+ </script>
+
+ <script type="text/javascript">
+     $(function() {
+             $(".datepicker").datepicker({
+                     format: 'yyyy-mm-dd',
+                     autoclose: true,
+                     todayHighlight: true,
+                 }
+
+             );
+         }
+
+     );
  </script>
 
  </body>
