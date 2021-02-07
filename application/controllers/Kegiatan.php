@@ -30,6 +30,7 @@ class Kegiatan extends CI_Controller
 
         $data['survei'] = $this->db->get_where('kegiatan', ['jenis_kegiatan' => '1'])->result_array();
 
+
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('start', 'Start', 'required|trim');
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
@@ -174,5 +175,21 @@ class Kegiatan extends CI_Controller
     {
         $this->Kegiatan_model->deletesensus($id);
         redirect('kegiatan/sensus');
+    }
+
+    function tambah_pencacah_survei($id)
+    {
+        $data['title'] = 'Survei';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT id, nama, start, finish, k_pengawas, k_pencacah, jenis_kegiatan, ID_mitra, nama_lengkap, alamat, kompetensi, avg(nilai) as nilai  FROM all_survei GROUP BY ID_mitra ";
+        $data['pencacah'] = $this->db->query($sql)->result_array();
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/tambah-pencacah', $data);
+        $this->load->view('template/footer');
     }
 }

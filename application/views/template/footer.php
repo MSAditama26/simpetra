@@ -94,7 +94,7 @@
          $('#mydata').DataTable({
              paging: true,
              searching: false,
-             ordering: false,
+             ordering: true,
              pagingType: "full_numbers"
          });
      });
@@ -113,6 +113,8 @@
 
      );
  </script>
+
+
 
  </body>
 
