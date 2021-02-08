@@ -19,7 +19,7 @@
                 <table class="table table-bordered table-striped" id="mydata">
                     <thead>
                         <tr align=center>
-                            <th><input type="checkbox" id="check-all"></th>
+                            <th>#</th>
                             <th scope="col">ID Mitra</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Alamat</th>
@@ -42,7 +42,7 @@
                                     <td><?= (int) $p['nilai']; ?></td>
 
                                     <td>
-                                        <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $p['id']; ?>" class="badge badge-primary">details survei yang sedang diikuti</a>
+                                        <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $p['ID_mitra']; ?>" class="badge badge-primary">details survei yang sedang diikuti</a>
                                     </td>
 
                                 </tr>
