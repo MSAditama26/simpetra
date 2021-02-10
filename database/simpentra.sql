@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2021 at 04:45 AM
+-- Generation Time: Feb 10, 2021 at 04:16 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -43,12 +43,13 @@ CREATE TABLE `kegiatan` (
 --
 
 INSERT INTO `kegiatan` (`id`, `nama`, `start`, `finish`, `k_pengawas`, `k_pencacah`, `jenis_kegiatan`) VALUES
+(1, 'sensus1', 1609974000, 1610751600, 10, 1000, 2),
+(2, 'sensus2', 1609455600, 1612047600, 11, 111, 2),
+(3, 'sensus3', 1612998000, 1614380400, 123, 3333, 2),
 (6, 'survei1', 1610578800, 1611961200, 102, 1000, 1),
 (7, 'survei2', 1611270000, 1611788400, 10, 100, 1),
 (8, 'survei3', 1611961200, 1612047600, 12, 122, 1),
-(9, 'sensus1', 1609974000, 1610751600, 10, 1000, 2),
-(10, 'sensus2', 1609455600, 1612047600, 11, 111, 2),
-(11, 'sensus3', 1612998000, 1614380400, 123, 3333, 2);
+(9, 'survei4', 1609455600, 1614380400, 10, 123, 1);
 
 -- --------------------------------------------------------
 
@@ -69,18 +70,41 @@ CREATE TABLE `mitra` (
   `pekerjaan_utama` varchar(128) DEFAULT NULL,
   `kompetensi` varchar(128) DEFAULT NULL,
   `bahasa` varchar(128) NOT NULL,
-  `id_role` int(1) NOT NULL DEFAULT 5,
-  `is_active` int(1) NOT NULL DEFAULT 1,
-  `nilai` int(11) DEFAULT NULL
+  `is_active` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mitra`
 --
 
-INSERT INTO `mitra` (`id`, `ID_mitra`, `nama_lengkap`, `nama_panggilan`, `email`, `alamat`, `no_hp`, `no_wa`, `no_tsel`, `pekerjaan_utama`, `kompetensi`, `bahasa`, `id_role`, `is_active`, `nilai`) VALUES
-(3, '1001', 'mitra1', 'si mitra1', 'mitra1@gmail.com', 'jalan jayanegara', '1234', '1234', '1234', 'qwsqq', 'qSQD', 'Indonesia', 5, 1, 100),
-(4, '1002', 'mitra2', 'ini mitra2', 'mitra2@gmail.com', 'jalan melati', '1234', '1234', '1234', 'jfnnff', 'fwjhfkw', 'Jawa', 5, 1, 90);
+INSERT INTO `mitra` (`id`, `ID_mitra`, `nama_lengkap`, `nama_panggilan`, `email`, `alamat`, `no_hp`, `no_wa`, `no_tsel`, `pekerjaan_utama`, `kompetensi`, `bahasa`, `is_active`) VALUES
+(3, '1001', 'mitra1', 'si mitra1', 'mitra1@gmail.com', 'jalan jayanegara', '1234', '1234', '1234', 'qwsqq', 'qSQD', 'Indonesia', 1),
+(4, '1002', 'mitra2', 'ini mitra2', 'mitra2@gmail.com', 'jalan melati', '1234', '1234', '1234', 'jfnnff', 'fwjhfkw', 'Jawa', 1),
+(6, '1003', 'mitra3', 'iki mitra3', 'mitra3@gmail.com', 'ldjf', '12345', '12345', '12345', 'Petani', 'tidak ada', 'Madura', 1),
+(7, '1004', 'mitra4', 'mitr4', 'mitra4@gmail.com', 'jwdfj', '123456', '123456', '123456', 'Kuli', 'kkdkf', 'Jawa', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai`
+--
+
+CREATE TABLE `nilai` (
+  `id` int(11) NOT NULL,
+  `kegiatan_id` int(11) NOT NULL,
+  `ID_mitra` int(11) NOT NULL,
+  `nilai` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nilai`
+--
+
+INSERT INTO `nilai` (`id`, `kegiatan_id`, `ID_mitra`, `nilai`) VALUES
+(1, 6, 1001, 100),
+(2, 6, 1002, 90),
+(3, 7, 1001, 10),
+(4, 8, 1002, 70);
 
 -- --------------------------------------------------------
 
@@ -109,7 +133,9 @@ INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_a
 (5, 'superadmin1', 'superadmin1@gmail.com', 'default1.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 1, 1, 1611115520),
 (6, 'adminseksi1', 'adminseksi1@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 1, 1611285346),
 (10, 'seksi', 'seksi1@gmail.com', 'default.jpg', '$2y$10$n29GI32gleFClX42/UO/DuQERQ4/kLOP4Y2XVgt3RbaP97A6iqHPe', 3, 1, 1611285346),
-(11, 'mitra2', 'mitra2@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 1, 1611730727);
+(11, 'mitra2', 'mitra2@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 1, 1611730727),
+(12, 'mitra3', 'mitra3@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 1, 1612926221),
+(13, 'mitra4', 'mitra4@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 1, 1612926359);
 
 -- --------------------------------------------------------
 
@@ -221,10 +247,11 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (9, 6, 'Role', 'admin/role', 'fas fa-fw fa-user-tie', 1),
 (12, 1, 'Data Mitra', 'master/mitra', 'fas fa-fw fa-user-tie', 1),
 (13, 2, 'Survei', 'kegiatan/survei', 'fas fa-fw fa-book', 1),
-(14, 3, 'Isi Penilaian', 'penilaian/isi', 'fas fa-fw fa-pencil-alt', 1),
+(14, 3, 'Isi Penilaian', 'penilaian', 'fas fa-fw fa-pencil-alt', 1),
 (15, 4, 'Cetak Hasil Penilaian', 'penilaian/hasil', 'fas fa-fw fa-file-pdf', 1),
 (16, 5, 'Arsip', 'penilaian/arsip', 'fas fa-fw fa-archive', 1),
-(20, 2, 'Sensus', 'kegiatan/sensus', 'fas fa-fw fa-book', 1);
+(20, 2, 'Sensus', 'kegiatan/sensus', 'fas fa-fw fa-book', 1),
+(21, 1, 'Data Kriteria', 'master/kriteria', 'fas fa-fw fa-key', 1);
 
 -- --------------------------------------------------------
 
@@ -267,6 +294,12 @@ ALTER TABLE `kegiatan`
 ALTER TABLE `mitra`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ID_mitra` (`ID_mitra`);
+
+--
+-- Indexes for table `nilai`
+--
+ALTER TABLE `nilai`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -312,19 +345,25 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `mitra`
 --
 ALTER TABLE `mitra`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `nilai`
+--
+ALTER TABLE `nilai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -348,7 +387,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `user_token`

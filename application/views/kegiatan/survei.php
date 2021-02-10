@@ -36,7 +36,7 @@
                             <td>
 
                                 <a href="<?= base_url('kegiatan/tambah_pengawas/') . $s['id']; ?>" class="badge badge-success">tambah pengawas</a>
-                                <a href="<?= base_url('kegiatan/tambah_pencacah_survei/') . $s['id']; ?>" class="badge badge-info">tambah pencacah</a>
+                                <a href="<?= base_url('kegiatan/tambah_pencacah/') . $s['id']; ?>" class="badge badge-info">tambah pencacah</a>
                                 <a href="<?= base_url('kegiatan/editsurvei/') . $s['id']; ?>" class="badge badge-primary">edit</a>
                                 <a href="<?= base_url('kegiatan/deletesurvei/') . $s['id']; ?>" class="badge badge-danger">delete</a>
                             </td>

@@ -83,7 +83,8 @@ class Master extends CI_Controller
     {
         $data['title'] = 'Details Mitra';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['mitra'] = $this->db->get_where('mitra', ['id' => $id])->row_array();
+        $sql = "SELECT mitra.*, avg(nilai.nilai) as nilai  FROM mitra LEFT JOIN nilai ON mitra.ID_mitra = nilai.ID_mitra WHERE mitra.id = $id GROUP BY ID_mitra";
+        $data['mitra'] = $this->db->query($sql)->row_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);

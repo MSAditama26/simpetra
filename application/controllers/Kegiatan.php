@@ -177,28 +177,12 @@ class Kegiatan extends CI_Controller
         redirect('kegiatan/sensus');
     }
 
-    function tambah_pencacah_survei($id)
+    function tambah_pencacah($id)
     {
-        $data['title'] = 'Survei';
+        $data['title'] = 'Tambah Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT id, nama, start, finish, k_pengawas, k_pencacah, jenis_kegiatan, ID_mitra, nama_lengkap, alamat, kompetensi, avg(nilai) as nilai  FROM all_kegiatan WHERE jenis_kegiatan = 1 GROUP BY ID_mitra ";
-        $data['pencacah'] = $this->db->query($sql)->result_array();
-        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('kegiatan/tambah-pencacah', $data);
-        $this->load->view('template/footer');
-    }
-
-    function tambah_pencacah_sensus($id)
-    {
-        $data['title'] = 'Sensus';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        $sql = "SELECT id, nama, start, finish, k_pengawas, k_pencacah, jenis_kegiatan, ID_mitra, nama_lengkap, alamat, kompetensi, avg(nilai) as nilai  FROM all_kegiatan WHERE jenis_kegiatan = 2 GROUP BY ID_mitra ";
+        $sql = "SELECT mitra.*, avg(nilai.nilai) as nilai  FROM mitra LEFT JOIN nilai ON mitra.ID_mitra = nilai.ID_mitra GROUP BY ID_mitra";
         $data['pencacah'] = $this->db->query($sql)->result_array();
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
 
@@ -211,7 +195,7 @@ class Kegiatan extends CI_Controller
 
     function details_kegiatan_mitra($ID_mitra)
     {
-        $data['title'] = 'Survei';
+        $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $sql = "SELECT nilai.*, kegiatan.* FROM nilai INNER JOIN kegiatan ON nilai.kegiatan_id = kegiatan.id WHERE nilai.ID_mitra = $ID_mitra";

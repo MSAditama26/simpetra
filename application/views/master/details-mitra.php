@@ -45,10 +45,6 @@
                         <th>No. HP</th>
                         <td><?= $mitra['no_hp']; ?></td>
                     </tr>
-                    <tr>
-                        <th>No. Whatsapp</th>
-                        <td><?= $mitra['no_wa']; ?></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -61,6 +57,11 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    <tr>
+                        <th>No. Whatsapp</th>
+                        <td><?= $mitra['no_wa']; ?></td>
+                    </tr>
                     <tr>
                         <th>No. Telkomsel</th>
                         <td><?= $mitra['no_tsel']; ?></td>
@@ -88,8 +89,8 @@
                         <?php endif; ?>
                     </tr>
                     <tr>
-                        <th>Total Nilai</th>
-                        <td><?= $mitra['nilai']; ?></td>
+                        <th>Rata-rata Nilai <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $mitra['ID_mitra']; ?>" class="badge badge-primary">details</a></th>
+                        <td><?= (int) $mitra['nilai']; ?></td>
                     </tr>
 
                 </tbody>
