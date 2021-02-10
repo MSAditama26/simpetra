@@ -16,6 +16,13 @@ class User extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get_where('mitra', ['email' => $this->session->userdata('email')])->row_array();
 
+        $id = $data['mitra']['ID_mitra'];
+
+        $sql = "SELECT avg(nilai) as nilai FROM nilai WHERE ID_mitra = $id GROUP BY ID_mitra";
+
+        $data['nilai'] = $this->db->query($sql)->row_array();
+
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);

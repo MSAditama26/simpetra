@@ -84,7 +84,12 @@
                         </tr>
                         <tr>
                             <th>Rata-rata Nilai</th>
-                            <td><?= $mitra['nilai']; ?></td>
+
+                            <?php if ($nilai == NULL) : ?>
+                                <td>0</td>
+                            <?php else : ?>
+                                <td><?= (int) $nilai['nilai'] ?></td>
+                            <?php endif; ?>
                         </tr>
 
                     </tbody>
