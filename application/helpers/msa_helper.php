@@ -43,3 +43,16 @@ function check_access($role_id, $menu_id)
         return "checked='checked'";
     }
 }
+
+function check_pencacah($kegiatan_id, $ID_mitra)
+{
+    $ci = get_instance();
+
+    $ci->db->where('kegiatan_id', $kegiatan_id);
+    $ci->db->where('ID_mitra', $ID_mitra);
+    $result = $ci->db->get('all_kegiatan');
+
+    if ($result->num_rows() > 0) {
+        return "checked='checked'";
+    }
+}

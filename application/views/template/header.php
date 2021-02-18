@@ -25,6 +25,10 @@
     <link href="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.theme.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.structure.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
+
+
+
 
 
 

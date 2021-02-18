@@ -14,4 +14,12 @@ class Kegiatan_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('kegiatan');
     }
+
+    public function tambah_banyak($ID_mitra, $jmldata)
+    {
+        for ($i = 0; $i < $jmldata; $i++) {
+            $this->db->insert('nilai');
+        }
+        return true;
+    }
 }

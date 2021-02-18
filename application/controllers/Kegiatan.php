@@ -182,8 +182,13 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Tambah Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT mitra.*, avg(nilai.nilai) as nilai  FROM mitra LEFT JOIN nilai ON mitra.ID_mitra = nilai.ID_mitra GROUP BY ID_mitra";
-        $data['pencacah'] = $this->db->query($sql)->result_array();
+        $sqlpencacah = "SELECT * FROM mitra GROUP BY ID_mitra";
+        $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();
+
+        $sqlkuota = "SELECT kegiatan_id, count(kegiatan_id) as kegiatan_id FROM all_kegiatan WHERE kegiatan_id = $id";
+        $data['kuota'] = $this->db->query($sqlkuota)->row_array();
+
+
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
 
         $this->load->view('template/header', $data);
@@ -198,7 +203,7 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT nilai.*, kegiatan.* FROM nilai INNER JOIN kegiatan ON nilai.kegiatan_id = kegiatan.id WHERE nilai.ID_mitra = $ID_mitra";
+        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.ID_mitra = $ID_mitra";
         $data['details'] = $this->db->query($sql)->result_array();
         $data['id_mitra'] = $this->db->get_where('mitra', ['ID_mitra' => $ID_mitra])->row_array();
 
@@ -207,5 +212,26 @@ class Kegiatan extends CI_Controller
         $this->load->view('template/topbar', $data);
         $this->load->view('kegiatan/details-kegiatan-mitra', $data);
         $this->load->view('template/footer');
+    }
+
+    public function changepencacah()
+    {
+        $kegiatan_id = $this->input->post('kegiatanId');
+        $ID_mitra = $this->input->post('mitraId');
+
+        $data = [
+            'kegiatan_id' => $kegiatan_id,
+            'ID_mitra' => $ID_mitra
+        ];
+
+        $result = $this->db->get_where('all_kegiatan', $data);
+
+        if ($result->num_rows() < 1) {
+            $this->db->insert('all_kegiatan', $data);
+        } else {
+            $this->db->delete('all_kegiatan', $data);
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
     }
 }

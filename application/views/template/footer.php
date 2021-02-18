@@ -58,6 +58,9 @@
  <script src="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.js"></script>
  <script src="<?= base_url('assets/'); ?>jquery-ui/jquery-ui.min.js"></script>
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+
+
 
 
  <script>
@@ -82,6 +85,24 @@
              },
              success: function() {
                  document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
+             }
+         });
+
+     });
+
+     $('.form-pencacah-input').on('click', function() {
+         const kegiatanId = $(this).data('kegiatan');
+         const mitraId = $(this).data('pencacah');
+
+         $.ajax({
+             url: "<?= base_url('kegiatan/changepencacah') ?>",
+             type: 'post',
+             data: {
+                 kegiatanId: kegiatanId,
+                 mitraId: mitraId
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('kegiatan/tambah_pencacah/'); ?>" + kegiatanId;
              }
          });
 
@@ -113,6 +134,9 @@
 
      );
  </script>
+
+
+
 
 
 
