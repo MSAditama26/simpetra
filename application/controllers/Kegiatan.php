@@ -191,6 +191,10 @@ class Kegiatan extends CI_Controller
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
 
+
+
+
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
@@ -219,19 +223,33 @@ class Kegiatan extends CI_Controller
         $kegiatan_id = $this->input->post('kegiatanId');
         $ID_mitra = $this->input->post('mitraId');
 
+        $kuota = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+        $intkuota = (int) $kuota['k_pencacah'];
+
+
+        $cek_kuota = $this->db->get_where('all_kegiatan', ['kegiatan_id' => $kegiatan_id])->num_rows();
+
         $data = [
             'kegiatan_id' => $kegiatan_id,
             'ID_mitra' => $ID_mitra
         ];
 
+
+
+
+
         $result = $this->db->get_where('all_kegiatan', $data);
 
         if ($result->num_rows() < 1) {
-            $this->db->insert('all_kegiatan', $data);
+            if ($cek_kuota < $intkuota) {
+                $this->db->insert('all_kegiatan', $data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
+            }
         } else {
             $this->db->delete('all_kegiatan', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
         }
-
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
     }
 }
