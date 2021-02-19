@@ -7,7 +7,7 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="row">
                 <div class="col-lg-6">
-                    <h1>Mitra: <?= $id_mitra['ID_mitra']; ?></h1>
+                    <h1>Pengawas: <?= $pengawas['name']; ?></h1>
                 </div>
             </div>
 
@@ -19,7 +19,6 @@
                         <th scope="col">Start</th>
                         <th scope="col">Finish</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Nilai</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +38,6 @@
                             <?php else : ?>
                                 <td><a class="badge badge-primary">sedang berjalan</a></td>
                             <?php endif; ?>
-                            <td>Dalam pengembangan</td>
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach; ?>

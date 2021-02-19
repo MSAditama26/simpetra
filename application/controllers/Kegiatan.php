@@ -185,15 +185,11 @@ class Kegiatan extends CI_Controller
         $sqlpencacah = "SELECT * FROM mitra GROUP BY ID_mitra";
         $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();
 
-        $sqlkuota = "SELECT kegiatan_id, count(kegiatan_id) as kegiatan_id FROM all_kegiatan WHERE kegiatan_id = $id";
+        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan WHERE kegiatan_id = $id";
         $data['kuota'] = $this->db->query($sqlkuota)->row_array();
 
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
-
-
-
-
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -208,6 +204,7 @@ class Kegiatan extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.ID_mitra = $ID_mitra";
+
         $data['details'] = $this->db->query($sql)->result_array();
         $data['id_mitra'] = $this->db->get_where('mitra', ['ID_mitra' => $ID_mitra])->row_array();
 
@@ -235,9 +232,6 @@ class Kegiatan extends CI_Controller
         ];
 
 
-
-
-
         $result = $this->db->get_where('all_kegiatan', $data);
 
         if ($result->num_rows() < 1) {
@@ -251,5 +245,73 @@ class Kegiatan extends CI_Controller
             $this->db->delete('all_kegiatan', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
         }
+    }
+
+    function tambah_pengawas($id)
+    {
+        $data['title'] = 'Tambah Pengawas';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sqlpengawas = "SELECT * FROM user WHERE role_id = 4 ";
+        $data['pengawas'] = $this->db->query($sqlpengawas)->result_array();
+
+        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pengawas WHERE kegiatan_id = $id";
+        $data['kuota'] = $this->db->query($sqlkuota)->row_array();
+
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/tambah-pengawas', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function changepengawas()
+    {
+        $kegiatan_id = $this->input->post('kegiatanId');
+        $id = $this->input->post('id');
+
+        $kuota = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+        $intkuota = (int) $kuota['k_pengawas'];
+
+
+        $cek_kuota = $this->db->get_where('all_kegiatan_pengawas', ['kegiatan_id' => $kegiatan_id])->num_rows();
+
+        $data = [
+            'kegiatan_id' => $kegiatan_id,
+            'id' => $id
+        ];
+
+
+        $result = $this->db->get_where('all_kegiatan_pengawas', $data);
+
+        if ($result->num_rows() < 1) {
+            if ($cek_kuota < $intkuota) {
+                $this->db->insert('all_kegiatan_pengawas', $data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
+            }
+        } else {
+            $this->db->delete('all_kegiatan_pengawas', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
+        }
+    }
+
+    function details_kegiatan_pengawas($id)
+    {
+        $data['title'] = 'Details Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id = $id";
+        $data['details'] = $this->db->query($sql)->result_array();
+        $data['pengawas'] = $this->db->get_where('user', ['id' => $id])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/details-kegiatan-pengawas', $data);
+        $this->load->view('template/footer');
     }
 }
