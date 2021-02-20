@@ -62,7 +62,7 @@ function check_pengawas($kegiatan_id, $id)
     $ci = get_instance();
 
     $ci->db->where('kegiatan_id', $kegiatan_id);
-    $ci->db->where('id', $id);
+    $ci->db->where('id_pengawas', $id);
     $result = $ci->db->get('all_kegiatan_pengawas');
 
     if ($result->num_rows() > 0) {

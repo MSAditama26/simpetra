@@ -84,12 +84,7 @@
                         </tr>
                         <tr>
                             <th>Rata-rata Nilai</th>
-
-                            <?php if ($nilai == NULL) : ?>
-                                <td>0</td>
-                            <?php else : ?>
-                                <td><?= (int) $nilai['nilai'] ?></td>
-                            <?php endif; ?>
+                            <td>Dalam pengembangan</td>
                         </tr>
 
                     </tbody>

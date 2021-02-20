@@ -255,6 +255,8 @@ class Kegiatan extends CI_Controller
         $sqlpengawas = "SELECT * FROM user WHERE role_id = 4 ";
         $data['pengawas'] = $this->db->query($sqlpengawas)->result_array();
 
+
+
         $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pengawas WHERE kegiatan_id = $id";
         $data['kuota'] = $this->db->query($sqlkuota)->row_array();
 
@@ -280,7 +282,7 @@ class Kegiatan extends CI_Controller
 
         $data = [
             'kegiatan_id' => $kegiatan_id,
-            'id' => $id
+            'id_pengawas' => $id
         ];
 
 
@@ -304,7 +306,7 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id = $id";
+        $sql = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $id";
         $data['details'] = $this->db->query($sql)->result_array();
         $data['pengawas'] = $this->db->get_where('user', ['id' => $id])->row_array();
 
