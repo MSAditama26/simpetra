@@ -77,6 +77,7 @@ class Admin extends CI_Controller
     function deleterole($id)
     {
         $this->Role_model->delete($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Role has been deleted!</div>');
         redirect('admin/role');
     }
 

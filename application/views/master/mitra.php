@@ -36,7 +36,7 @@
                             <td>
                                 <a href="<?= base_url('master/details_mitra/') . $m['id']; ?>" class="badge badge-primary">details</a>
                                 <a href="" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('master/deletemitra/') . $m['id']; ?>" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('master/deletemitra/') . $m['ID_mitra']; ?>" class="badge badge-danger">delete</a>
                             </td>
                             <?php if ($m['is_active'] == '1') : ?>
                                 <td><i class="fas fa-check" style="color:yellowgreen" title="OK"></i>

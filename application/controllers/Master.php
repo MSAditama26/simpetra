@@ -93,9 +93,83 @@ class Master extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function deletemitra($id)
+    function deletemitra($ID_mitra)
     {
-        $this->Master_model->deletemitra($id);
+
+        $query = "SELECT email FROM mitra WHERE ID_mitra = $ID_mitra";
+        $email = IMPLODE($this->db->query($query)->row_array());
+        $this->Master_model->deletemitrafromuser($email);
+
+        $this->Master_model->deletemitra($ID_mitra);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Mitra has been deleted!</div>');
         redirect('master/mitra');
+    }
+
+    public function kriteria()
+    {
+        $data['title'] = 'Data Kriteria';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['kriteria'] = $this->db->get('kriteria')->result_array();
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('bobot', 'Bobot', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('master/kriteria', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data = [
+                'nama' => $this->input->post('nama'),
+                'bobot' => $this->input->post('bobot')
+            ];
+
+
+            $this->db->insert('kriteria', $data);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New kriteria added!</div>');
+            redirect('master/kriteria');
+        }
+    }
+
+    public function editkriteria($id)
+    {
+        $data['title'] = 'Edit Kriteria';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['kriteria'] = $this->db->get_where('kriteria', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('bobot', 'Bobot', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('master/edit-kriteria', $data);
+            $this->load->view('template/footer');
+        } else {
+
+
+            $nama = $this->input->post('nama');
+            $bobot = $this->input->post('bobot');
+
+            $this->db->set('nama', $nama);
+            $this->db->set('bobot', $bobot);
+            $this->db->where('id', $id);
+            $this->db->update('kriteria');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kriteria has been updated!</div>');
+            redirect('master/kriteria');
+        }
+    }
+
+    function deletekriteria($id)
+    {
+        $this->Master_model->deletekriteria($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kriteria has been deleted!</div>');
+        redirect('master/kriteria');
     }
 }

@@ -127,12 +127,14 @@ class Menu extends CI_Controller
     function deletemenu($id)
     {
         $this->Menu_model->deletemenu($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Menu has been deleted!</div>');
         redirect('menu');
     }
 
     function deletesubmenu($id)
     {
         $this->Menu_model->deletesubmenu($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Sub Menu has been deleted!</div>');
         redirect('menu/submenu');
     }
 }

@@ -168,12 +168,14 @@ class Kegiatan extends CI_Controller
     function deletesurvei($id)
     {
         $this->Kegiatan_model->deletesurvei($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Survei has been deleted!</div>');
         redirect('kegiatan/survei');
     }
 
     function deletesensus($id)
     {
         $this->Kegiatan_model->deletesensus($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Sensus has been deleted!</div>');
         redirect('kegiatan/sensus');
     }
 
