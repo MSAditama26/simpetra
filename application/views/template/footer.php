@@ -72,7 +72,7 @@
      });
 
 
-     $('.form-check-input').on('click', function() {
+     $('.form-access-input').on('click', function() {
          const menuId = $(this).data('menu');
          const roleId = $(this).data('role');
 
@@ -121,6 +121,31 @@
              },
              success: function() {
                  document.location.href = "<?= base_url('kegiatan/tambah_pengawas/'); ?>" + kegiatanId;
+             }
+         });
+
+     });
+
+     $('.form-check-input').on('click', function() {
+         const pengawasId = $(this).data('pengawas');
+         const kegiatanId = $(this).data('kegiatan');
+         const pencacahId = $(this).data('pencacah');
+         const kriteriaId = $(this).data('kriteria');
+         const nilaiId = $(this).data('nilai');
+
+         $.ajax({
+             url: "<?= base_url('penilaian/changenilai') ?>",
+             type: 'post',
+             data: {
+                 pengawasId: pengawasId,
+                 kegiatanId: kegiatanId,
+                 pencacahId: pencacahId,
+                 kriteriaId: kriteriaId,
+                 nilaiId: nilaiId
+
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('penilaian/isi_nilai/'); ?>" + pengawasId + '/' + kegiatanId + '/' + pencacahId;
              }
          });
 

@@ -40,7 +40,7 @@
                                 <td><a class="badge badge-primary">sedang berjalan</a></td>
                             <?php endif; ?>
                             <td>
-                                <a href="<?= base_url('penilaian/daftar_pencacah/') . $k['kegiatan_id']; ?>" class="badge badge-info">Lihat daftar pencacah</a>
+                                <a href="<?= base_url('penilaian/daftar_pencacah/') . $pengawas . '/' . $k['kegiatan_id']; ?>" class="badge badge-info">Lihat daftar pencacah</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
