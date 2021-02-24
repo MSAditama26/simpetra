@@ -145,7 +145,7 @@
 
              },
              success: function() {
-                 document.location.href = "<?= base_url('penilaian/isi_nilai/'); ?>" + pengawasId + '/' + kegiatanId + '/' + pencacahId;
+                 document.location.href = "<?= base_url('penilaian/isi_nilai/'); ?>" + pengawasId + "/" + kegiatanId + "/" + pencacahId;
              }
          });
 

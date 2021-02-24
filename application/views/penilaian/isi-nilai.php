@@ -36,24 +36,24 @@
                             <td><?= $k['nama']; ?></td>
                             <td>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" <?php $value = 1; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label" for="inlineRadio1">1</label>
+                                    <input class="form-check-input" type="checkbox" <?php $value = 1; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <label class="form-check-label">1</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio2" <?php $value = 2; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label" for="inlineRadio2">2</label>
+                                    <input class="form-check-input" type="checkbox" <?php $value = 2; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <label class="form-check-label">2</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio3" <?php $value = 3; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label" for="inlineRadio3">3</label>
+                                    <input class="form-check-input" type="checkbox" <?php $value = 3; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <label class="form-check-label">3</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio4" <?php $value = 4; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label" for="inlineRadio4">4</label>
+                                    <input class="form-check-input" type="checkbox" <?php $value = 4; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <label class="form-check-label">4</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio5" <?php $value = 5; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label" for="inlineRadio3">5</label>
+                                    <input class="form-check-input" type="checkbox" <?php $value = 5; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <label class="form-check-label">5</label>
                                 </div>
                             </td>
                         </tr>

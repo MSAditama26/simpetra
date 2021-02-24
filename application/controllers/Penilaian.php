@@ -101,13 +101,20 @@ class Penilaian extends CI_Controller
             'nilai' => $nilai
         ];
 
+        $data2 = [
+            'pengawas_id' => $pengawas_id,
+            'kegiatan_id' => $kegiatan_id,
+            'ID_mitra' => $ID_mitra,
+            'kriteria_id' => $kriteria_id
+        ];
 
-        $result = $this->db->get_where('all_kegiatan_pengawas', $data);
+        $result = $this->db->get_where('all_penilaian', $data2);
 
         if ($result->num_rows() < 1) {
             $this->db->insert('all_penilaian', $data);
         } else {
-            $this->db->delete('all_penilaian', $data);
+            $query = "UPDATE all_penilaian SET nilai = $nilai WHERE pengawas_id = $pengawas_id AND kegiatan_id = $kegiatan_id AND ID_mitra = $ID_mitra AND kriteria_id = $kriteria_id";
+            $this->db->query($query);
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Nilai changed!</div>');
     }
