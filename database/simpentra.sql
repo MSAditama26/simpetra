@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2021 at 05:30 AM
+-- Generation Time: Feb 24, 2021 at 07:49 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -86,9 +86,21 @@ CREATE TABLE `all_penilaian` (
 --
 
 INSERT INTO `all_penilaian` (`id`, `pengawas_id`, `kegiatan_id`, `ID_mitra`, `kriteria_id`, `nilai`) VALUES
-(1, 3, 3, 1001, 1, 5),
-(2, 3, 3, 1001, 2, 2),
-(3, 3, 3, 1001, 3, 1);
+(27, 3, 3, 1001, 1, 2),
+(28, 3, 3, 1001, 2, 4),
+(29, 3, 3, 1001, 3, 1),
+(30, 3, 9, 1001, 1, 2),
+(31, 3, 9, 1001, 2, 4),
+(32, 3, 9, 1001, 3, 3),
+(33, 3, 9, 1002, 1, 5),
+(34, 3, 9, 1002, 2, 4),
+(35, 3, 9, 1002, 3, 3),
+(36, 14, 9, 1001, 1, 5),
+(37, 14, 9, 1001, 2, 3),
+(38, 14, 9, 1001, 3, 4),
+(39, 14, 9, 1002, 1, 2),
+(40, 14, 9, 1002, 2, 5),
+(41, 14, 9, 1002, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -442,7 +454,7 @@ ALTER TABLE `all_kegiatan_pengawas`
 -- AUTO_INCREMENT for table `all_penilaian`
 --
 ALTER TABLE `all_penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`

@@ -7,7 +7,7 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="row">
                 <div class="col-lg-6">
-                    <h1>Pengawas: <?= $user['name']; ?></h1>
+                    <h1>Penilai: <?= $user['name']; ?></h1>
                 </div>
             </div>
 
