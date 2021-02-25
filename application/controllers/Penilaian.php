@@ -118,4 +118,16 @@ class Penilaian extends CI_Controller
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Nilai changed!</div>');
     }
+
+    public function details_nilai_perkegiatan()
+    {
+        $data['title'] = 'Details nilai per kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('penilaian/details-nilai-perkegiatan', $data);
+        $this->load->view('template/footer');
+    }
 }

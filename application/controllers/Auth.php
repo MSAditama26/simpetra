@@ -55,7 +55,7 @@ class Auth extends CI_Controller
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This email has not been activated!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This user has not been activated!</div>');
                 redirect('auth');
             }
         } else {

@@ -89,8 +89,8 @@
                         <?php endif; ?>
                     </tr>
                     <tr>
-                        <th>Rata-rata Nilai <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $mitra['ID_mitra']; ?>" class="badge badge-primary">details</a></th>
-                        <td><?= (int) $mitra['nilai']; ?></td>
+                        <th>Rata-rata Nilai <a href="<?= base_url('master/details_kegiatan_mitra/') . $mitra['ID_mitra']; ?>" class="badge badge-primary">details</a></th>
+                        <td> dalam pengembangan</td>
                     </tr>
 
                 </tbody>

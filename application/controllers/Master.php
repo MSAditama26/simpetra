@@ -66,9 +66,7 @@ class Master extends CI_Controller
             $data2 = [
                 'name' => $this->input->post('nama_lengkap'),
                 'email' => $this->input->post('email'),
-                'image' => 'default.jpg',
                 'role_id' => '5',
-                'is_active' => '1',
                 'date_created' => time()
 
             ];
@@ -83,13 +81,46 @@ class Master extends CI_Controller
     {
         $data['title'] = 'Details Mitra';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $sql = "SELECT mitra.*, avg(nilai.nilai) as nilai  FROM mitra LEFT JOIN nilai ON mitra.ID_mitra = nilai.ID_mitra WHERE mitra.id = $id GROUP BY ID_mitra";
-        $data['mitra'] = $this->db->query($sql)->row_array();
+        // $sql = "SELECT mitra.*, avg(nilai.nilai) as nilai  FROM mitra LEFT JOIN nilai ON mitra.ID_mitra = nilai.ID_mitra WHERE mitra.id = $id GROUP BY ID_mitra";
+        $data['mitra'] = $this->db->get_where('mitra', ['id' => $id])->row_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
         $this->load->view('master/details-mitra', $data);
+        $this->load->view('template/footer');
+    }
+
+    function details_kegiatan_mitra($ID_mitra)
+    {
+        $data['title'] = 'Details Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.ID_mitra = $ID_mitra";
+
+        $data['details'] = $this->db->query($sql)->result_array();
+        $data['ID_mitra'] = $ID_mitra;
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('master/details-kegiatan-mitra', $data);
+        $this->load->view('template/footer');
+    }
+
+    function details_nilai_perkegiatan($ID_mitra, $kegiatan_id)
+    {
+        $data['title'] = 'Details Nilai Per Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['ID_mitra'] = $ID_mitra;
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+        $data['kriteria'] = $this->db->get('kriteria')->result_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('master/details-nilai-perkegiatan', $data);
         $this->load->view('template/footer');
     }
 
