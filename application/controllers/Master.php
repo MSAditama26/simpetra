@@ -29,16 +29,16 @@ class Master extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get('mitra')->result_array();
 
-        $this->form_validation->set_rules('ID_mitra', 'ID Mitra');
+        $this->form_validation->set_rules('ID_mitra', 'ID Mitra', 'required');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
         $this->form_validation->set_rules('no_hp', 'No. HP', 'required');
         $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required');
         $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required');
-        $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama');
-        $this->form_validation->set_rules('kompetensi', 'Kompetensi');
+        $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama', 'required');
+        $this->form_validation->set_rules('kompetensi', 'Kompetensi', 'required');
         $this->form_validation->set_rules('bahasa', 'Bahasa', 'required');
 
 
@@ -202,5 +202,46 @@ class Master extends CI_Controller
         $this->Master_model->deletekriteria($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kriteria has been deleted!</div>');
         redirect('master/kriteria');
+    }
+
+    public function pegawai()
+    {
+        $data['title'] = 'Data Pegawai';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['pegawai'] = $this->db->get('pegawai')->result_array();
+
+        $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim');
+        $this->form_validation->set_rules('unit_kerja', 'Unit Kerja', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('master/pegawai', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data = [
+                'nip' => $this->input->post('nip'),
+                'nama' => $this->input->post('nama'),
+                'email' => $this->input->post('email'),
+                'jabatan' => $this->input->post('jabatan'),
+                'unit_kerja' => $this->input->post('unit_kerja')
+            ];
+
+            $this->db->insert('pegawai', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New pegawai added!</div>');
+            redirect('master/pegawai');
+        }
+    }
+
+    function deletepegawai($nip)
+    {
+        $this->Master_model->deletepegawai($nip);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pegawai has been deleted!</div>');
+        redirect('master/pegawai');
     }
 }

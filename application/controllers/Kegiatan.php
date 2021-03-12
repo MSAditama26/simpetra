@@ -29,13 +29,14 @@ class Kegiatan extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data['survei'] = $this->db->get_where('kegiatan', ['jenis_kegiatan' => '1'])->result_array();
-
+        $data['seksi'] = $this->db->get('seksi')->result_array();
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('start', 'Start', 'required|trim');
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('seksi_id', 'Seksi', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -50,7 +51,9 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
-                'jenis_kegiatan' => '1'
+                'jenis_kegiatan' => '1',
+                'seksi_id' => $this->input->post('seksi_id'),
+                'ob' => $this->input->post('ob')
             ];
             $this->db->insert('kegiatan', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New survei added!</div>');
@@ -84,7 +87,8 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
-                'jenis_kegiatan' => '2'
+                'jenis_kegiatan' => '2',
+                'ob' => '1'
             ];
             $this->db->insert('kegiatan', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New sensus added!</div>');

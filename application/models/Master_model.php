@@ -20,4 +20,10 @@ class Master_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('kriteria');
     }
+
+    public function deletepegawai($nip)
+    {
+        $this->db->where('nip', $nip);
+        $this->db->delete('pegawai');
+    }
 }

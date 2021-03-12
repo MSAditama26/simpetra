@@ -20,7 +20,6 @@
                         <th scope="col">No. Telepon/HP</th>
                         <th scope="col">Aksi</th>
                         <th scope="col">Status</th>
-
                     </tr>
                 </thead>
                 <tbody>
