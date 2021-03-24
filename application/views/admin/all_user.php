@@ -91,6 +91,16 @@
                             <?php endforeach ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <select name="seksi_id" id="seksi_id" class="form-control">
+                            <option value="">Select Seksi</option>
+                            <?php foreach ($seksi as $s) : ?>
+                                <?php if ($s['id'] < 5) : ?>
+                                    <option value="<?= $s['id']; ?>"><?= $s['nama']; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -28,7 +28,16 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Survei';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['survei'] = $this->db->get_where('kegiatan', ['jenis_kegiatan' => '1'])->result_array();
+        $seksi_id = $data['user']['seksi_id'];
+        $queryKegiatan = "SELECT * FROM kegiatan WHERE jenis_kegiatan = 1 AND (seksi_id = $seksi_id OR seksi_id = 0)";
+        $role_id = $data['user']['role_id'];
+
+        if ($role_id == 1) {
+            $data['survei'] = $this->db->get_where('kegiatan', ['jenis_kegiatan' => 1])->result_array();
+        } else {
+            $data['survei'] = $this->db->query($queryKegiatan)->result_array();
+        }
+
         $data['seksi'] = $this->db->get('seksi')->result_array();
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
@@ -36,7 +45,6 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
-        $this->form_validation->set_rules('seksi_id', 'Seksi', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -52,9 +60,10 @@ class Kegiatan extends CI_Controller
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
                 'jenis_kegiatan' => '1',
-                'seksi_id' => $this->input->post('seksi_id'),
+                'seksi_id' => $seksi_id,
                 'ob' => $this->input->post('ob')
             ];
+
             $this->db->insert('kegiatan', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New survei added!</div>');
             redirect('kegiatan/survei');
@@ -187,6 +196,9 @@ class Kegiatan extends CI_Controller
     {
         $data['title'] = 'Tambah Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        // $sqlpencacahOB = "SELECT * FROM mitra WHERE ID_mitra NOT IN (SELECT ID_mitra FROM all_kegiatan JOIN kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE kegiatan.ob = 1)";
+        // $data['pencacah'] = $this->db->query($sqlpencacahOB)->result_array();
 
         $sqlpencacah = "SELECT * FROM mitra GROUP BY ID_mitra";
         $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();

@@ -126,7 +126,7 @@
 
      });
 
-     $('.form-check-input').on('click', function() {
+     $('.form-nilai-input').on('click', function() {
          const pengawasId = $(this).data('pengawas');
          const kegiatanId = $(this).data('kegiatan');
          const pencacahId = $(this).data('pencacah');

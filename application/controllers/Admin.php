@@ -128,6 +128,7 @@ class Admin extends CI_Controller
         $query = "SELECT user.*, user_role.role FROM user LEFT JOIN user_role ON user.role_id = user_role.id";
         $data['alluser'] = $this->db->query($query)->result_array();
         $data['role'] = $this->db->get('user_role')->result_array();
+        $data['seksi'] = $this->db->get('seksi')->result_array();
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
@@ -144,6 +145,7 @@ class Admin extends CI_Controller
                 'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'role_id' => $this->input->post('role_id'),
+                'seksi_id' => $this->input->post('seksi_id'),
                 'date_created' => time()
 
             ];

@@ -99,14 +99,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="k_pencacah" name="k_pencacah" placeholder="Kuota Pencacah">
                     </div>
-                    <div class="form-group">
-                        <select name="seksi_id" id="seksi_id" class="form-control">
-                            <option value="">Select Seksi</option>
-                            <?php foreach ($seksi as $s) : ?>
-                                <option value="<?= $s['id']; ?>">Seksi <?= $s['nama']; ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
+
                     <div class="form-group">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" name="ob" id="ob">
