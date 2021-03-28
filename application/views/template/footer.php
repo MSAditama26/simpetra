@@ -1,7 +1,7 @@
  <!-- Footer -->
- <footer class="sticky-footer bg-white">
+ <footer class="sticky-footer" style="background-color: #e6ccb3;">
      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
+         <div class="copyright text-center my-auto" style="color:  #996433">
              <span>Copyright &copy; Simpentra 2021</span>
          </div>
      </div>

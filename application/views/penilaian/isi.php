@@ -6,13 +6,13 @@
 
             <?= $this->session->flashdata('message'); ?>
             <div class="row">
-                <div class="col-lg-6">
-                    <h1>Penilai: <?= $user['name']; ?></h1>
+                <div class="col-lg-6" style="color:#996433;">
+                    <h2>Penilai: <?= $user['name']; ?></h2>
                 </div>
             </div>
 
-            <table class="table table-bordered table-striped" id="mydata">
-                <thead>
+            <table class="table table-borderless table-hover" id="mydata">
+                <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
 
                         <th scope="col">Nama Kegiatan</th>
@@ -22,7 +22,7 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="background-color: #ecd8c6; color: #996433;">
 
 
                     <?php $i = 1; ?>

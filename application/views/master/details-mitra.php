@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-lg-6 mb-5">
-            <table class="table table-bordered table-striped">
+            <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
                 <thead>
                     <tr align=center>
 
@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-lg-6 mb-5">
-            <table class="table table-bordered table-striped">
+            <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
                 <thead>
                     <tr align=center>
 

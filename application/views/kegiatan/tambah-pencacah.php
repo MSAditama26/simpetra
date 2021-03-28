@@ -8,21 +8,21 @@
             <?= $this->session->flashdata('message'); ?>
 
             <div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h1><?= $kegiatan['nama']; ?></h1>
+                <div class="row" style="color:#996433;">
+                    <div class="col-lg-6">
+                        <h2><?= $kegiatan['nama']; ?></h2>
                     </div>
-                    <div class="col-lg-4">
-                        <h1>Kuota = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pencacah']; ?></h1>
+                    <div class="col-lg-6" align=right>
+                        <h2>Alokasi = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pencacah']; ?></h2>
                     </div>
 
                 </div>
 
                 <form method="post" action="">
-                    <table class="table table-bordered table-striped" id="mydata">
-                        <thead>
+                    <table class="table table-borderless table-hover" id="mydata">
+                        <thead style="background-color: #996433; color:#f9f2ec;">
                             <tr align=center>
-                                <th scope="col">Tambah</th>
+                                <th scope="col">#</th>
                                 <th scope="col">ID Mitra</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Alamat</th>
@@ -31,8 +31,7 @@
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-
+                        <tbody style="background-color: #ecd8c6; color: #996433;">
                             <?php $i = 1; ?>
                             <?php foreach ($pencacah as $p) : ?>
                                 <tr align=center>

@@ -200,6 +200,21 @@ class Kegiatan extends CI_Controller
         // $sqlpencacahOB = "SELECT * FROM mitra WHERE ID_mitra NOT IN (SELECT ID_mitra FROM all_kegiatan JOIN kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE kegiatan.ob = 1)";
         // $data['pencacah'] = $this->db->query($sqlpencacahOB)->result_array();
 
+        // $sqlpencacahOB = "SELECT * FROM mitra WHERE ID_mitra NOT IN (SELECT ID_mitra FROM all_kegiatan JOIN kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE kegiatan.ob = 0)";
+        // $data['pencacah1'] = $this->db->query($sqlpencacahOB)->result_array();
+
+        // $sqlpencacahOB = "SELECT ID_mitra FROM all_kegiatan JOIN kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE kegiatan.ob = 1";
+        // $data['pencacahOB'] = $this->db->query($sqlpencacahOB)->result_array();
+
+        // $sqlOB = "SELECT DISTINCT all_kegiatan.ID_mitra, kegiatan.ob FROM all_kegiatan JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id";
+        // $sql = $this->db->query($sqlOB)->result_array();
+        //
+        // $sql = "SELECT all_kegiatan.*, kegiatan.ob FROM all_kegiatan JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id";
+        // $s = $this->db->query($sql)->result_array();
+        // var_dump($s);
+        // die;
+
+
         $sqlpencacah = "SELECT * FROM mitra GROUP BY ID_mitra";
         $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();
 

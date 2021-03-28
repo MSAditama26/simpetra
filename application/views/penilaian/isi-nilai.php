@@ -5,29 +5,29 @@
         <div class="col-lg">
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row">
+            <div class="row" style="color:#996433;">
                 <div class="col-lg-6">
-                    <h2>Kegiatan: <?= $kegiatan['nama']; ?></h2>
-                    <h2>Pencacah: <?= $pencacah ?></h2>
+                    <h4>Kegiatan: <?= $kegiatan['nama']; ?></h4>
+                    <h4>Pencacah: <?= $pencacah ?></h4>
                 </div>
-                <div class="col-lg-6">
-                    <h3>Keterangan:
-                        <h5>1 : Sangat buruk</h5>
-                        <h5>5 : Sangat baik</h5>
-                    </h3>
+                <div class="col-lg-6" align=right>
+                    <h4>Keterangan
+                        <h6>1 : Sangat buruk</h6>
+                        <h6>5 : Sangat baik</h6>
+                    </h4>
 
                 </div>
             </div>
 
-            <table class="table table-bordered table-striped" id="mydata">
-                <thead>
+            <table class="table table-borderless table-hover" id="mydata">
+                <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
 
                         <th scope="col">Kriteria</th>
                         <th scope="col">Nilai</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="background-color: #ecd8c6; color: #996433;">
 
 
                     <?php $i = 1; ?>

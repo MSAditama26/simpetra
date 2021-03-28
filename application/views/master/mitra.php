@@ -9,8 +9,8 @@
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMitraModal">Add New Mitra</a>
 
-            <table class="table table-bordered table-striped" id="mydata">
-                <thead>
+            <table class="table table-borderless table-hover" id="mydata">
+                <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
                         <th scope="col">#</th>
                         <th scope="col">ID Mitra</th>
@@ -22,7 +22,7 @@
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="background-color: #ecd8c6; color: #996433;">
                     <?php $i = 1; ?>
                     <?php foreach ($mitra as $m) : ?>
                         <tr align=center>
