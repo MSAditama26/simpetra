@@ -108,22 +108,6 @@ class Master extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function details_nilai_perkegiatan($ID_mitra, $kegiatan_id)
-    {
-        $data['title'] = 'Details Nilai Per Kegiatan';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        $data['ID_mitra'] = $ID_mitra;
-        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
-        $data['kriteria'] = $this->db->get('kriteria')->result_array();
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('master/details-nilai-perkegiatan', $data);
-        $this->load->view('template/footer');
-    }
-
     function deletemitra($ID_mitra)
     {
 

@@ -6,7 +6,7 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <h5>Role : <?= $role['role']; ?></h5>
+            <h2 style="color:#996433;">Role : <?= $role['role']; ?></h2>
 
             <table class="table table-borderless table-hover" id="mydata">
                 <thead style="background-color: #996433; color:#f9f2ec;">

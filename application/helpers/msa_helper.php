@@ -70,13 +70,11 @@ function check_pengawas($kegiatan_id, $id)
     }
 }
 
-function check_nilai($pengawas_id, $kegiatan_id, $ID_mitra, $kriteria_id, $nilai)
+function check_nilai($id, $kriteria_id, $nilai)
 {
     $ci = get_instance();
 
-    $ci->db->where('pengawas_id', $pengawas_id);
-    $ci->db->where('kegiatan_id', $kegiatan_id);
-    $ci->db->where('ID_mitra', $ID_mitra);
+    $ci->db->where('all_kegiatan_id', $id);
     $ci->db->where('kriteria_id', $kriteria_id);
     $ci->db->where('nilai', $nilai);
     $result = $ci->db->get('all_penilaian');

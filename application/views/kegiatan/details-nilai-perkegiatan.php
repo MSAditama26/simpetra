@@ -5,10 +5,10 @@
         <div class="col-lg">
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row">
+            <div class="row" style="color:#996433;">
                 <div class="col-lg-6">
-                    <h2>Kegiatan: <?= $kegiatan['nama']; ?></h2>
-                    <h2>Mitra: <?= $ID_mitra ?></h2>
+                    <h4>Kegiatan: <?= $kegiatan['nama']; ?></h4>
+                    <h4>Mitra: <?= $ID_mitra ?></h4>
                 </div>
             </div>
 
@@ -24,12 +24,22 @@
 
 
                     <?php $i = 1; ?>
-                    <?php foreach ($kriteria as $k) : ?>
+                    <?php foreach ($nilai as $n) : ?>
                         <tr align=center>
-                            <td><?= $k['nama']; ?></td>
-                            <td>
-                                Dalam pengembangan
-                            </td>
+                            <td><?= $n['nama']; ?></td>
+
+                            <?php if ($n['nilai'] == 5) : ?>
+                                <td> 90 </td>
+                            <?php elseif ($n['nilai'] == 4) : ?>
+                                <td> 80 </td>
+                            <?php elseif ($n['nilai'] == 3) : ?>
+                                <td> 70 </td>
+                            <?php elseif ($n['nilai'] == 2) : ?>
+                                <td> 60 </td>
+                            <?php else : ?>
+                                <td> 50 </td>
+                            <?php endif; ?>
+
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach; ?>

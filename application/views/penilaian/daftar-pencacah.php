@@ -29,7 +29,7 @@
                             <td><?= $k['ID_mitra']; ?></td>
                             <td><?= $k['nama_lengkap']; ?></td>
                             <td>
-                                <a href="<?= base_url('penilaian/isi_nilai/') . $pengawas . '/' . $k['kegiatan_id'] . '/' . $k['ID_mitra']; ?>" class="badge badge-primary">Isi nilai</a>
+                                <a href="<?= base_url('penilaian/isi_nilai/') . $k['id'] ?>" class="badge badge-primary">Isi nilai</a>
                             </td>
                         </tr>
                         <?php $i++; ?>

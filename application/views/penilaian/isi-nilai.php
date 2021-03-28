@@ -36,23 +36,23 @@
                             <td><?= $k['nama']; ?></td>
                             <td>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 1; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <input class="form-nilai-input" type="checkbox" <?php $value = 1; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
                                     <label class="form-check-label">&nbsp;&nbsp;1</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 2; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <input class="form-nilai-input" type="checkbox" <?php $value = 2; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
                                     <label class="form-check-label">&nbsp;&nbsp;2</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 3; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <input class="form-nilai-input" type="checkbox" <?php $value = 3; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
                                     <label class="form-check-label">&nbsp;&nbsp;3</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 4; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <input class="form-nilai-input" type="checkbox" <?php $value = 4; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
                                     <label class="form-check-label">&nbsp;&nbsp;4</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 5; ?> <?= check_nilai($pengawas, $kegiatan['id'], $pencacah, $k['id'], $value); ?> data-pengawas="<?= $pengawas; ?>" data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $pencacah; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                    <input class="form-nilai-input" type="checkbox" <?php $value = 5; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
                                     <label class="form-check-label">&nbsp;&nbsp;5</label>
                                 </div>
                             </td>

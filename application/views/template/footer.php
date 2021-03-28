@@ -1,8 +1,8 @@
  <!-- Footer -->
  <footer class="sticky-footer" style="background-color: #e6ccb3;">
      <div class="container my-auto">
-         <div class="copyright text-center my-auto" style="color:  #996433">
-             <span>Copyright &copy; Simpentra 2021</span>
+         <div class="copyright text-center my-auto" style="color:  #603f20">
+             <span>Copyright &copy; MSA 2021</span>
          </div>
      </div>
  </footer>
@@ -127,9 +127,7 @@
      });
 
      $('.form-nilai-input').on('click', function() {
-         const pengawasId = $(this).data('pengawas');
-         const kegiatanId = $(this).data('kegiatan');
-         const pencacahId = $(this).data('pencacah');
+         const Id = $(this).data('all_kegiatan');
          const kriteriaId = $(this).data('kriteria');
          const nilaiId = $(this).data('nilai');
 
@@ -137,15 +135,13 @@
              url: "<?= base_url('penilaian/changenilai') ?>",
              type: 'post',
              data: {
-                 pengawasId: pengawasId,
-                 kegiatanId: kegiatanId,
-                 pencacahId: pencacahId,
+                 Id: Id,
                  kriteriaId: kriteriaId,
                  nilaiId: nilaiId
 
              },
              success: function() {
-                 document.location.href = "<?= base_url('penilaian/isi_nilai/'); ?>" + pengawasId + "/" + kegiatanId + "/" + pencacahId;
+                 document.location.href = "<?= base_url('penilaian/isi_nilai/'); ?>" + Id;
              }
          });
 

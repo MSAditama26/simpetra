@@ -5,9 +5,9 @@
         <div class="col-lg">
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row">
+            <div class="row" style="color:#996433;">
                 <div class="col-lg-6">
-                    <h1>Pengawas: <?= $pengawas['name']; ?></h1>
+                    <h2>Pengawas: <?= $pengawas['name']; ?></h2>
                 </div>
             </div>
 

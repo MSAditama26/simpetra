@@ -2,8 +2,6 @@
 <div class="container-fluid">
     <?= $this->session->flashdata('message'); ?>
 
-    <h5>Mitra : <?= $mitra['nama_lengkap']; ?></h5>
-
     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#editDataMitraModal">Edit</a>
     <a href="<?= base_url('master/deletemitra/') . $mitra['id']; ?>" class="btn btn-danger mb-3">Delete</a>
 
@@ -89,8 +87,8 @@
                         <?php endif; ?>
                     </tr>
                     <tr>
-                        <th>Rata-rata Nilai <a href="<?= base_url('master/details_kegiatan_mitra/') . $mitra['ID_mitra']; ?>" class="badge badge-primary">details</a></th>
-                        <td> dalam pengembangan</td>
+                        <th>Nilai</th>
+                        <td><a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $mitra['ID_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a></td>
                     </tr>
 
                 </tbody>
