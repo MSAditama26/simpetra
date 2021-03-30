@@ -41,7 +41,7 @@
                                     <td><?= $p['email']; ?></td>
                                     <td><?= $p['name']; ?></td>
                                     <td>
-                                        <a href="<?= base_url('kegiatan/details_kegiatan_pengawas/') . $p['id']; ?>" class="badge badge-primary">details kegiatan yang diikuti</a>
+                                        <a href="<?= base_url('kegiatan/details_kegiatan_pengawas/') . $p['id']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
                                     </td>
 
                                 </tr>
