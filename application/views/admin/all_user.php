@@ -29,10 +29,10 @@
                             <td><?= $as['email']; ?></td>
                             <td><?= $as['role']; ?></td>
                             <?php if ($as['is_active'] == '1') : ?>
-                                <td><i class="fas fa-check" style="color:yellowgreen" title="OK"></i>
+                                <td><i class="fas fa-check" style="color:yellowgreen" title="Active"></i>
                                 </td>
                             <?php else : ?>
-                                <td><i class="fas fa-times" style="color:red" title="Suspended"></i>
+                                <td><i class="fas fa-times" style="color:red" title="Nonactive"></i>
                                 </td>
                             <?php endif; ?>
                             <td><?= date('d F Y', $as['date_created']); ?></td>

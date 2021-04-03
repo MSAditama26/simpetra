@@ -8,7 +8,7 @@
             <div class="row" style="color:#996433;">
                 <div class="col-lg-6">
                     <h4>Kegiatan: <?= $kegiatan['nama']; ?></h4>
-                    <h4>Mitra: <?= $ID_mitra ?></h4>
+                    <h4>Mitra: <?= $id_mitra ?></h4>
                 </div>
             </div>
 

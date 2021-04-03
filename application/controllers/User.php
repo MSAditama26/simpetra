@@ -16,9 +16,9 @@ class User extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get_where('mitra', ['email' => $this->session->userdata('email')])->row_array();
 
-        // $id = $data['mitra']['ID_mitra'];
+        // $id = $data['mitra']['id_mitra'];
 
-        // $sql = "SELECT avg(nilai) as nilai FROM nilai WHERE ID_mitra = $id GROUP BY ID_mitra";
+        // $sql = "SELECT avg(nilai) as nilai FROM nilai WHERE id_mitra = $id GROUP BY id_mitra";
 
         // $data['nilai'] = $this->db->query($sql)->row_array();
 
@@ -105,7 +105,7 @@ class User extends CI_Controller
 
             $email = $this->input->post('email');
             $data = [
-                'ID_mitra' => $this->input->post('ID_mitra'),
+                'id_mitra' => $this->input->post('id_mitra'),
                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                 'nama_panggilan' => $this->input->post('nama_panggilan'),
                 'email' => $this->input->post('email'),

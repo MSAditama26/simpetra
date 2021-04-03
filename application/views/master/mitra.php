@@ -27,21 +27,28 @@
                     <?php foreach ($mitra as $m) : ?>
                         <tr align=center>
                             <th scope="row"><?= $i; ?></th>
-                            <td><?= $m['ID_mitra']; ?></td>
+                            <td><?= $m['id_mitra']; ?></td>
                             <td><?= $m['nama_lengkap']; ?></td>
                             <td><?= $m['email']; ?></td>
                             <td><?= $m['alamat']; ?></td>
                             <td><?= $m['no_hp']; ?></td>
                             <td>
-                                <a href="<?= base_url('master/details_mitra/') . $m['id']; ?>" class="badge badge-primary">details</a>
-                                <a href="" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('master/deletemitra/') . $m['ID_mitra']; ?>" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('master/details_mitra/') . $m['id_mitra']; ?>" class="badge badge-primary">details</a>
+                                <a href="<?= base_url('master/editmitra/') . $m['id_mitra']; ?>" class="badge badge-success">edit</a>
+                                <a href="<?= base_url('master/deletemitra/') . $m['id_mitra']; ?>" class="badge badge-danger">delete</a>
                             </td>
                             <?php if ($m['is_active'] == '1') : ?>
-                                <td><i class="fas fa-check" style="color:yellowgreen" title="OK"></i>
+                                <td>
+                                    <i class="fas fa-check" style="color:yellowgreen" title="Active"></i>
+                                    <a> | </a>
+                                    <a href="<?= base_url('master/deactivated/') . $m['id_mitra']; ?>" class="badge badge-danger">deactivated?</a>
+
                                 </td>
                             <?php else : ?>
-                                <td><i class="fas fa-times" style="color:red" title="Suspended"></i>
+                                <td>
+                                    <i class="fas fa-times" style="color:red" title="Nonactive"></i>
+                                    <a> | </a>
+                                    <a href="<?= base_url('master/activated/') . $m['id_mitra']; ?>" class="badge badge-success">activated?</a>
                                 </td>
                             <?php endif; ?>
                         </tr>
@@ -74,7 +81,7 @@
             <form action="<?= base_url('master/mitra') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="ID_mitra" name="ID_mitra" placeholder="ID Mitra">
+                        <input type="text" class="form-control" id="id_mitra" name="id_mitra" placeholder="ID Mitra">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Nama Lengkap">

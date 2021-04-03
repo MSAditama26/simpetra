@@ -16,8 +16,8 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Start</th>
                         <th scope="col">Finish</th>
-                        <th scope="col">Kuota Pengawas</th>
-                        <th scope="col">Kuota Pencacah</th>
+                        <th scope="col">Jumlah Pengawas</th>
+                        <th scope="col">Jumlah Pencacah</th>
                         <th scope="col">Aksi</th>
                         <th scope="col">Status</th>
 
@@ -93,10 +93,10 @@
                         <input type="text" class="form-control datepicker" id="finish" name="finish" placeholder="Tanggal Selesai">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="k_pengawas" name="k_pengawas" placeholder="Kuota Pengawas">
+                        <input type="text" class="form-control" id="k_pengawas" name="k_pengawas" placeholder="Jumlah Pengawas">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="k_pencacah" name="k_pencacah" placeholder="Kuota Pencacah">
+                        <input type="text" class="form-control" id="k_pencacah" name="k_pencacah" placeholder="Jumlah Pencacah">
                     </div>
                 </div>
                 <div class="modal-footer">

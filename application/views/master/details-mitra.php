@@ -1,10 +1,6 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <?= $this->session->flashdata('message'); ?>
-
-    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#editDataMitraModal">Edit</a>
-    <a href="<?= base_url('master/deletemitra/') . $mitra['id']; ?>" class="btn btn-danger mb-3">Delete</a>
-
     <div class="row">
         <div class="col-lg-6 mb-5">
             <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
@@ -21,7 +17,7 @@
                     </tr>
                     <tr>
                         <th>ID Mitra</th>
-                        <td><?= $mitra['ID_mitra']; ?></td>
+                        <td><?= $mitra['id_mitra']; ?></td>
                     </tr>
                     <tr>
                         <th>Nama Lengkap</th>
@@ -88,7 +84,7 @@
                     </tr>
                     <tr>
                         <th>Nilai</th>
-                        <td><a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $mitra['ID_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a></td>
+                        <td><a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $mitra['id_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a></td>
                     </tr>
 
                 </tbody>

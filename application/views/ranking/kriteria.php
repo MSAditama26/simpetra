@@ -6,8 +6,19 @@
             <?= form_error('kriteria', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
+            <div class="row" style="color:#996433;">
+                <div class="col-lg-6">
+                    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newKriteriaModal">Add New Kriteria</a>
+                </div>
+                <div class="col-lg-6" align=right>
+                    <h4>Keterangan:
+                        <h4>Rentang bobot 1-100</h4>
+                    </h4>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newKriteriaModal">Add New Kriteria</a>
+                </div>
+            </div>
+
+
 
             <table class="table table-borderless table-hover" id="mydata">
                 <thead style="background-color: #996433; color:#f9f2ec;">
@@ -15,6 +26,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Bobot</th>
+                        <th scope="col">Type</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -25,9 +37,10 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $k['nama']; ?></td>
                             <td><?= $k['bobot']; ?></td>
+                            <td><?= $k['type']; ?></td>
                             <td>
-                                <a href="<?= base_url('master/editkriteria/') . $k['id']; ?>" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('master/deletekriteria/') . $k['id']; ?>" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('ranking/editkriteria/') . $k['id']; ?>" class="badge badge-success">edit</a>
+                                <a href="<?= base_url('ranking/deletekriteria/') . $k['id']; ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -56,13 +69,21 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('master/kriteria') ?>" method="post">
+            <form action="<?= base_url('ranking/kriteria') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kriteria">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="bobot" name="bobot" placeholder="Bobot Kriteria">
+                    </div>
+                    <div class="form-group">
+                        <select name="type" id="type" class="form-control">
+                            <option value="">Select Type</option>
+                            <option value="max">Max</option>
+                            <option value="min">Min</option>
+
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

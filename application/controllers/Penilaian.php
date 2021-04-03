@@ -7,7 +7,7 @@ class Penilaian extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        is_logged_in();
+        is_logged_in_user();
         $this->load->model('Penilaian_model');
         $this->load->library('Pdf');
     }
@@ -37,7 +37,7 @@ class Penilaian extends CI_Controller
         $data['title'] = 'Daftar Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqldaftarpencacah = "SELECT all_kegiatan.*, mitra.nama_lengkap FROM all_kegiatan INNER JOIN mitra ON all_kegiatan.ID_mitra = mitra.ID_mitra WHERE all_kegiatan.kegiatan_id = $kegiatan_id";
+        $sqldaftarpencacah = "SELECT all_kegiatan.*, mitra.nama_lengkap FROM all_kegiatan INNER JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id = $kegiatan_id";
         $data['kegiatan'] = $this->db->query($sqldaftarpencacah)->result_array();
 
         $data['nama_kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
@@ -58,9 +58,9 @@ class Penilaian extends CI_Controller
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $data['id']['kegiatan_id']])->row_array();
 
-        $data['pencacah'] = $data['id']['ID_mitra'];
+        $data['pencacah'] = $data['id']['id_mitra'];
 
-        // $sqlall_kegiatan = "SELECT id FROM all_kegiatan WHERE 'kegiatan_id' = $kegiatan_id AND 'ID_mitra' = $ID_mitra";
+        // $sqlall_kegiatan = "SELECT id FROM all_kegiatan WHERE 'kegiatan_id' = $kegiatan_id AND 'id_mitra' = $id_mitra";
         // $data['all_kegiatan'] = $this->db->query($sqlall_kegiatan)->row_array();
 
         $data['kriteria'] = $this->db->get('kriteria')->result_array();
@@ -102,10 +102,10 @@ class Penilaian extends CI_Controller
 
     public function pilihmitra()
     {
-        $data['title'] = 'Pilih Mitra';
+        $data['title'] = 'Cetak Hasil Penilaian';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT DISTINCT mitra.* FROM mitra JOIN all_kegiatan ON mitra.ID_mitra = all_kegiatan.ID_mitra ";
+        $sql = "SELECT DISTINCT mitra.* FROM mitra JOIN all_kegiatan ON mitra.id_mitra = all_kegiatan.id_mitra ";
         $data['mitra'] = $this->db->query($sql)->result_array();
 
         $this->load->view('template/header', $data);
@@ -115,16 +115,16 @@ class Penilaian extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function pilihkegiatan($ID_mitra)
+    public function pilihkegiatan($id_mitra)
     {
-        $data['title'] = 'Pilih Kegiatan';
+        $data['title'] = 'Cetak Hasil Penilaian';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.ID_mitra = $ID_mitra";
+        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra";
 
         $data['kegiatan'] = $this->db->query($sql)->result_array();
 
-        $data['id_mitra'] = $this->db->get_where('mitra', ['ID_mitra' => $ID_mitra])->row_array();
+        $data['id_mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -133,14 +133,14 @@ class Penilaian extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function download($ID_mitra, $id)
+    public function download($id_mitra, $id)
     {
 
         $sqlkegiatan = "SELECT * FROM kegiatan WHERE id = $id";
         $kegiatan = $this->db->query($sqlkegiatan)->row_array();
         // var_dump($all_penilaian);
         // die;
-        $namamitra = $this->db->get_where('mitra', ['ID_mitra' => $ID_mitra])->row_array();
+        $namamitra = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
         $pdf = new FPDF('L', 'mm', 'Letter');
 
@@ -160,7 +160,7 @@ class Penilaian extends CI_Controller
         $pdf->SetFont('Arial', '', 10);
 
 
-        $sqlallkegiatan = "SELECT id FROM all_kegiatan WHERE ID_mitra = $ID_mitra AND kegiatan_id = $id";
+        $sqlallkegiatan = "SELECT id FROM all_kegiatan WHERE id_mitra = $id_mitra AND kegiatan_id = $id";
         $all_kegiatan_id = IMPLODE($this->db->query($sqlallkegiatan)->row_array());
 
         $sqlallpenilaian = "SELECT all_penilaian.*, kriteria.nama as  kriterianama, subkriteria.nama as subkriterianama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id LEFT JOIN subkriteria ON all_penilaian.nilai = subkriteria.id  WHERE all_penilaian.all_kegiatan_id = $all_kegiatan_id";

@@ -13,7 +13,7 @@
                         <h2><?= $kegiatan['nama']; ?></h2>
                     </div>
                     <div class="col-lg-6" align=right>
-                        <h2>Alokasi = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pencacah']; ?></h2>
+                        <h2>Jumlah = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pencacah']; ?></h2>
                     </div>
 
                 </div>
@@ -27,7 +27,6 @@
                                 <th scope="col">Nama</th>
                                 <th scope="col">Alamat</th>
                                 <th scope="col">Kompetensi</th>
-                                <th scope="col">Rata-rata Nilai</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -37,17 +36,16 @@
                                 <tr align=center>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-pencacah-input" type="checkbox" <?= check_pencacah($kegiatan['id'], $p['ID_mitra']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $p['ID_mitra']; ?>">
+                                            <input class="form-pencacah-input" type="checkbox" <?= check_pencacah($kegiatan['id'], $p['id_mitra']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $p['id_mitra']; ?>">
                                         </div>
                                     </td>
-                                    <td><?= $p['ID_mitra']; ?></td>
+                                    <td><?= $p['id_mitra']; ?></td>
                                     <td><?= $p['nama_lengkap']; ?></td>
                                     <td><?= $p['alamat']; ?></td>
                                     <td><?= $p['kompetensi']; ?></td>
-                                    <td> Dalam pengembangan </td>
 
                                     <td>
-                                        <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $p['ID_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
+                                        <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $p['id_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
                                     </td>
 
                                 </tr>

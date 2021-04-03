@@ -23,9 +23,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="ID_mitra" class="col-sm-3 col-form-label">ID Mitra</label>
+                    <label for="id_mitra" class="col-sm-3 col-form-label">ID Mitra</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ID_mitra" name="ID_mitra" value="<?= $mitra['ID_mitra']; ?>" readonly>
+                        <input type="text" class="form-control" id="id_mitra" name="id_mitra" value="<?= $mitra['id_mitra']; ?>" readonly>
                     </div>
                 </div>
                 <div class="form-group row">

@@ -17,7 +17,6 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Email</th>
                         <th scope="col">Jabatan</th>
-                        <th scope="col">Unit Kerja</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -30,8 +29,8 @@
                             <td><?= $p['nama']; ?></td>
                             <td><?= $p['email']; ?></td>
                             <td><?= $p['jabatan']; ?></td>
-                            <td><?= $p['unit_kerja']; ?></td>
                             <td>
+                                <a href="<?= base_url('master/editpegawai/') . $p['nip']; ?>" class="badge badge-success">edit</a>
                                 <a href="<?= base_url('master/deletepegawai/') . $p['nip']; ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
@@ -74,9 +73,6 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="unit_kerja" name="unit_kerja" placeholder="Unit Kerja">
                     </div>
                 </div>
                 <div class="modal-footer">

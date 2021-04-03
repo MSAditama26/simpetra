@@ -19,6 +19,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="type" class="col-sm-2 col-form-label">Type</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="type" name="type" value="<?= $kriteria['type']; ?>">
+                        <?= form_error('bobot', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="col-sm-3">
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </div>

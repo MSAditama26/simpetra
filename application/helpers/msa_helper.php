@@ -44,12 +44,12 @@ function check_access($role_id, $menu_id)
     }
 }
 
-function check_pencacah($kegiatan_id, $ID_mitra)
+function check_pencacah($kegiatan_id, $id_mitra)
 {
     $ci = get_instance();
 
     $ci->db->where('kegiatan_id', $kegiatan_id);
-    $ci->db->where('ID_mitra', $ID_mitra);
+    $ci->db->where('id_mitra', $id_mitra);
     $result = $ci->db->get('all_kegiatan');
 
     if ($result->num_rows() > 0) {

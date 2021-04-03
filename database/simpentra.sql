@@ -31,14 +31,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `all_kegiatan` (
   `id` int(11) NOT NULL,
   `kegiatan_id` int(11) NOT NULL,
-  `ID_mitra` int(11) NOT NULL
+  `id_mitra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `all_kegiatan`
 --
 
-INSERT INTO `all_kegiatan` (`id`, `kegiatan_id`, `ID_mitra`) VALUES
+INSERT INTO `all_kegiatan` (`id`, `kegiatan_id`, `id_mitra`) VALUES
 (46, 23, 1001),
 (47, 23, 1002),
 (48, 25, 1001),
@@ -160,7 +160,7 @@ INSERT INTO `kriteria` (`id`, `nama`, `bobot`) VALUES
 
 CREATE TABLE `mitra` (
   `id` int(11) NOT NULL,
-  `ID_mitra` varchar(128) DEFAULT NULL,
+  `id_mitra` varchar(128) DEFAULT NULL,
   `nama_lengkap` varchar(128) NOT NULL,
   `nama_panggilan` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -178,7 +178,7 @@ CREATE TABLE `mitra` (
 -- Dumping data for table `mitra`
 --
 
-INSERT INTO `mitra` (`id`, `ID_mitra`, `nama_lengkap`, `nama_panggilan`, `email`, `alamat`, `no_hp`, `no_wa`, `no_tsel`, `pekerjaan_utama`, `kompetensi`, `bahasa`, `is_active`) VALUES
+INSERT INTO `mitra` (`id`, `id_mitra`, `nama_lengkap`, `nama_panggilan`, `email`, `alamat`, `no_hp`, `no_wa`, `no_tsel`, `pekerjaan_utama`, `kompetensi`, `bahasa`, `is_active`) VALUES
 (14, '1001', 'mitra1', 'mitra1', 'mitra1@gmail.com', 'QASAQWQD', '1234', '1234', '1234', 'qwsqq', 'qSQD', 'Indonesia', 1),
 (15, '1002', 'mitra2', 'mitra2', 'mitra2@gmail.com', 'QASAQWQD', '123456', '123456', '123456', 'Kuli', 'tidak ada', 'Jawa', 1),
 (16, '1003', 'mitra3', 'iki mitra3', 'mitra3@gmail.com', 'sdff', '123456', '123456', '123456', 'jfnnff', 'kkdkf', 'Madura', 1),
@@ -438,7 +438,7 @@ ALTER TABLE `kriteria`
 --
 ALTER TABLE `mitra`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ID_mitra` (`ID_mitra`);
+  ADD UNIQUE KEY `id_mitra` (`id_mitra`);
 
 --
 -- Indexes for table `pegawai`

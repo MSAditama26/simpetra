@@ -7,7 +7,7 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="row" style="color:#996433;">
                 <div class="col-lg-6">
-                    <h2>Mitra: <?= $id_mitra['ID_mitra']; ?></h2>
+                    <h2>Mitra: <?= $id_mitra['id_mitra']; ?></h2>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                             <td><?= $k['nama']; ?></td>
                             <td><?= date('d F Y', $k['start']); ?></td>
                             <td><?= date('d F Y', $k['finish']); ?></td>
-                            <td><a href="<?= base_url('penilaian/download/') . $id_mitra['ID_mitra'] . '/' . $k['id'] ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $id_mitra['ID_mitra'] . '/' . $k['id'] ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a></td>
+                            <td><a href="<?= base_url('penilaian/download/') . $id_mitra['id_mitra'] . '/' . $k['id'] ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $id_mitra['id_mitra'] . '/' . $k['id'] ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a></td>
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach; ?>

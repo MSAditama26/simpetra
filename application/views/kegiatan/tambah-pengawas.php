@@ -13,7 +13,7 @@
                         <h2><?= $kegiatan['nama']; ?></h2>
                     </div>
                     <div class="col-lg-6" align=right>
-                        <h2>Kuota = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pengawas']; ?></h2>
+                        <h2>Jumlah = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pengawas']; ?></h2>
                     </div>
 
                 </div>

@@ -29,17 +29,17 @@ class Master extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get('mitra')->result_array();
 
-        $this->form_validation->set_rules('ID_mitra', 'ID Mitra', 'required');
-        $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
-        $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-        $this->form_validation->set_rules('no_hp', 'No. HP', 'required');
-        $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required');
-        $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required');
-        $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama', 'required');
-        $this->form_validation->set_rules('kompetensi', 'Kompetensi', 'required');
-        $this->form_validation->set_rules('bahasa', 'Bahasa', 'required');
+        $this->form_validation->set_rules('id_mitra', 'ID Mitra', 'required|trim');
+        $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+        $this->form_validation->set_rules('no_hp', 'No. HP', 'required|trim');
+        $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required|trim');
+        $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required|trim');
+        $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama', 'required|trim');
+        $this->form_validation->set_rules('kompetensi', 'Kompetensi', 'required|trim');
+        $this->form_validation->set_rules('bahasa', 'Bahasa', 'required|trim');
 
 
         if ($this->form_validation->run() == false) {
@@ -50,7 +50,7 @@ class Master extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $data = [
-                'ID_mitra' => $this->input->post('ID_mitra'),
+                'id_mitra' => $this->input->post('id_mitra'),
                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                 'nama_panggilan' => $this->input->post('nama_panggilan'),
                 'email' => $this->input->post('email'),
@@ -77,12 +77,11 @@ class Master extends CI_Controller
         }
     }
 
-    public function details_mitra($id)
+    public function details_mitra($id_mitra)
     {
         $data['title'] = 'Details Mitra';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        // $sql = "SELECT mitra.*, avg(nilai.nilai) as nilai  FROM mitra LEFT JOIN nilai ON mitra.ID_mitra = nilai.ID_mitra WHERE mitra.id = $id GROUP BY ID_mitra";
-        $data['mitra'] = $this->db->get_where('mitra', ['id' => $id])->row_array();
+        $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -91,15 +90,63 @@ class Master extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function details_kegiatan_mitra($ID_mitra)
+    public function editmitra($id_mitra)
+    {
+        $data['title'] = 'Edit Pegawai';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
+
+        $this->form_validation->set_rules('id_mitra', 'ID Mitra', 'required|trim');
+        $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+        $this->form_validation->set_rules('no_hp', 'No. HP', 'required|trim');
+        $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required|trim');
+        $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required|trim');
+        $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama', 'required|trim');
+        $this->form_validation->set_rules('kompetensi', 'Kompetensi', 'required|trim');
+        $this->form_validation->set_rules('bahasa', 'Bahasa', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('master/edit-mitra', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data = [
+                'id_mitra' => $this->input->post('id_mitra'),
+                'nama_lengkap' => $this->input->post('nama_lengkap'),
+                'nama_panggilan' => $this->input->post('nama_panggilan'),
+                'email' => $this->input->post('email'),
+                'alamat' => $this->input->post('alamat'),
+                'no_hp' => $this->input->post('no_hp'),
+                'no_wa' => $this->input->post('no_wa'),
+                'no_tsel' => $this->input->post('no_tsel'),
+                'pekerjaan_utama' => $this->input->post('pekerjaan_utama'),
+                'kompetensi' => $this->input->post('kompetensi'),
+                'bahasa' => $this->input->post('bahasa')
+            ];
+
+            $this->db->set($data);
+            $this->db->where('id_mitra', $id_mitra);
+            $this->db->update('mitra');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Mitra has been updated!</div>');
+            redirect('master/mitra');
+        }
+    }
+
+    function details_kegiatan_mitra($id_mitra)
     {
         $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.ID_mitra = $ID_mitra";
+        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra";
 
         $data['details'] = $this->db->query($sql)->result_array();
-        $data['ID_mitra'] = $ID_mitra;
+        $data['id_mitra'] = $id_mitra;
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -108,84 +155,31 @@ class Master extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function deletemitra($ID_mitra)
+    function deletemitra($id_mitra)
     {
 
-        $query = "SELECT email FROM mitra WHERE ID_mitra = $ID_mitra";
+        $query = "SELECT email FROM mitra WHERE id_mitra = $id_mitra";
         $email = IMPLODE($this->db->query($query)->row_array());
         $this->Master_model->deletemitrafromuser($email);
 
-        $this->Master_model->deletemitra($ID_mitra);
+        $this->Master_model->deletemitra($id_mitra);
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Mitra has been deleted!</div>');
         redirect('master/mitra');
     }
 
-    public function kriteria()
+    public function deactivated($id_mitra)
     {
-        $data['title'] = 'Data Kriteria';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['kriteria'] = $this->db->get('kriteria')->result_array();
-
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('bobot', 'Bobot', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebar', $data);
-            $this->load->view('template/topbar', $data);
-            $this->load->view('master/kriteria', $data);
-            $this->load->view('template/footer');
-        } else {
-            $data = [
-                'nama' => $this->input->post('nama'),
-                'bobot' => $this->input->post('bobot')
-            ];
-
-
-            $this->db->insert('kriteria', $data);
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New kriteria added!</div>');
-            redirect('master/kriteria');
-        }
+        $this->Master_model->deactivated($id_mitra);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Mitra has been deactivated!</div>');
+        redirect('master/mitra');
     }
 
-    public function editkriteria($id)
+    public function activated($id_mitra)
     {
-        $data['title'] = 'Edit Kriteria';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['kriteria'] = $this->db->get_where('kriteria', ['id' => $id])->row_array();
-
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('bobot', 'Bobot', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebar', $data);
-            $this->load->view('template/topbar', $data);
-            $this->load->view('master/edit-kriteria', $data);
-            $this->load->view('template/footer');
-        } else {
-
-
-            $nama = $this->input->post('nama');
-            $bobot = $this->input->post('bobot');
-
-            $this->db->set('nama', $nama);
-            $this->db->set('bobot', $bobot);
-            $this->db->where('id', $id);
-            $this->db->update('kriteria');
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kriteria has been updated!</div>');
-            redirect('master/kriteria');
-        }
-    }
-
-    function deletekriteria($id)
-    {
-        $this->Master_model->deletekriteria($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kriteria has been deleted!</div>');
-        redirect('master/kriteria');
+        $this->Master_model->activated($id_mitra);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Mitra has been activated!</div>');
+        redirect('master/mitra');
     }
 
     public function pegawai()
@@ -198,8 +192,6 @@ class Master extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
         $this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim');
-        $this->form_validation->set_rules('unit_kerja', 'Unit Kerja', 'required|trim');
-
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
@@ -211,12 +203,45 @@ class Master extends CI_Controller
                 'nip' => $this->input->post('nip'),
                 'nama' => $this->input->post('nama'),
                 'email' => $this->input->post('email'),
-                'jabatan' => $this->input->post('jabatan'),
-                'unit_kerja' => $this->input->post('unit_kerja')
+                'jabatan' => $this->input->post('jabatan')
             ];
 
             $this->db->insert('pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New pegawai added!</div>');
+            redirect('master/pegawai');
+        }
+    }
+
+    public function editpegawai($nip)
+    {
+        $data['title'] = 'Edit Pegawai';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['pegawai'] = $this->db->get_where('pegawai', ['nip' => $nip])->row_array();
+
+        $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('master/edit-pegawai', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data = [
+                'nip' => $this->input->post('nip'),
+                'nama' => $this->input->post('nama'),
+                'email' => $this->input->post('email'),
+                'jabatan' => $this->input->post('jabatan')
+            ];
+
+            $this->db->set($data);
+            $this->db->where('nip', $nip);
+            $this->db->update('pegawai');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pegawai has been updated!</div>');
             redirect('master/pegawai');
         }
     }

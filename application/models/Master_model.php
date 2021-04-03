@@ -3,9 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Master_model extends CI_Model
 {
-    public function deletemitra($ID_mitra)
+    public function deletemitra($id_mitra)
     {
-        $this->db->where('ID_mitra', $ID_mitra);
+        $this->db->where('id_mitra', $id_mitra);
         $this->db->delete('mitra');
     }
 
@@ -15,10 +15,18 @@ class Master_model extends CI_Model
         $this->db->delete('user');
     }
 
-    public function deletekriteria($id)
+    public function deactivated($id_mitra)
     {
-        $this->db->where('id', $id);
-        $this->db->delete('kriteria');
+        $this->db->set('is_active', 0);
+        $this->db->Where('id_mitra', $id_mitra);
+        $this->db->update('mitra');
+    }
+
+    public function activated($id_mitra)
+    {
+        $this->db->set('is_active', 1);
+        $this->db->Where('id_mitra', $id_mitra);
+        $this->db->update('mitra');
     }
 
     public function deletepegawai($nip)

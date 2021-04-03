@@ -27,7 +27,7 @@
 
                         <tr>
                             <th>ID Mitra</th>
-                            <td><?= $mitra['ID_mitra']; ?></td>
+                            <td><?= $mitra['id_mitra']; ?></td>
                         </tr>
                         <tr>
                             <th>Nama Lengkap</th>
