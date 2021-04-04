@@ -116,6 +116,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -130,6 +131,7 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
+                'ob' => $this->input->post('ob')
             ];
 
             $this->db->set($data);

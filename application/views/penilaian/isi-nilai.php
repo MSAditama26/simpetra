@@ -7,8 +7,8 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="row" style="color:#996433;">
                 <div class="col-lg-6">
-                    <h4>Kegiatan: <?= $kegiatan['nama']; ?></h4>
-                    <h4>Pencacah: <?= $pencacah ?></h4>
+                    <h4>Kegiatan: <?= $kegiatan['nama'] ?></h4>
+                    <h4>Pencacah: <?= $mitra['nama_lengkap'] ?></h4>
                 </div>
                 <div class="col-lg-6" align=right>
                     <h4>Keterangan
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <table class="table table-borderless table-hover" id="mydata">
+            <table class="table table-borderless table-hover">
                 <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
 
@@ -35,26 +35,12 @@
                         <tr align=center>
                             <td><?= $k['nama']; ?></td>
                             <td>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 1; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label">&nbsp;&nbsp;1</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 2; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label">&nbsp;&nbsp;2</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 3; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label">&nbsp;&nbsp;3</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 4; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label">&nbsp;&nbsp;4</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-nilai-input" type="checkbox" <?php $value = 5; ?> <?= check_nilai($id['id'], $k['id'], $value); ?> data-all_kegiatan="<?= $id['id']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
-                                    <label class="form-check-label">&nbsp;&nbsp;5</label>
-                                </div>
+                                <?php for ($i = 1; $i < 6; $i++) : ?>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($kegiatan['id'], $mitra['id_mitra'], $k['id'], $value); ?> data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                        <label class="form-check-label">&nbsp;&nbsp;<?= $i ?></label>
+                                    </div>
+                                <?php endfor; ?>
                             </td>
                         </tr>
                         <?php $i++; ?>

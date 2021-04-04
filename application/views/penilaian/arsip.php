@@ -3,38 +3,33 @@
 
     <div class="row">
         <div class="col-lg">
+            <?= form_error('penilaian', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row">
-                <div class="col-lg-6" style="color:#996433;">
-                    <h2>Kegiatan: <?= $nama_kegiatan['nama']; ?></h2>
-                </div>
-            </div>
 
             <table class="table table-borderless table-hover" id="mydata">
                 <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
-
+                        <th scope="col">#</th>
                         <th scope="col">ID Mitra</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Nama Lengkap</th>
+                        <th scope="col">Aksi</th>
+
                     </tr>
                 </thead>
                 <tbody style="background-color: #ecd8c6; color: #996433;">
-
-
                     <?php $i = 1; ?>
-                    <?php foreach ($kegiatan as $k) : ?>
+                    <?php foreach ($mitra as $m) : ?>
                         <tr align=center>
-                            <td><?= $k['id_mitra']; ?></td>
-                            <td><?= $k['nama_lengkap']; ?></td>
+                            <th scope="row"><?= $i; ?></th>
+                            <td><?= $m['id_mitra']; ?></td>
+                            <td><?= $m['nama_lengkap']; ?></td>
                             <td>
-                                <a href="<?= base_url('penilaian/isi_nilai/') . $nama_kegiatan['id'] . "/" . $k['id_mitra'] ?>" class="badge badge-primary">Isi nilai</a>
+                                <a href="<?= base_url('penilaian/pilihkegiatan/') . $m['id_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
-                    <?php endforeach; ?>
-
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>

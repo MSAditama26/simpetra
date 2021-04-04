@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2021 at 12:33 PM
+-- Generation Time: Apr 04, 2021 at 06:27 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -41,7 +41,10 @@ CREATE TABLE `all_kegiatan` (
 INSERT INTO `all_kegiatan` (`id`, `kegiatan_id`, `id_mitra`) VALUES
 (60, 23, 1002),
 (62, 23, 1004),
-(63, 23, 1003);
+(63, 23, 1003),
+(65, 26, 1005),
+(66, 26, 1004),
+(67, 26, 1003);
 
 -- --------------------------------------------------------
 
@@ -61,7 +64,8 @@ CREATE TABLE `all_kegiatan_pengawas` (
 
 INSERT INTO `all_kegiatan_pengawas` (`id`, `kegiatan_id`, `id_pengawas`) VALUES
 (24, 23, 3),
-(26, 24, 3);
+(26, 24, 3),
+(28, 26, 3);
 
 -- --------------------------------------------------------
 
@@ -71,7 +75,8 @@ INSERT INTO `all_kegiatan_pengawas` (`id`, `kegiatan_id`, `id_pengawas`) VALUES
 
 CREATE TABLE `all_penilaian` (
   `id` int(11) NOT NULL,
-  `all_kegiatan_id` int(11) NOT NULL,
+  `kegiatan_id` int(11) NOT NULL,
+  `id_mitra` int(11) NOT NULL,
   `kriteria_id` int(11) NOT NULL,
   `nilai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -80,68 +85,23 @@ CREATE TABLE `all_penilaian` (
 -- Dumping data for table `all_penilaian`
 --
 
-INSERT INTO `all_penilaian` (`id`, `all_kegiatan_id`, `kriteria_id`, `nilai`) VALUES
-(69, 55, 9, 3),
-(70, 47, 8, 4),
-(71, 55, 1, 4),
-(72, 55, 12, 5),
-(73, 55, 2, 4),
-(74, 55, 3, 3),
-(75, 55, 6, 5),
-(76, 55, 7, 4),
-(77, 55, 8, 2),
-(78, 55, 11, 4),
-(79, 55, 10, 5),
-(80, 54, 1, 5),
-(81, 54, 12, 3),
-(82, 54, 2, 5),
-(83, 54, 3, 3),
-(84, 54, 6, 5),
-(85, 54, 7, 4),
-(86, 54, 8, 5),
-(87, 54, 9, 3),
-(88, 54, 10, 2),
-(89, 54, 11, 1),
-(90, 59, 8, 5),
-(91, 59, 7, 4),
-(92, 59, 4, 5),
-(93, 59, 6, 5),
-(94, 59, 3, 3),
-(95, 59, 1, 4),
-(96, 59, 2, 3),
-(97, 59, 9, 4),
-(98, 59, 5, 3),
-(99, 59, 10, 5),
-(100, 60, 8, 4),
-(101, 60, 7, 5),
-(102, 60, 4, 3),
-(103, 60, 6, 4),
-(104, 60, 3, 5),
-(105, 60, 1, 3),
-(106, 60, 2, 4),
-(107, 60, 9, 3),
-(108, 60, 5, 4),
-(109, 60, 10, 5),
-(110, 61, 8, 5),
-(111, 61, 7, 4),
-(112, 61, 4, 5),
-(113, 61, 6, 3),
-(114, 61, 3, 4),
-(115, 61, 1, 5),
-(116, 61, 2, 4),
-(117, 61, 9, 5),
-(118, 61, 5, 4),
-(119, 61, 10, 3),
-(120, 62, 8, 5),
-(121, 62, 7, 4),
-(122, 62, 4, 5),
-(123, 62, 6, 3),
-(124, 62, 3, 4),
-(125, 62, 1, 5),
-(126, 62, 2, 4),
-(127, 62, 9, 5),
-(128, 62, 5, 3),
-(129, 62, 10, 3);
+INSERT INTO `all_penilaian` (`id`, `kegiatan_id`, `id_mitra`, `kriteria_id`, `nilai`) VALUES
+(130, 23, 1002, 8, 5),
+(131, 23, 1002, 7, 4),
+(132, 26, 1004, 8, 5),
+(133, 26, 1004, 7, 4),
+(134, 26, 1003, 1, 3),
+(135, 23, 1003, 1, 3),
+(136, 23, 1003, 3, 5),
+(137, 23, 1003, 2, 3),
+(138, 23, 1002, 1, 4),
+(139, 23, 1002, 2, 5),
+(140, 23, 1002, 3, 4),
+(141, 23, 1002, 4, 5),
+(142, 23, 1002, 5, 4),
+(143, 23, 1002, 6, 3),
+(144, 23, 1002, 9, 3),
+(145, 23, 1002, 10, 4);
 
 -- --------------------------------------------------------
 
@@ -157,8 +117,8 @@ CREATE TABLE `kegiatan` (
   `k_pengawas` int(11) NOT NULL,
   `k_pencacah` int(11) NOT NULL,
   `jenis_kegiatan` int(11) NOT NULL,
-  `seksi_id` int(1) DEFAULT 0,
-  `ob` int(1) DEFAULT 0
+  `seksi_id` int(1) NOT NULL DEFAULT 0,
+  `ob` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -166,7 +126,8 @@ CREATE TABLE `kegiatan` (
 --
 
 INSERT INTO `kegiatan` (`id`, `nama`, `start`, `finish`, `k_pengawas`, `k_pencacah`, `jenis_kegiatan`, `seksi_id`, `ob`) VALUES
-(23, 'Survei1', 1617141600, 1619733600, 2, 4, 1, 0, 1);
+(23, 'Survei1', 1617141600, 1619733600, 2, 4, 1, 0, 1),
+(26, 'Survei2', 1619733600, 1620338400, 2, 3, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -224,7 +185,7 @@ CREATE TABLE `mitra` (
 
 INSERT INTO `mitra` (`id_mitra`, `nama_lengkap`, `nama_panggilan`, `email`, `alamat`, `no_hp`, `no_wa`, `no_tsel`, `pekerjaan_utama`, `kompetensi`, `bahasa`, `is_active`) VALUES
 ('1001', 'mitra1', 'mitra1', 'mitra1@gmail.com', 'wlejj', '1234', '1234', '1234', 'qwsqq', 'qSQD', 'Indonesia', 1),
-('1002', 'mitra2', 'mitra2', 'mitra2@gmail.com', 'kjeekj', '123456', '123456', '1234567', 'Kuli', 'tidak ada', 'Jawa', 1),
+('1002', 'mitra2', 'mitra2', 'mitra2@gmail.com', 'kjeekj', '123456', '123456', '1234567', 'Kuli', 'tidak ada', 'Jawa', 0),
 ('1003', 'mitra3', 'mtr3', 'mitra3@gmail.com', 'kner', '123456', '123456', '123456', 'jfnnff', 'kkdkf', 'Indonesia', 1),
 ('1004', 'mitra4', 'mitr4', 'mitra4@gmail.com', 'sdff', '1234', '1234', '1234', 'kdlmlmf', 'fwjhfkw', 'Madura', 1),
 ('1005', 'mitra5', 'mitra5', 'mitra5@gmail.com', 'asdsd', '12345', '12345', '123456', 'kdlmlmf', 'dfef', 'Indonesia', 1);
@@ -247,7 +208,8 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`nip`, `nama`, `email`, `jabatan`) VALUES
-('123421', 'sonny aditama', 'sny171@yahoo.com', 'kepala bps');
+('123421', 'Sonny', 'sny171@yahoo.com', 'Seksi Statistik Produksi'),
+('123459', 'Aditama', 'sny998@yahoo.com', 'Seksi Statistik Distribusi');
 
 -- --------------------------------------------------------
 
@@ -422,7 +384,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (12, 1, 'Data Mitra', 'master/mitra', 'fas fa-fw fa-user', 1),
 (13, 2, 'Survei', 'kegiatan/survei', 'fas fa-fw fa-book', 1),
 (14, 3, 'Isi Penilaian', 'penilaian', 'fas fa-fw fa-pencil-alt', 1),
-(15, 4, 'Cetak Hasil Penilaian', 'penilaian/pilihmitra', 'fas fa-fw fa-file-pdf', 1),
+(15, 4, 'Cetak Hasil Penilaian', 'penilaian/pilihkegiatan', 'fas fa-fw fa-file-pdf', 1),
 (16, 5, 'Arsip', 'penilaian/arsip', 'fas fa-fw fa-archive', 1),
 (20, 2, 'Sensus', 'kegiatan/sensus', 'fas fa-fw fa-book', 1),
 (25, 6, 'All User', 'admin/alluser', 'fas fa-fw fa-user', 1),
@@ -552,25 +514,25 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `all_kegiatan`
 --
 ALTER TABLE `all_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `all_kegiatan_pengawas`
 --
 ALTER TABLE `all_kegiatan_pengawas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `all_penilaian`
 --
 ALTER TABLE `all_penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `kriteria`

@@ -6,6 +6,11 @@
             <?= form_error('penilaian', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
+            <div class="row" style="color:#996433;">
+                <div class="col-lg-6">
+                    <h2>Kegiatan: <?= $kegiatan['nama']; ?></h2>
+                </div>
+            </div>
 
             <table class="table table-borderless table-hover" id="mydata">
                 <thead style="background-color: #996433; color:#f9f2ec;">
@@ -25,7 +30,7 @@
                             <td><?= $m['id_mitra']; ?></td>
                             <td><?= $m['nama_lengkap']; ?></td>
                             <td>
-                                <a href="<?= base_url('penilaian/pilihkegiatan/') . $m['id_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a>
+                                <a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a>
                             </td>
                         </tr>
                         <?php $i++; ?>

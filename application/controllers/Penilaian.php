@@ -49,21 +49,17 @@ class Penilaian extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function isi_nilai($id)
+    public function isi_nilai($kegiatan_id, $id_mitra)
     {
         $data['title'] = 'Isi Nilai';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['id'] = $this->db->get_where('all_kegiatan', ['id' => $id])->row_array();
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
 
-        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $data['id']['kegiatan_id']])->row_array();
+        $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
-        $data['pencacah'] = $data['id']['id_mitra'];
-
-        // $sqlall_kegiatan = "SELECT id FROM all_kegiatan WHERE 'kegiatan_id' = $kegiatan_id AND 'id_mitra' = $id_mitra";
-        // $data['all_kegiatan'] = $this->db->query($sqlall_kegiatan)->row_array();
-
-        $data['kriteria'] = $this->db->get('kriteria')->result_array();
+        $sql_kriteria = "SELECT * FROM kriteria ORDER BY id ASC";
+        $data['kriteria'] = $this->db->query($sql_kriteria)->result_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -74,18 +70,21 @@ class Penilaian extends CI_Controller
 
     public function changenilai()
     {
-        $id = $this->input->post('Id');
+        $kegiatan_id = $this->input->post('kegiatanId');
+        $id_mitra = $this->input->post('mitraId');
         $kriteria_id = $this->input->post('kriteriaId');
         $nilai = $this->input->post('nilaiId');
 
         $data = [
-            'all_kegiatan_id' => $id,
+            'kegiatan_id' => $kegiatan_id,
+            'id_mitra' => $id_mitra,
             'kriteria_id' => $kriteria_id,
             'nilai' => $nilai
         ];
 
         $data2 = [
-            'all_kegiatan_id' => $id,
+            'kegiatan_id' => $kegiatan_id,
+            'id_mitra' => $id_mitra,
             'kriteria_id' => $kriteria_id
         ];
 
@@ -94,37 +93,18 @@ class Penilaian extends CI_Controller
         if ($result->num_rows() < 1) {
             $this->db->insert('all_penilaian', $data);
         } else {
-            $query = "UPDATE all_penilaian SET nilai = $nilai WHERE all_kegiatan_id = $id AND kriteria_id = $kriteria_id";
+            $query = "UPDATE all_penilaian SET nilai = $nilai WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra AND kriteria_id = $kriteria_id";
             $this->db->query($query);
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Nilai changed!</div>');
     }
 
-    public function pilihmitra()
+    public function pilihkegiatan()
     {
         $data['title'] = 'Cetak Hasil Penilaian';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT DISTINCT mitra.* FROM mitra JOIN all_kegiatan ON mitra.id_mitra = all_kegiatan.id_mitra ";
-        $data['mitra'] = $this->db->query($sql)->result_array();
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('penilaian/cetak-pilih-mitra', $data);
-        $this->load->view('template/footer');
-    }
-
-    public function pilihkegiatan($id_mitra)
-    {
-        $data['title'] = 'Cetak Hasil Penilaian';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra";
-
-        $data['kegiatan'] = $this->db->query($sql)->result_array();
-
-        $data['id_mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
+        $data['kegiatan'] = $this->db->get('kegiatan')->result_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -133,45 +113,57 @@ class Penilaian extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function download($id_mitra, $id)
+    public function pilihmitra($kegiatan_id)
     {
+        $data['title'] = 'Cetak Hasil Penilaian';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlkegiatan = "SELECT * FROM kegiatan WHERE id = $id";
-        $kegiatan = $this->db->query($sqlkegiatan)->row_array();
-        // var_dump($all_penilaian);
-        // die;
-        $namamitra = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
+        $sql = "SELECT mitra.* FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id = $kegiatan_id";
 
-        $pdf = new FPDF('L', 'mm', 'Letter');
+        $data['mitra'] = $this->db->query($sql)->result_array();
 
-        $pdf->AddPage();
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
 
-        $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Cell(0, 7, 'Hasil Penilaian Mitra', 0, 1, 'C');
-        $pdf->Cell(10, 7, '', 0, 1);
-        $pdf->Cell(10, 7, 'Nama         :' . ' ' . $namamitra['nama_lengkap'], 0, 1, 'L');
-        $pdf->Cell(10, 7, 'Kegiatan    :' . ' ' . $kegiatan['nama'], 0, 1, 'L');
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('penilaian/cetak-pilih-mitra', $data);
+        $this->load->view('template/footer');
+    }
 
-        $pdf->Cell(10, 7, '', 0, 1);
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(50, 6, 'Kriteria', 1, 0, 'C');
-        $pdf->Cell(50, 6, 'Nilai', 1, 1, 'C');
+    public function download($kegiatan_id, $id_mitra)
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $sqlpenilaian = "SELECT all_penilaian.*, kriteria.nama as kriterianama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id WHERE all_penilaian.kegiatan_id = $kegiatan_id AND all_penilaian.id_mitra = $id_mitra ORDER BY kriteria_id ASC";
 
-        $pdf->SetFont('Arial', '', 10);
+        $data['penilaian'] = $this->db->query($sqlpenilaian)->result_array();
 
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+        $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
-        $sqlallkegiatan = "SELECT id FROM all_kegiatan WHERE id_mitra = $id_mitra AND kegiatan_id = $id";
-        $all_kegiatan_id = IMPLODE($this->db->query($sqlallkegiatan)->row_array());
+        $sqlrow = "SELECT count(*) FROM all_penilaian WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
+        $row = implode($this->db->query($sqlrow)->row_array());
 
-        $sqlallpenilaian = "SELECT all_penilaian.*, kriteria.nama as  kriterianama, subkriteria.nama as subkriterianama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id LEFT JOIN subkriteria ON all_penilaian.nilai = subkriteria.id  WHERE all_penilaian.all_kegiatan_id = $all_kegiatan_id";
-
-        $all_penilaian = $this->db->query($sqlallpenilaian)->result_array();
-
-        foreach ($all_penilaian as $data) {
-
-            $pdf->Cell(50, 6, $data['kriterianama'], 1, 0);
-            $pdf->Cell(50, 6, $data['subkriterianama'], 1, 1);
+        if ($row < 10) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Penilaian belum lengkap!</div>');
+            redirect('penilaian/pilihmitra/' . $kegiatan_id);
+        } else {
+            $this->load->view('penilaian/laporan', $data);
         }
-        $pdf->Output();
+    }
+
+    public function arsip()
+    {
+        $data['title'] = 'Daftar mitra';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT * FROM mitra WHERE is_active = 0";
+        $data['mitra'] = $this->db->query($sql)->result_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('penilaian/arsip', $data);
+        $this->load->view('template/footer');
     }
 }
