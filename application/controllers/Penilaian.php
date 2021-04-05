@@ -104,13 +104,31 @@ class Penilaian extends CI_Controller
         $data['title'] = 'Cetak Hasil Penilaian';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['kegiatan'] = $this->db->get('kegiatan')->result_array();
+        if ($data['user']['role_id'] == 5) {
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('penilaian/cetak-pilih-kegiatan', $data);
-        $this->load->view('template/footer');
+            $mitra = $this->db->get_where('mitra', ['email' => $this->session->userdata('email')])->row_array();
+
+            $id_mitra = $mitra['id_mitra'];
+
+            $data['id_mitra'] = $id_mitra;
+
+            $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE all_kegiatan.id_mitra = $id_mitra";
+            $data['kegiatan'] = $this->db->query($sql)->result_array();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('penilaian/cetak-mitra', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data['kegiatan'] = $this->db->get('kegiatan')->result_array();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('penilaian/cetak-pilih-kegiatan', $data);
+            $this->load->view('template/footer');
+        }
     }
 
     public function pilihmitra($kegiatan_id)

@@ -311,10 +311,8 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Tambah Pengawas';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpengawas = "SELECT * FROM user WHERE role_id = 4 ";
+        $sqlpengawas = "SELECT * FROM pegawai";
         $data['pengawas'] = $this->db->query($sqlpengawas)->result_array();
-
-
 
         $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pengawas WHERE kegiatan_id = $id";
         $data['kuota'] = $this->db->query($sqlkuota)->row_array();
@@ -331,7 +329,7 @@ class Kegiatan extends CI_Controller
     public function changepengawas()
     {
         $kegiatan_id = $this->input->post('kegiatanId');
-        $id = $this->input->post('id');
+        $nip = $this->input->post('nip');
 
         $kuota = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
         $intkuota = (int) $kuota['k_pengawas'];
@@ -341,16 +339,15 @@ class Kegiatan extends CI_Controller
 
         $data = [
             'kegiatan_id' => $kegiatan_id,
-            'id_pengawas' => $id
+            'id_pengawas' => $nip
         ];
-
 
         $result = $this->db->get_where('all_kegiatan_pengawas', $data);
 
         if ($result->num_rows() < 1) {
             if ($cek_kuota < $intkuota) {
                 $this->db->insert('all_kegiatan_pengawas', $data);
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
+                redirect('kegiatan/tambah_pengawas_ke_user/' . $nip);
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
             }
@@ -360,6 +357,29 @@ class Kegiatan extends CI_Controller
         }
     }
 
+    function tambah_pengawas_ke_user($nip)
+    {
+        $sqlnamapegawai = "SELECT nama FROM pegawai WHERE nip = $nip";
+        $namapegawai = implode($this->db->query($sqlnamapegawai)->row_array());
+
+
+        $sqlcekpegawai = "SELECT * FROM user WHERE nama = '$namapegawai' AND role_id = 4";
+        $cekpegawai = $this->db->query($sqlcekpegawai);
+
+        $pegawai = $this->db->get_where('pegawai', ['nip' => $nip])->row_array();
+
+        $data2 = [
+            'nama' => $pegawai['nama'],
+            'email' => $pegawai['email'],
+            'role_id' => '4',
+        ];
+
+        if ($cekpegawai->num_rows() < 1) {
+            $this->db->insert('user', $data2);
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
+    }
+
     function details_kegiatan_pengawas($id)
     {
         $data['title'] = 'Details Kegiatan';
@@ -367,7 +387,7 @@ class Kegiatan extends CI_Controller
 
         $sql = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $id";
         $data['details'] = $this->db->query($sql)->result_array();
-        $data['pengawas'] = $this->db->get_where('user', ['id' => $id])->row_array();
+        $data['pengawas'] = $this->db->get_where('pegawai', ['nip' => $id])->row_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);

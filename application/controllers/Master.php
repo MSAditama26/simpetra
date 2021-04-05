@@ -64,7 +64,7 @@ class Master extends CI_Controller
             ];
 
             $data2 = [
-                'name' => $this->input->post('nama_lengkap'),
+                'nama' => $this->input->post('nama_lengkap'),
                 'email' => $this->input->post('email'),
                 'role_id' => '5',
                 'date_created' => time()

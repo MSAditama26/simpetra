@@ -16,4 +16,9 @@ class Admin_model extends CI_Model
         $this->db->Where('id', $id);
         $this->db->update('user');
     }
+    public function delete($id)
+    {
+        $this->db->Where('id', $id);
+        $this->db->delete('user');
+    }
 }

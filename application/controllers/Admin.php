@@ -130,7 +130,7 @@ class Admin extends CI_Controller
         $data['role'] = $this->db->get('user_role')->result_array();
         $data['seksi'] = $this->db->get('seksi')->result_array();
 
-        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
         $this->form_validation->set_rules('role_id', 'Role_id', 'required|trim');
 
@@ -142,7 +142,7 @@ class Admin extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $data = [
-                'name' => $this->input->post('name'),
+                'nama' => $this->input->post('nama'),
                 'email' => $this->input->post('email'),
                 'role_id' => $this->input->post('role_id'),
                 'seksi_id' => $this->input->post('seksi_id'),
@@ -166,6 +166,13 @@ class Admin extends CI_Controller
     {
         $this->Admin_model->activated($id);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User has been activated!</div>');
+        redirect('admin/alluser');
+    }
+
+    public function deleteuser($id)
+    {
+        $this->Admin_model->delete($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User has been deleted!</div>');
         redirect('admin/alluser');
     }
 }

@@ -110,14 +110,14 @@
 
      $('.form-pengawas-input').on('click', function() {
          const kegiatanId = $(this).data('kegiatan');
-         const id = $(this).data('pengawas');
+         const nip = $(this).data('pengawas');
 
          $.ajax({
              url: "<?= base_url('kegiatan/changepengawas') ?>",
              type: 'post',
              data: {
                  kegiatanId: kegiatanId,
-                 id: id
+                 nip: nip
              },
              success: function() {
                  document.location.href = "<?= base_url('kegiatan/tambah_pengawas/'); ?>" + kegiatanId;

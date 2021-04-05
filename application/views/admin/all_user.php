@@ -25,7 +25,7 @@
                     <?php $i = 1; ?>
                     <?php foreach ($alluser as $as) : ?>
                         <tr align=center>
-                            <td><?= $as['name']; ?></td>
+                            <td><?= $as['nama']; ?></td>
                             <td><?= $as['email']; ?></td>
                             <td><?= $as['role']; ?></td>
                             <?php if ($as['is_active'] == '1') : ?>
@@ -76,7 +76,7 @@
             <form action="<?= base_url('admin/alluser') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="email" name="email" placeholder="Email">

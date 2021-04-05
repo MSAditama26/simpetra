@@ -35,7 +35,7 @@ class User extends CI_Controller
         $data['title'] = 'Edit Profile';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Full Name', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -44,10 +44,10 @@ class User extends CI_Controller
             $this->load->view('user/edit', $data);
             $this->load->view('template/footer');
         } else {
-            $name = $this->input->post('name');
+            $nama = $this->input->post('nama');
             $email = $this->input->post('email');
 
-            $upload_image = $_FILES['image']['name'];
+            $upload_image = $_FILES['image']['nama'];
 
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';
@@ -70,7 +70,7 @@ class User extends CI_Controller
                 }
             }
 
-            $this->db->set('name', $name);
+            $this->db->set('nama', $nama);
             $this->db->where('email', $email);
             $this->db->update('user');
 
@@ -119,11 +119,11 @@ class User extends CI_Controller
             ];
 
             $data2 = [
-                'name' => $this->input->post('nama_lengkap'),
+                'nama' => $this->input->post('nama_lengkap'),
                 'email' => $this->input->post('email')
             ];
 
-            $upload_image = $_FILES['image']['name'];
+            $upload_image = $_FILES['image']['nama'];
 
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';
