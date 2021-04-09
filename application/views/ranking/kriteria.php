@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-lg">
+        <div class="col-lg-10">
             <?= form_error('kriteria', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
@@ -11,39 +11,33 @@
                     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newKriteriaModal">Add New Kriteria</a>
                 </div>
                 <div class="col-lg-6" align=right>
-                    <h4>Keterangan:
-                        <h4>Rentang bobot 1-100</h4>
-                    </h4>
-
+                    <a href="<?= base_url('ranking/subkriteria'); ?>" class="btn btn-success mb-3">Subkriteria</a>
                 </div>
             </div>
 
 
 
-            <table class="table table-borderless table-hover" id="mydata">
+            <table class="table table-borderless table-hover">
                 <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
-                        <th scope="col">#</th>
+                        <th scope="col">Prioritas</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Bobot</th>
-                        <th scope="col">Type</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php $i = 1; ?>
                     <?php foreach ($kriteria as $k) : ?>
                         <tr align=center>
-                            <th scope="row"><?= $i; ?></th>
+                            <th><?= $k['prioritas']; ?></th>
                             <td><?= $k['nama']; ?></td>
-                            <td><?= $k['bobot']; ?></td>
-                            <td><?= $k['type']; ?></td>
+                            <td><?= number_format($k['bobot'], 4); ?></td>
                             <td>
+                                <a href="<?= base_url('ranking/hitung_bobot_kriteria/') . $k['prioritas']; ?>" class="badge badge-primary">Perbarui bobot</a>
                                 <a href="<?= base_url('ranking/editkriteria/') . $k['id']; ?>" class="badge badge-success">edit</a>
                                 <a href="<?= base_url('ranking/deletekriteria/') . $k['id']; ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
-                        <?php $i++; ?>
                     <?php endforeach ?>
                 </tbody>
             </table>
@@ -72,19 +66,17 @@
             <form action="<?= base_url('ranking/kriteria') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kriteria">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="bobot" name="bobot" placeholder="Bobot Kriteria">
-                    </div>
-                    <div class="form-group">
-                        <select name="type" id="type" class="form-control">
-                            <option value="">Select Type</option>
-                            <option value="max">Max</option>
-                            <option value="min">Min</option>
-
+                        <select name="prioritas" id="prioritas" class="form-control">
+                            <option value="">Select Prioritas</option>
+                            <?php for ($i = 1; $i <= $jumlahkriteria; $i++) : ?>
+                                <option value="<?= $i; ?>"><?= $i; ?></option>
+                            <?php endfor; ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kriteria">
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

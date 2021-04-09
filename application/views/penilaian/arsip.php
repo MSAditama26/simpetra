@@ -25,7 +25,7 @@
                             <td><?= $m['id_mitra']; ?></td>
                             <td><?= $m['nama_lengkap']; ?></td>
                             <td>
-                                <a href="<?= base_url('penilaian/pilihkegiatan/') . $m['id_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a>
+                                <a href="<?= base_url('penilaian/arsip_pilihkegiatan/') . $m['id_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a>
                             </td>
                         </tr>
                         <?php $i++; ?>

@@ -9,7 +9,6 @@ class Penilaian extends CI_Controller
         parent::__construct();
         is_logged_in_user();
         $this->load->model('Penilaian_model');
-        $this->load->library('Pdf');
     }
 
     public function index()
@@ -17,13 +16,18 @@ class Penilaian extends CI_Controller
         $data['title'] = 'Penilaian';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $id = $data['user']['id'];
+        $nama = $data['user']['nama'];
 
-        $sqlkegiatan = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $id";
+        $sql_nip = "SELECT nip FROM pegawai WHERE nama = '$nama'";
+        $nip = implode($this->db->query($sql_nip)->row_array());
+
+        // var_dump($nip);
+        // die;
+
+        $sqlkegiatan = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $nip";
         $data['kegiatan'] = $this->db->query($sqlkegiatan)->result_array();
 
-        $id = $data['user']['id'];
-        $data['pengawas'] = $id;
+        // $data['pengawas'] = $nama;
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -182,6 +186,23 @@ class Penilaian extends CI_Controller
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
         $this->load->view('penilaian/arsip', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function arsip_pilihkegiatan($id_mitra)
+    {
+        $data['title'] = 'Daftar kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE all_kegiatan.id_mitra = $id_mitra";
+        $data['kegiatan'] = $this->db->query($sql)->result_array();
+
+        $data['id_mitra'] = $id_mitra;
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('penilaian/arsip-pilihkegiatan', $data);
         $this->load->view('template/footer');
     }
 }

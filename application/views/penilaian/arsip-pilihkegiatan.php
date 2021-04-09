@@ -5,12 +5,6 @@
         <div class="col-lg">
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row">
-                <div class="col-lg-6" style="color:#996433;">
-                    <h2>Penilai: <?= $user['nama']; ?></h2>
-                </div>
-            </div>
-
             <table class="table table-borderless table-hover" id="mydata">
                 <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
@@ -18,8 +12,7 @@
                         <th scope="col">Nama Kegiatan</th>
                         <th scope="col">Start</th>
                         <th scope="col">Finish</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody style="background-color: #ecd8c6; color: #996433;">
@@ -31,16 +24,8 @@
                             <td><?= $k['nama']; ?></td>
                             <td><?= date('d F Y', $k['start']); ?></td>
                             <td><?= date('d F Y', $k['finish']); ?></td>
-                            <?php $now = (time()); ?>
-                            <?php if ($now < $k['start']) : ?>
-                                <td><a class="badge badge-warning">belum mulai</a></td>
-                            <?php elseif ($now > $k['finish']) : ?>
-                                <td><a class="badge badge-danger">selesai</a></td>
-                            <?php else : ?>
-                                <td><a class="badge badge-primary">sedang berjalan</a></td>
-                            <?php endif; ?>
                             <td>
-                                <a href="<?= base_url('penilaian/daftar_pencacah/') . $k['kegiatan_id']; ?>" class="badge badge-info">Lihat daftar pencacah</a>
+                                <a href="<?= base_url('kegiatan/details_nilai_perkegiatan/') . $id_mitra . '/' . $k['id']; ?>" class="badge badge-primary">Lihat nilai</a>
                             </td>
                         </tr>
                         <?php $i++; ?>

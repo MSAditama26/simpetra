@@ -259,13 +259,8 @@ class Kegiatan extends CI_Controller
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
         $data['kriteria'] = $this->db->get('kriteria')->result_array();
 
-        $sqlallpenilaianid = "SELECT id FROM all_kegiatan WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
-        $hasil = implode($this->db->query($sqlallpenilaianid)->row_array());
-
-        $sqlnilai = "SELECT all_penilaian.*, kriteria.nama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id  WHERE all_kegiatan_id = $hasil";
+        $sqlnilai = "SELECT all_penilaian.*, kriteria.nama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id  WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
         $data['nilai'] = $this->db->query($sqlnilai)->result_array();
-
-
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -372,6 +367,7 @@ class Kegiatan extends CI_Controller
             'nama' => $pegawai['nama'],
             'email' => $pegawai['email'],
             'role_id' => '4',
+            'date_created' => time()
         ];
 
         if ($cekpegawai->num_rows() < 1) {

@@ -12,8 +12,8 @@
                 </div>
                 <div class="col-lg-6" align=right>
                     <h4>Keterangan
-                        <h6>1 : Sangat buruk</h6>
-                        <h6>5 : Sangat baik</h6>
+                        <h6>1 : Kurang baik</h6>
+                        <h6>5 : Sangat baik sekali</h6>
                     </h4>
 
                 </div>

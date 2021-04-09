@@ -5,6 +5,19 @@
         <div class="col-lg-6" style="color:#996433;">
             <form action="" method="post">
                 <div class="form-group row">
+                    <label for="prioritas" class="col-sm-2 col-form-label">Prioritas</label>
+                    <div class="col-sm-10">
+                        <label for="" class="col-sm-2 col-form-label"><?= $kriteria['prioritas']; ?></label>
+                        <select name="prioritas" id="prioritas" class="form-control">
+                            <option value="">Select Prioritas</option>
+                            <?php for ($i = 1; $i <= $jumlahkriteria; $i++) : ?>
+                                <option value="<?= $i; ?>"><?= $i; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <?= form_error('prioritas', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="nama" name="nama" value="<?= $kriteria['nama']; ?>">
@@ -14,15 +27,7 @@
                 <div class="form-group row">
                     <label for="bobot" class="col-sm-2 col-form-label">Bobot</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="bobot" name="bobot" value="<?= $kriteria['bobot']; ?>">
-                        <?= form_error('bobot', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="type" class="col-sm-2 col-form-label">Type</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="type" name="type" value="<?= $kriteria['type']; ?>">
-                        <?= form_error('bobot', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="text" class="form-control" id="bobot" name="bobot" value="<?= $kriteria['bobot']; ?>" disabled>
                     </div>
                 </div>
                 <div class="form-group row">
