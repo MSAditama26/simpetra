@@ -173,35 +173,27 @@ class Ranking extends CI_Controller
         $k_pencacah = "SELECT k_pencacah FROM kegiatan WHERE id = $kegiatan_id";
         $result_k_pencacah = implode($this->db->query($k_pencacah)->row_array());
 
-        $jumlah_penilaian = ((int) $result_k_pencacah) * 10;
+        $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
+
+        $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
 
         $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
 
         if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
 
-            // Normalisasi bobot
+            $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
+            $data['kriteria'] = $this->db->query($sql_kriteria)->result();
 
-            $sql_norm_bobot = "SELECT * FROM kriteria";
-            $data['bobot'] = $this->db->query($sql_norm_bobot)->result_array();
+            $sql_id_mitra = "SELECT all_kegiatan.id_mitra, mitra.nama_lengkap FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
-            $sql_jumlah_bobot = "SELECT sum(bobot) as sumbobot FROM kriteria";
-            $data['sumbobot'] = implode($this->db->query($sql_jumlah_bobot)->row_array());
+            $hasil = $this->Ranking_model->rekap($kegiatan_id);
+            $data['rekap'] = $hasil['data'];
 
-            // $sql_all_penilaian = "SELECT id FROM all_kegiatan WHERE kegiatan_id = $id";
-            // $all_penilaian = $this->db->query($sql_all_penilaian)->result_array();
-
-            // Data penilaian tiap kegiatan
-
-            $data['kriteria'] = $this->db->get('kriteria')->result_array();
-
-            $sql_nama = "SELECT mitra.nama_lengkap FROM mitra JOIN all_kegiatan ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id = $kegiatan_id GROUP BY all_kegiatan.id_mitra";
-            $data['nama'] = $this->db->query($sql_nama)->result_array();
-
-            // var_dump($data['nama']);
+            // var_dump($data['rekap']);
             // die;
 
-            $sql_mitra_nilai = "SELECT * FROM all_penilaian WHERE kegiatan_id = $kegiatan_id";
-            $data['mitra_nilai'] = $this->db->query($sql_mitra_nilai)->result_array();
+
 
 
 
