@@ -165,7 +165,7 @@ class Ranking extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function hitung($kegiatan_id)
+    function data_awal($kegiatan_id)
     {
         $data['title'] = 'Perhitungan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -181,6 +181,95 @@ class Ranking extends CI_Controller
 
         if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
 
+            $data['kegiatan_id'] = $kegiatan_id;
+
+            $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
+            $data['kriteria'] = $this->db->query($sql_kriteria)->result();
+
+            $sql_id_mitra = "SELECT all_kegiatan.id_mitra, mitra.nama_lengkap FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $hasil = $this->Ranking_model->data_awal($kegiatan_id);
+            $data['rekap'] = $hasil['data'];
+
+            // var_dump($data['rekap']);
+            // die;
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('ranking/hitung-data-awal', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
+            redirect('ranking/pilih_kegiatan');
+        }
+    }
+
+    function utility($kegiatan_id)
+    {
+        $data['title'] = 'Perhitungan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $k_pencacah = "SELECT k_pencacah FROM kegiatan WHERE id = $kegiatan_id";
+        $result_k_pencacah = implode($this->db->query($k_pencacah)->row_array());
+
+        $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
+
+        $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
+
+        $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
+
+        if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
+
+            $data['jumlah_kriteria'] = $jumlah_kriteria;
+
+            $data['kegiatan_id'] = $kegiatan_id;
+
+            $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
+            $data['kriteria'] = $this->db->query($sql_kriteria)->result();
+
+            $sql_id_mitra = "SELECT all_kegiatan.id_mitra, mitra.nama_lengkap FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $hasil = $this->Ranking_model->utility($kegiatan_id);
+            $data['rekap'] = $hasil['data'];
+
+            // $hasil2 = $this->Ranking_model->total_utility($kegiatan_id);
+            // $data['total_rekap'] = $hasil2['data'];
+
+            // var_dump($data['rekap']);
+            // die;
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('ranking/hitung-utility', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
+            redirect('ranking/pilih_kegiatan');
+        }
+    }
+
+    function nilai_akhir($kegiatan_id)
+    {
+        $data['title'] = 'Perhitungan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $k_pencacah = "SELECT k_pencacah FROM kegiatan WHERE id = $kegiatan_id";
+        $result_k_pencacah = implode($this->db->query($k_pencacah)->row_array());
+
+        $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
+
+        $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
+
+        $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
+
+        if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
+
+            $data['kegiatan_id'] = $kegiatan_id;
+
             $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
             $data['kriteria'] = $this->db->query($sql_kriteria)->result();
 
@@ -193,16 +282,10 @@ class Ranking extends CI_Controller
             // var_dump($data['rekap']);
             // die;
 
-
-
-
-
-
-
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
             $this->load->view('template/topbar', $data);
-            $this->load->view('ranking/perhitungan', $data);
+            $this->load->view('ranking/hitung-nilai-akhir', $data);
             $this->load->view('template/footer');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');

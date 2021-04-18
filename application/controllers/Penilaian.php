@@ -163,10 +163,12 @@ class Penilaian extends CI_Controller
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
         $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
+        $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
+
         $sqlrow = "SELECT count(*) FROM all_penilaian WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
         $row = implode($this->db->query($sqlrow)->row_array());
 
-        if ($row < 10) {
+        if ($row < $jumlah_kriteria) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Penilaian belum lengkap!</div>');
             redirect('penilaian/pilihmitra/' . $kegiatan_id);
         } else {

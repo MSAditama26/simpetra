@@ -25,7 +25,7 @@
                             <td><?= $k['nama']; ?></td>
                             <td><?= date('d F Y', $k['start']); ?></td>
                             <td><?= date('d F Y', $k['finish']); ?></td>
-                            <td><a href="<?= base_url('ranking/hitung/') . $k['id'] ?>" class="badge badge-success">Hitung</a></td>
+                            <td><a href="<?= base_url('ranking/data_awal/') . $k['id'] ?>" class="badge badge-success">Hitung</a></td>
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach; ?>
