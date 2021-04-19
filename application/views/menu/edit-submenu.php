@@ -20,7 +20,8 @@
                 <div class="form-group row">
                     <label for="url" class="col-sm-3 col-form-label">URL</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="url" name="url" value="<?= $submenu['url']; ?>" readonly>
+                        <input type="text" class="form-control" id="url" name="url" value="<?= $submenu['url']; ?>">
+                        <?= form_error('url', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -33,7 +34,8 @@
                 <div class="form-group row">
                     <label for="is_active" class="col-sm-3 col-form-label">Active</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="is_active" name="is_active" value="<?= $submenu['is_active']; ?>" readonly>
+                        <input type="text" class="form-control" id="is_active" name="is_active" value="<?= $submenu['is_active']; ?>">
+                        <?= form_error('is_active', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
 

@@ -101,7 +101,9 @@ class Menu extends CI_Controller
         $data['submenu'] = $this->db->get_where('user_sub_menu', ['id' => $id])->row_array();
 
         $this->form_validation->set_rules('title', 'Title', 'required|trim');
+        $this->form_validation->set_rules('url', 'Url', 'required|trim');
         $this->form_validation->set_rules('icon', 'Icon', 'required|trim');
+        $this->form_validation->set_rules('is_active', 'Is active', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -112,7 +114,9 @@ class Menu extends CI_Controller
         } else {
             $data = [
                 'title' => $this->input->post('title'),
+                'url' => $this->input->post('url'),
                 'icon' => $this->input->post('icon'),
+                'is_active' => $this->input->post('is_active')
             ];
 
             $this->db->set($data);

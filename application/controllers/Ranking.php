@@ -165,6 +165,22 @@ class Ranking extends CI_Controller
         $this->load->view('template/footer');
     }
 
+    function pilih_kegiatan_nilai_akhir()
+    {
+        $data['title'] = 'Pilih Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT * FROM kegiatan";
+
+        $data['kegiatan'] = $this->db->query($sql)->result_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('ranking/pilih-kegiatan-nilai-akhir', $data);
+        $this->load->view('template/footer');
+    }
+
     function data_awal($kegiatan_id)
     {
         $data['title'] = 'Perhitungan';
@@ -287,6 +303,40 @@ class Ranking extends CI_Controller
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
             redirect('ranking/pilih_kegiatan');
+        }
+    }
+
+    function nilai_akhir_ranking($kegiatan_id)
+    {
+        $data['title'] = 'Perhitungan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $k_pencacah = "SELECT k_pencacah FROM kegiatan WHERE id = $kegiatan_id";
+        $result_k_pencacah = implode($this->db->query($k_pencacah)->row_array());
+
+        $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
+
+        $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
+
+        $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
+
+        if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
+
+            $data['kegiatan_id'] = $kegiatan_id;
+
+            $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
+            $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('ranking/hitung-nilai-akhir', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
+            redirect('ranking/pilih_kegiatan_nilai_akhir');
         }
     }
 }

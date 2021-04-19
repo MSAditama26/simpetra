@@ -4,6 +4,7 @@
 <head>
     <title>Laporan Penilaian Kinerja Mitra-<?= $kegiatan['nama']; ?>-<?= $mitra['nama_lengkap']; ?></title>
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css" rel="nofollow">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </>
     <style>
         @page {
@@ -36,16 +37,11 @@
 
 <body class="A4">
     <section class="sheet padding-10mm">
-        <h1 align="center">Kop Surat</h1>
-        <br>
-        <br>
-        <br>
-        <br>
-        <hr>
+
 
 
         <h2 align="center">Laporan Penilaian Kinerja Mitra</h2>
-        <h3 align="center">Kegiatan : <?= $kegiatan['nama']; ?> <br> Nama : <?= $mitra['nama_lengkap']; ?></h3>
+        <h3 align="left">Kegiatan : <?= $kegiatan['nama']; ?> <br> Nama : <?= $mitra['nama_lengkap']; ?></h3>
 
         <table class="table">
             <thead>
