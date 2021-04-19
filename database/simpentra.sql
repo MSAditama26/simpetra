@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2021 at 05:48 PM
+-- Generation Time: Apr 20, 2021 at 01:41 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -46,7 +46,9 @@ INSERT INTO `all_kegiatan` (`id`, `kegiatan_id`, `id_mitra`) VALUES
 (66, 26, 1004),
 (68, 23, 1005),
 (69, 27, 1001),
-(70, 27, 1002);
+(70, 27, 1002),
+(71, 26, 1003),
+(72, 26, 1002);
 
 -- --------------------------------------------------------
 
@@ -93,7 +95,7 @@ INSERT INTO `all_penilaian` (`id`, `kegiatan_id`, `id_mitra`, `kriteria_id`, `ni
 (131, 23, 1002, 7, 4),
 (132, 26, 1004, 8, 5),
 (133, 26, 1004, 7, 4),
-(134, 26, 1003, 1, 3),
+(134, 26, 1003, 1, 5),
 (135, 23, 1003, 1, 3),
 (136, 23, 1003, 3, 5),
 (137, 23, 1003, 2, 3),
@@ -113,8 +115,8 @@ INSERT INTO `all_penilaian` (`id`, `kegiatan_id`, `id_mitra`, `kriteria_id`, `ni
 (151, 23, 1003, 9, 5),
 (152, 23, 1003, 10, 4),
 (153, 26, 1003, 5, 4),
-(154, 26, 1003, 2, 2),
-(155, 26, 1003, 3, 5),
+(154, 26, 1003, 2, 4),
+(155, 26, 1003, 3, 4),
 (156, 26, 1003, 4, 3),
 (157, 26, 1003, 6, 3),
 (158, 26, 1003, 7, 5),
@@ -141,7 +143,36 @@ INSERT INTO `all_penilaian` (`id`, `kegiatan_id`, `id_mitra`, `kriteria_id`, `ni
 (179, 26, 1005, 10, 4),
 (180, 23, 1004, 1, 4),
 (181, 27, 1001, 1, 5),
-(182, 27, 1001, 2, 3);
+(182, 27, 1001, 2, 3),
+(183, 26, 1002, 1, 3),
+(184, 26, 1002, 2, 5),
+(185, 26, 1002, 3, 4),
+(186, 26, 1002, 4, 3),
+(187, 26, 1002, 5, 4),
+(188, 26, 1002, 6, 5),
+(189, 26, 1002, 7, 5),
+(190, 26, 1002, 8, 1),
+(191, 26, 1002, 9, 1),
+(192, 26, 1002, 10, 1),
+(193, 23, 1004, 2, 3),
+(194, 23, 1004, 3, 2),
+(195, 23, 1004, 4, 5),
+(196, 23, 1004, 5, 4),
+(197, 23, 1004, 6, 3),
+(198, 23, 1004, 7, 4),
+(199, 23, 1004, 8, 3),
+(200, 23, 1004, 9, 5),
+(201, 23, 1004, 10, 1),
+(202, 23, 1005, 1, 4),
+(203, 23, 1005, 2, 5),
+(204, 23, 1005, 3, 3),
+(205, 23, 1005, 4, 4),
+(206, 23, 1005, 5, 5),
+(207, 23, 1005, 6, 4),
+(208, 23, 1005, 7, 4),
+(209, 23, 1005, 8, 5),
+(210, 23, 1005, 9, 5),
+(211, 23, 1005, 10, 3);
 
 -- --------------------------------------------------------
 
@@ -167,7 +198,7 @@ CREATE TABLE `kegiatan` (
 
 INSERT INTO `kegiatan` (`id`, `nama`, `start`, `finish`, `k_pengawas`, `k_pencacah`, `jenis_kegiatan`, `seksi_id`, `ob`) VALUES
 (23, 'Survei1', 1617141600, 1619733600, 2, 4, 1, 0, 1),
-(26, 'Survei2', 1619733600, 1620338400, 2, 3, 1, 0, 0),
+(26, 'Survei2', 1619733600, 1620338400, 2, 4, 1, 0, NULL),
 (27, 'Survei3', 1618610400, 1619215200, 2, 2, 1, 1, NULL);
 
 -- --------------------------------------------------------
@@ -284,19 +315,20 @@ CREATE TABLE `subkriteria` (
   `prioritas` int(11) NOT NULL,
   `nilai` int(11) NOT NULL,
   `deskripsi` varchar(120) NOT NULL,
-  `bobot` double NOT NULL
+  `bobot` double NOT NULL,
+  `konversi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `subkriteria`
 --
 
-INSERT INTO `subkriteria` (`prioritas`, `nilai`, `deskripsi`, `bobot`) VALUES
-(5, 1, 'Kurang baik', 0.04),
-(4, 2, 'Cukup baik', 0.09),
-(3, 3, 'Baik', 0.15666666666667),
-(2, 4, 'Sangat baik', 0.25666666666667),
-(1, 5, 'Sangat baik sekali', 0.45666666666667);
+INSERT INTO `subkriteria` (`prioritas`, `nilai`, `deskripsi`, `bobot`, `konversi`) VALUES
+(5, 1, 'Kurang baik', 0.04, 50),
+(4, 2, 'Cukup baik', 0.09, 60),
+(3, 3, 'Baik', 0.15666666666667, 70),
+(2, 4, 'Sangat baik', 0.25666666666667, 80),
+(1, 5, 'Sangat baik sekali', 0.45666666666667, 90);
 
 -- --------------------------------------------------------
 
@@ -371,7 +403,8 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (52, 2, 4),
 (53, 2, 5),
 (54, 3, 4),
-(55, 3, 5);
+(55, 3, 5),
+(57, 1, 18);
 
 -- --------------------------------------------------------
 
@@ -452,7 +485,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (20, 2, 'Sensus', 'kegiatan/sensus', 'fas fa-fw fa-book', 1),
 (25, 6, 'All User', 'admin/alluser', 'fas fa-fw fa-user', 1),
 (26, 1, 'Data Pegawai', 'master/pegawai', 'fas fa-fw fa-user-tie', 1),
-(27, 8, 'Ranking mitra', 'ranking', 'fas fa-fw fa-graduation-cap', 1),
+(27, 8, 'Ranking mitra', 'ranking/pilih_kegiatan_nilai_akhir', 'fas fa-fw fa-graduation-cap', 1),
 (28, 8, 'Data Kriteria', 'ranking/kriteria', 'fas fa-fw fa-key', 1),
 (29, 8, 'Penghitungan', 'ranking/pilih_kegiatan', 'fas fa-fw fa-pen', 1);
 
@@ -583,7 +616,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `all_kegiatan`
 --
 ALTER TABLE `all_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `all_kegiatan_pengawas`
@@ -595,7 +628,7 @@ ALTER TABLE `all_kegiatan_pengawas`
 -- AUTO_INCREMENT for table `all_penilaian`
 --
 ALTER TABLE `all_penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
@@ -625,13 +658,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -643,7 +676,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `user_token`
