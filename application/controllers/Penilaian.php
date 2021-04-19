@@ -156,8 +156,8 @@ class Penilaian extends CI_Controller
     public function download($kegiatan_id, $id_mitra)
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $sqlpenilaian = "SELECT all_penilaian.*, kriteria.nama as kriterianama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id WHERE all_penilaian.kegiatan_id = $kegiatan_id AND all_penilaian.id_mitra = $id_mitra ORDER BY kriteria_id ASC";
 
+        $sqlpenilaian = "SELECT all_penilaian.*, kriteria.nama, subkriteria.konversi FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai WHERE all_penilaian.kegiatan_id = $kegiatan_id AND all_penilaian.id_mitra = $id_mitra ORDER BY kriteria_id ASC";
         $data['penilaian'] = $this->db->query($sqlpenilaian)->result_array();
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
