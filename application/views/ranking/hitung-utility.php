@@ -33,17 +33,17 @@
                     </tr>
                 </thead>
                 <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php foreach ($id_mitra as $col1) : ?>
+                    <?php foreach ($id_mitra as $col) : ?>
                         <tr align=center>
                             <td>
-                                <?= $col1->nama_lengkap; ?>
+                                <?= $col->nama_lengkap; ?>
                             </td>
                             <?php foreach ($kriteria as $row) : ?>
                                 <td>
                                     <?php foreach ($rekap as $r) : ?>
                                         <?php foreach ($r->bobot as $cell) : ?>
 
-                                            <?php if ($row->id == $cell->kriteria_id && $col1->id_mitra == $cell->id_mitra) : ?>
+                                            <?php if ($row->id == $cell->kriteria_id && $col->id_mitra == $cell->id_mitra) : ?>
                                                 <?= number_format($cell->bobot, 4); ?>
                                             <?php endif; ?>
 
@@ -53,16 +53,8 @@
                             <?php endforeach; ?>
 
                             <td>
-                                <?php foreach ($rekap as $r) : ?>
-                                    <?php if ($r->id_mitra == $col1->id_mitra) : ?>
+                                <?= number_format($col->bobot, 4); ?>
 
-                                        <?php foreach ($r->bobot as $cell) : ?>
-                                            <?php $total = number_format((float)$cell->bobot, 4); ?>
-                                        <?php endforeach; ?>
-                                        <?= $total; ?>
-
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
                             </td>
 
 

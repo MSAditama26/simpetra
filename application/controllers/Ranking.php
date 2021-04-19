@@ -192,6 +192,8 @@ class Ranking extends CI_Controller
             $hasil = $this->Ranking_model->data_awal($kegiatan_id);
             $data['rekap'] = $hasil['data'];
 
+
+
             // var_dump($data['rekap']);
             // die;
 
@@ -229,16 +231,18 @@ class Ranking extends CI_Controller
             $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
             $data['kriteria'] = $this->db->query($sql_kriteria)->result();
 
-            $sql_id_mitra = "SELECT all_kegiatan.id_mitra, mitra.nama_lengkap FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY all_penilaian.id_mitra";
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
             $hasil = $this->Ranking_model->utility($kegiatan_id);
             $data['rekap'] = $hasil['data'];
 
-            // $hasil2 = $this->Ranking_model->total_utility($kegiatan_id);
-            // $data['total_rekap'] = $hasil2['data'];
+            // $total_utility = $this->Ranking_model->total_utility($kegiatan_id);
+            // $data['total'] = $total_utility;
 
-            // var_dump($data['rekap']);
+            // var_dump($data['id_mitra']);
             // die;
 
             $this->load->view('template/header', $data);
@@ -270,17 +274,10 @@ class Ranking extends CI_Controller
 
             $data['kegiatan_id'] = $kegiatan_id;
 
-            $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
-            $data['kriteria'] = $this->db->query($sql_kriteria)->result();
-
-            $sql_id_mitra = "SELECT all_kegiatan.id_mitra, mitra.nama_lengkap FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
-
-            $hasil = $this->Ranking_model->rekap($kegiatan_id);
-            $data['rekap'] = $hasil['data'];
-
-            // var_dump($data['rekap']);
-            // die;
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
