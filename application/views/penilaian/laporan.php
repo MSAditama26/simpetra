@@ -3,12 +3,58 @@
 
 <head>
     <title><?= $kegiatan['nama']; ?>-<?= $mitra['nama_lengkap']; ?>-Laporan Penilaian Kinerja</title>
-    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css" rel="nofollow">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </>
     <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #FAFAFA;
+            font: 12pt "Tahoma";
+        }
+
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm;
+            margin: 10mm auto;
+            border: 1px #D3D3D3 solid;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+
         @page {
-            size: A4
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm;
+                height: 297mm;
+            }
+
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
         }
 
         table {
@@ -32,39 +78,26 @@
         .text-center {
             text-align: center;
         }
-
-        /* .container {
-            width: 50%;
-            margin: auto;
-        } */
     </style>
 </head>
 
-<body class="A4">
-    <section class="sheet padding-10mm">
-
+<body>
+    <div class="page">
         <h2 align="center">Laporan Penilaian Kinerja Mitra</h2>
         <h3 align="left">Kegiatan : <?= $kegiatan['nama']; ?> <br> Nama : <?= $mitra['nama_lengkap']; ?></h3>
 
-
-
         <div style="width:50%; margin:auto;">
-            <canvas id="myChart" width="200" height="200"></canvas>
+            <canvas id="myChart"></canvas>
         </div>
-
         <br>
-
-
         <table class="table">
             <thead>
                 <tr>
-
                     <th>No.</th>
                     <th>Kriteria</th>
                     <th>Nilai</th>
                 </tr>
             </thead>
-
             <tbody>
                 <?php $i = 1; ?>
                 <?php foreach ($penilaian as $p) : ?>
@@ -76,75 +109,85 @@
                     <?php $i++; ?>
 
                 <?php endforeach; ?>
-
             </tbody>
-
         </table>
-
-
-
-        <script>
-            var ctx = document.getElementById("myChart").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: [
-                        <?php
-                        if (count($penilaian) > 0) {
-                            foreach ($penilaian as $data) {
-                                echo "'" . $data['nama'] . "',";
-                            }
-                        }
-                        ?>
-                    ],
-                    datasets: [{
-                        label: 'Kinerja Mitra',
-                        data: [<?php
-                                if (count($penilaian) > 0) {
-                                    foreach ($penilaian as $data) {
-
-                                        echo $data['konversi'] . ", ";
-                                    }
-                                }
-                                ?>],
-                        fill: true,
-                        backgroundColor: 'rgba(179, 209, 255, 0.4)',
-                        borderColor: 'rgb(0, 102, 255)',
-                        pointBackgroundColor: 'rgb(0, 102, 255)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(255, 99, 132)'
-                    }]
-                },
-                options: {
-                    elements: {
-                        line: {
-                            borderWidth: 3
-                        }
-                    },
-                    scales: {
-                        r: {
-                            ticks: {
-                                display: false,
-                                maxTicksLimit: 5,
-                            },
-                            angleLines: {
-                                display: false
-                            },
-                            min: 50,
-                            max: 90
-                        }
-                    }
-
-                },
-            });
-        </script>
-
-    </section>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th align=left>&nbsp&nbsp&nbspPenilai</th>
+                <th align=right>Yang dinilai</th>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th align=left>(...............)</th>
+                <th align=right>(...............)</th>
+            </tr>
+        </table>
+    </div>
 </body>
 
 </html>
 
 <script>
-    window.print();
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: [
+                <?php
+                if (count($penilaian) > 0) {
+                    foreach ($penilaian as $data) {
+                        echo "'" . $data['nama'] . "',";
+                    }
+                }
+                ?>
+            ],
+            datasets: [{
+                label: 'Kinerja Mitra',
+                data: [<?php
+                        if (count($penilaian) > 0) {
+                            foreach ($penilaian as $data) {
+
+                                echo $data['konversi'] . ", ";
+                            }
+                        }
+                        ?>],
+                fill: true,
+                backgroundColor: 'rgba(179, 209, 255, 0.4)',
+                borderColor: 'rgb(0, 102, 255)',
+                pointBackgroundColor: 'rgb(0, 102, 255)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 99, 132)'
+            }]
+        },
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            },
+            scales: {
+                r: {
+                    ticks: {
+                        display: true,
+                        maxTicksLimit: 6,
+                        minTicksLimit: 5
+                    },
+                    angleLines: {
+                        display: false
+                    },
+                    min: 50,
+                    max: 100
+                }
+            }
+
+        },
+    });
 </script>
