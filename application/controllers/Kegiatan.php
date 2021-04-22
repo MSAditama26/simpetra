@@ -168,6 +168,7 @@ class Kegiatan extends CI_Controller
                 'finish' => strtotime($this->input->post('finish')),
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
+                'ob' => $this->input->post('ob')
             ];
 
             $this->db->set($data);
@@ -199,17 +200,30 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Tambah Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql_pencacahOB = "SELECT mitra.* FROM mitra WHERE is_active = 1 AND mitra.id_mitra NOT IN (SELECT all_kegiatan.id_mitra FROM kegiatan JOIN all_kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE kegiatan.ob = 1 GROUP BY all_kegiatan.id_mitra) ";
+        $sql_waktu = "SELECT kegiatan.start, kegiatan.finish FROM kegiatan WHERE kegiatan.id = $id";
+        $waktu = $this->db->query($sql_waktu)->row();
 
-        // $pencacahOB = $this->db->query($sql_pencacahOB)->result_array();
+        $sql_bentuk_kegiatan = "SELECT kegiatan.ob FROM kegiatan WHERE kegiatan.id = $id";
+        $bentuk_kegiatan = implode($this->db->query($sql_bentuk_kegiatan)->row_array());
 
+        if ($bentuk_kegiatan == 1) {
+            //jika $id kegiatan ob
+            $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE 
+        ((((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.ob = 1) OR kegiatan.ob != 1) AND kegiatan.id != $id  ";
 
-        // var_dump($pencacahOB);
-        // die;
+            $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
 
+            $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 ";
+        } else {
+            //jika $id kegiatan non ob
+            $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE ((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.id != $id  ";
 
-        // $sqlpencacah = "SELECT * FROM mitra WHERE is_active = 1 GROUP BY id_mitra";
-        $data['pencacah'] = $this->db->query($sql_pencacahOB)->result_array();
+            $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
+
+            $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 ";
+        }
+
+        $data['pencacah'] = $this->db->query($sql_pencacah)->result_array();
 
         $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan WHERE kegiatan_id = $id";
         $data['kuota'] = $this->db->query($sqlkuota)->row_array();

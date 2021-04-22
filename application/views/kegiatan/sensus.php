@@ -35,7 +35,7 @@
                             <td><?= $s['k_pencacah']; ?></td>
                             <?php $now = (time()); ?>
                             <td>
-                                <?php if ($now > $s['finish']) : ?>
+                                <?php if ($now > $s['start']) : ?>
                                     <a class="badge badge-secondary">tambah pengawas</a>
                                     <a class="badge badge-secondary">tambah pencacah</a>
                                 <?php else : ?>

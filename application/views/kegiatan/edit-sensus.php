@@ -39,6 +39,13 @@
                         <?= form_error('k_pencacah', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="ob" class="col-sm-3 col-form-label">OB?</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="ob" name="ob" value="<?= $survei['ob']; ?>">
+                        <?= form_error('k_pencacah', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                </div>
 
 
                 <div class="form-group row">

@@ -13,11 +13,12 @@
                         <h2><?= $kegiatan['nama']; ?></h2>
                     </div>
                     <div class="col-lg-3">
-                        <a href="<?= base_url('kegiatan/mitraterpilih/') . $kegiatan['id'] ?>" class="btn btn-info">Mitra terpilih</a>
-                    </div>
-                    <div class="col-lg-3">
                         <h2>Jumlah = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pencacah']; ?></h2>
                     </div>
+                    <div class="col-lg-3">
+                        <a href="<?= base_url('kegiatan/mitraterpilih/') . $kegiatan['id'] ?>" class="btn btn-info">Mitra terpilih</a>
+                    </div>
+
 
                 </div>
 
