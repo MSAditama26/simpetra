@@ -98,6 +98,14 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="k_pencacah" name="k_pencacah" placeholder="Jumlah Pencacah">
                     </div>
+                    <div class="form-group">
+                        <select name="ob" id="ob" class="form-control">
+                            <option value="">OB ?</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

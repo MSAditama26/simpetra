@@ -11,6 +11,14 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-lg">
+                    <div id="chart_div"></div>
+                </div>
+            </div>
+
+            <br>
+
             <table class="table table-borderless table-hover" id="mydata">
                 <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
@@ -46,9 +54,58 @@
 
                 </tbody>
             </table>
+            <br>
         </div>
 
     </div>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['gantt']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Task ID');
+            data.addColumn('string', 'Task Name');
+            data.addColumn('string', 'Resource');
+            data.addColumn('date', 'Start Date');
+            data.addColumn('date', 'End Date');
+            data.addColumn('number', 'Duration');
+            data.addColumn('number', 'Percent Complete');
+            data.addColumn('string', 'Dependencies');
+
+            <?php foreach ($details as $d) : ?>
+                data.addRows([
+
+                    ['<?= $d['nama'] ?>', '<?= $d['nama'] ?>', '<?= $d['jenis_kegiatan'] ?>',
+                        new Date(<?= date('Y, n-1, j', $d['start']); ?>), new Date(<?= date('Y, n-1, j', $d['finish']); ?>), null, 0, null
+                    ]
+
+                ]);
+
+            <?php endforeach; ?>
+
+
+            var options = {
+                gantt: {
+                    trackHeight: 30
+                }
+            };
+
+            var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+
+
+
 
 
 </div>

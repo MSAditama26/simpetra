@@ -45,6 +45,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('ob', 'OB', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -82,6 +83,7 @@ class Kegiatan extends CI_Controller
         $this->form_validation->set_rules('finish', 'Finish', 'required|trim');
         $this->form_validation->set_rules('k_pengawas', 'Kuota Pengawas', 'required|trim');
         $this->form_validation->set_rules('k_pencacah', 'Kuota Pencacah', 'required|trim');
+        $this->form_validation->set_rules('ob', 'OB', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -97,7 +99,7 @@ class Kegiatan extends CI_Controller
                 'k_pengawas' => $this->input->post('k_pengawas'),
                 'k_pencacah' => $this->input->post('k_pencacah'),
                 'jenis_kegiatan' => '2',
-                'ob' => '1'
+                'ob' => $this->input->post('ob')
             ];
             $this->db->insert('kegiatan', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New sensus added!</div>');
@@ -208,15 +210,14 @@ class Kegiatan extends CI_Controller
 
         if ($bentuk_kegiatan == 1) {
             //jika $id kegiatan ob
-            $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE 
-        ((((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.ob = 1) OR kegiatan.ob != 1) AND kegiatan.id != $id  ";
+            $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE ((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.id != $id  ";
 
             $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
 
             $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 ";
         } else {
             //jika $id kegiatan non ob
-            $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE ((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.id != $id  ";
+            $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE ((((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.ob = 1) OR kegiatan.ob != 1) AND kegiatan.id != $id  ";
 
             $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
 
@@ -258,21 +259,33 @@ class Kegiatan extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function details_kegiatan_mitra($id_mitra)
+    function details_kegiatan_mitra($kegiatan_id, $id_mitra)
     {
         $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra";
 
-        $data['details'] = $this->db->query($sql)->result_array();
-        $data['id_mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('kegiatan/details-kegiatan-mitra', $data);
-        $this->load->view('template/footer');
+
+        $data['details'] = $this->db->query($sql)->result_array();
+        $jumlahkegiatan = count($data['details']);
+
+        if ($jumlahkegiatan > 0) {
+
+            $data['id_mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('kegiatan/details-kegiatan-mitra', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Mitra belum mengikuti kegiatan</div>');
+            redirect('kegiatan/tambah_pencacah/' . $kegiatan_id);
+        }
+        // var_dump($jumlahkegiatan);
+        // die;
     }
 
     function details_nilai_perkegiatan($id_mitra, $kegiatan_id)

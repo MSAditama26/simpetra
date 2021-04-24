@@ -53,7 +53,7 @@
                                     <td><?= $p['kompetensi']; ?></td>
 
                                     <td>
-                                        <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $p['id_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
+                                        <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $kegiatan['id'] . '/' . $p['id_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
                                     </td>
 
                                 </tr>

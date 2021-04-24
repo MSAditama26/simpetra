@@ -42,8 +42,17 @@
                 <div class="form-group row">
                     <label for="ob" class="col-sm-3 col-form-label">OB?</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ob" name="ob" value="<?= $survei['ob']; ?>">
-                        <?= form_error('k_pencacah', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <?php if ($survei['ob'] == '1') : ?>
+                            <label for="" class="col-sm-2 col-form-label">Ya</label>
+                        <?php else : ?>
+                            <label for="" class="col-sm-2 col-form-label">Tidak</label>
+                        <?php endif; ?>
+                        <select name="ob" id="ob" class="form-control">
+                            <option value="">OB ?</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                        <?= form_error('ob', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
 
