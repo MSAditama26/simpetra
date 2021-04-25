@@ -16,7 +16,7 @@
                 <p class="card-text"><small class="text-muted">User since <?= date('d F Y', $user['date_created']); ?></small></p>
             </div>
             <div class="col-lg-5 mb-5">
-                <table class="table table-bordered table-striped">
+                <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
                     <thead>
                         <tr align=center>
 
@@ -55,7 +55,7 @@
             </div>
 
             <div class="col-lg-5 mb-5">
-                <table class="table table-bordered table-striped">
+                <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
                     <thead>
                         <tr align=center>
 
@@ -83,8 +83,8 @@
                             <td><?= $mitra['bahasa']; ?></td>
                         </tr>
                         <tr>
-                            <th>Rata-rata Nilai</th>
-                            <td>Dalam pengembangan</td>
+                            <th>Nilai</th>
+                            <td><a href="<?= base_url('kegiatan/details_mitra_kegiatan/') . $mitra['id_mitra']; ?>" class="badge badge-primary">Pilih kegiatan</a></td>
                         </tr>
 
                     </tbody>
@@ -94,7 +94,7 @@
         </div>
 
     <?php else : ?>
-        <div class="card col-lg-6">
+        <div class="card shadow col-lg-6" style="background-color: #ecd8c6; color:#996433;">
             <div class="row">
                 <div class="col-lg-2 mt-2" align=center>
                     <hr>
@@ -103,7 +103,7 @@
 
                 </div>
                 <div class="col-lg-10 mt-2">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
                         <thead>
                             <tr align=center>
 

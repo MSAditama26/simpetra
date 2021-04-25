@@ -7,7 +7,7 @@ class Kegiatan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        is_logged_in();
+        is_logged_in_user();
         $this->load->model('Kegiatan_model');
     }
 
@@ -264,9 +264,9 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra";
+        $now = time();
 
-
+        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra AND ((start <= $now AND finish >= $now) OR (start > $now))";
 
         $data['details'] = $this->db->query($sql)->result_array();
         $jumlahkegiatan = count($data['details']);
@@ -284,8 +284,24 @@ class Kegiatan extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Mitra belum mengikuti kegiatan</div>');
             redirect('kegiatan/tambah_pencacah/' . $kegiatan_id);
         }
-        // var_dump($jumlahkegiatan);
-        // die;
+    }
+
+    function details_mitra_kegiatan($id_mitra)
+    {
+        $data['title'] = 'Details Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra";
+
+        $data['id_mitra'] = $id_mitra;
+
+        $data['details'] = $this->db->query($sql)->result_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/details-mitra-kegiatan', $data);
+        $this->load->view('template/footer');
     }
 
     function details_nilai_perkegiatan($id_mitra, $kegiatan_id)

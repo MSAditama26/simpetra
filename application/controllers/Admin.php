@@ -17,6 +17,21 @@ class Admin extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $data['mitra'] = $this->db->get('mitra')->num_rows();
+        $data['pegawai'] = $this->db->get('pegawai')->num_rows();
+
+        $now = time();
+
+        $sql_k_berjalan = "SELECT * FROM kegiatan WHERE start <= $now AND finish >= $now";
+        $data['k_berjalan'] = $this->db->query($sql_k_berjalan)->num_rows();
+
+        $sql_k_akan_datang = "SELECT * FROM kegiatan WHERE start > $now";
+        $data['k_akan_datang'] = $this->db->query($sql_k_akan_datang)->num_rows();
+
+        $sql = "SELECT kegiatan.* FROM kegiatan WHERE ((start <= $now AND finish >= $now) OR (start > $now))";
+
+        $data['details'] = $this->db->query($sql)->result_array();
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);

@@ -124,8 +124,30 @@ class Penilaian extends CI_Controller
             $this->load->view('template/topbar', $data);
             $this->load->view('penilaian/cetak-mitra', $data);
             $this->load->view('template/footer');
+        } else if ($data['user']['role_id'] == 4) {
+
+            $nama = $data['user']['nama'];
+
+            $sql_nip = "SELECT pegawai.nip FROM pegawai JOIN user WHERE pegawai.nama LIKE '%$nama%'";
+            $nip = implode($this->db->query($sql_nip)->row_array());
+
+            $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pengawas ON kegiatan.id = all_kegiatan_pengawas.kegiatan_id WHERE all_kegiatan_pengawas.id_pengawas = $nip";
+
+            $data['kegiatan'] = $this->db->query($sql)->result_array();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('penilaian/cetak-pilih-kegiatan', $data);
+            $this->load->view('template/footer');
         } else {
-            $data['kegiatan'] = $this->db->get('kegiatan')->result_array();
+            $seksi = $data['user']['seksi_id'];
+
+
+
+            $sql = "SELECT kegiatan.* FROM kegiatan WHERE seksi_id = $seksi";
+
+            $data['kegiatan'] = $this->db->query($sql)->result_array();
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
