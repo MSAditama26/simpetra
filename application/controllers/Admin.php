@@ -28,7 +28,7 @@ class Admin extends CI_Controller
         $sql_k_akan_datang = "SELECT * FROM kegiatan WHERE start > $now";
         $data['k_akan_datang'] = $this->db->query($sql_k_akan_datang)->num_rows();
 
-        $sql = "SELECT kegiatan.* FROM kegiatan WHERE ((start <= $now AND finish >= $now) OR (start > $now))";
+        $sql = "SELECT kegiatan.* FROM kegiatan WHERE ((start <= $now AND finish >= $now) OR (start > $now)) ORDER BY start";
 
         $data['details'] = $this->db->query($sql)->result_array();
 

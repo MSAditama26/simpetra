@@ -266,7 +266,7 @@ class Kegiatan extends CI_Controller
 
         $now = time();
 
-        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra AND ((start <= $now AND finish >= $now) OR (start > $now))";
+        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
 
         $data['details'] = $this->db->query($sql)->result_array();
         $jumlahkegiatan = count($data['details']);

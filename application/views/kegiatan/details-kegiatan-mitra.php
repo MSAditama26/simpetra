@@ -11,15 +11,17 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg">
-                    <div id="chart_div"></div>
+            <div class="card shadow">
+                <div class="row">
+                    <div class="col-lg mt-2 ml-2 mr-2">
+                        <div id="chart_div" style="height: 300px;"></div>
+                    </div>
                 </div>
             </div>
 
             <br>
 
-            <table class="table table-borderless table-hover" id="mydata">
+            <table class=" table table-borderless table-hover" id="mydata">
                 <thead style="background-color: #996433; color:#f9f2ec;">
                     <tr align=center>
 
@@ -63,43 +65,65 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {
-            'packages': ['gantt']
+            // 'packages': ['gantt']
+            packages: ["timeline"]
         });
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
 
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Task ID');
-            data.addColumn('string', 'Task Name');
-            data.addColumn('string', 'Resource');
-            data.addColumn('date', 'Start Date');
-            data.addColumn('date', 'End Date');
-            data.addColumn('number', 'Duration');
-            data.addColumn('number', 'Percent Complete');
-            data.addColumn('string', 'Dependencies');
+            var container = document.getElementById('chart_div');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn({
+                type: 'string',
+                id: 'Position'
+            });
+            dataTable.addColumn({
+                type: 'string',
+                id: 'Name'
+            });
+            dataTable.addColumn({
+                type: 'date',
+                id: 'Start'
+            });
+            dataTable.addColumn({
+                type: 'date',
+                id: 'End'
+            });
+            // var data = new google.visualization.DataTable();
+            // data.addColumn('string', 'Task ID');
+            // data.addColumn('string', 'Task Name');
+            // data.addColumn('string', 'Resource');
+            // data.addColumn('date', 'Start Date');
+            // data.addColumn('date', 'End Date');
+            // data.addColumn('number', 'Duration');
+            // data.addColumn('number', 'Percent Complete');
+            // data.addColumn('string', 'Dependencies');
+
 
             <?php foreach ($details as $d) : ?>
-                data.addRows([
+                dataTable.addRows([
 
-                    ['<?= $d['nama'] ?>', '<?= $d['nama'] ?>', '<?= $d['jenis_kegiatan'] ?>',
-                        new Date(<?= date('Y, n-1, j', $d['start']); ?>), new Date(<?= date('Y, n-1, j', $d['finish']); ?>), null, 0, null
-                    ]
+                    ['<?= $d['nama'] ?>', '<?= $d['nama'] ?>', new Date(<?= date('Y, n-1, j', $d['start']); ?>), new Date(<?= date('Y, n-1, j', $d['finish']); ?>)]
 
                 ]);
+
 
             <?php endforeach; ?>
 
 
+
+
             var options = {
-                gantt: {
-                    trackHeight: 30
+                timeline: {
+                    colorByRowLabel: true
                 }
             };
 
-            var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+            // var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
 
-            chart.draw(data, options);
+            chart.draw(dataTable, options);
         }
     </script>
 
