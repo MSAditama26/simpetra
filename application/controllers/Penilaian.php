@@ -41,7 +41,7 @@ class Penilaian extends CI_Controller
         $data['title'] = 'Daftar Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqldaftarpencacah = "SELECT all_kegiatan.*, mitra.nama_lengkap FROM all_kegiatan INNER JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id = $kegiatan_id";
+        $sqldaftarpencacah = "SELECT all_kegiatan_pencacah.*, mitra.nama_lengkap FROM all_kegiatan_pencacah INNER JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id";
         $data['kegiatan'] = $this->db->query($sqldaftarpencacah)->result_array();
 
         $data['nama_kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
@@ -116,7 +116,7 @@ class Penilaian extends CI_Controller
 
             $data['id_mitra'] = $id_mitra;
 
-            $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE all_kegiatan.id_mitra = $id_mitra";
+            $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pencacah ON kegiatan.id = all_kegiatan_pencacah.kegiatan_id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra";
             $data['kegiatan'] = $this->db->query($sql)->result_array();
 
             $this->load->view('template/header', $data);
@@ -162,7 +162,7 @@ class Penilaian extends CI_Controller
         $data['title'] = 'Cetak Hasil Penilaian';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT mitra.* FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id = $kegiatan_id";
+        $sql = "SELECT mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id";
 
         $data['mitra'] = $this->db->query($sql)->result_array();
 
@@ -190,9 +190,19 @@ class Penilaian extends CI_Controller
         $sqlrow = "SELECT count(*) FROM all_penilaian WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
         $row = implode($this->db->query($sqlrow)->row_array());
 
+        $role_id = $data['user']['role_id'];
+
+        // var_dump($role_id);
+        // die;
+
         if ($row < $jumlah_kriteria) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Penilaian belum lengkap!</div>');
-            redirect('penilaian/pilihmitra/' . $kegiatan_id);
+            if ($role_id == 5) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Penilaian belum lengkap!</div>');
+                redirect('penilaian/pilihkegiatan');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Penilaian belum lengkap!</div>');
+                redirect('penilaian/pilihmitra/' . $kegiatan_id);
+            }
         } else {
             $this->load->view('penilaian/laporan', $data);
         }
@@ -218,7 +228,7 @@ class Penilaian extends CI_Controller
         $data['title'] = 'Daftar kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan ON kegiatan.id = all_kegiatan.kegiatan_id WHERE all_kegiatan.id_mitra = $id_mitra";
+        $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pencacah ON kegiatan.id = all_kegiatan_pencacah.kegiatan_id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra";
         $data['kegiatan'] = $this->db->query($sql)->result_array();
 
         $data['id_mitra'] = $id_mitra;

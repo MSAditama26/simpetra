@@ -23,7 +23,7 @@ class Timeline extends CI_Controller
 
             $sql_id_mitra = "SELECT id_mitra FROM mitra WHERE nama_lengkap LIKE '$nama'";
             $id_mitra = implode($this->db->query($sql_id_mitra)->row_array());
-            $sql_kegiatan = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
+            $sql_kegiatan = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.kegiatan_id = kegiatan.id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
             $data['kegiatan'] = $this->db->query($sql_kegiatan)->result_array();
         } elseif ($role_id == 4) {
             $sql_nip = "SELECT nip FROM pegawai WHERE nama LIKE '$nama'";

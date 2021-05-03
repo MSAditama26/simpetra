@@ -212,21 +212,21 @@ class Kegiatan extends CI_Controller
             //jika $id kegiatan ob
             $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE ((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.id != $id  ";
 
-            $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
+            $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
 
             $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 ";
         } else {
             //jika $id kegiatan non ob
             $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE ((((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.ob = 1) OR kegiatan.ob != 1) AND kegiatan.id != $id  ";
 
-            $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
+            $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
 
             $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 ";
         }
 
         $data['pencacah'] = $this->db->query($sql_pencacah)->result_array();
 
-        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan WHERE kegiatan_id = $id";
+        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pencacah WHERE kegiatan_id = $id";
         $data['kuota'] = $this->db->query($sqlkuota)->row_array();
 
 
@@ -244,10 +244,10 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Mitra Terpilih';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpencacah = "SELECT mitra.* FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE all_kegiatan.kegiatan_id = $id";
+        $sqlpencacah = "SELECT mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $id";
         $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();
 
-        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan WHERE kegiatan_id = $id";
+        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pencacah WHERE kegiatan_id = $id";
         $data['kuota'] = $this->db->query($sqlkuota)->row_array();
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
@@ -266,7 +266,7 @@ class Kegiatan extends CI_Controller
 
         $now = time();
 
-        $sql = "SELECT all_kegiatan.*, kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
+        $sql = "SELECT all_kegiatan_pencacah.*, kegiatan.* FROM all_kegiatan_pencacah INNER JOIN kegiatan ON all_kegiatan_pencacah.kegiatan_id = kegiatan.id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
 
         $data['details'] = $this->db->query($sql)->result_array();
         $jumlahkegiatan = count($data['details']);
@@ -291,7 +291,7 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT kegiatan.* FROM all_kegiatan INNER JOIN kegiatan ON all_kegiatan.kegiatan_id = kegiatan.id WHERE all_kegiatan.id_mitra = $id_mitra";
+        $sql = "SELECT kegiatan.* FROM all_kegiatan_pencacah INNER JOIN kegiatan ON all_kegiatan_pencacah.kegiatan_id = kegiatan.id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra";
 
         $data['id_mitra'] = $id_mitra;
 
@@ -332,7 +332,7 @@ class Kegiatan extends CI_Controller
         $intkuota = (int) $kuota['k_pencacah'];
 
 
-        $cek_kuota = $this->db->get_where('all_kegiatan', ['kegiatan_id' => $kegiatan_id])->num_rows();
+        $cek_kuota = $this->db->get_where('all_kegiatan_pencacah', ['kegiatan_id' => $kegiatan_id])->num_rows();
 
         $data = [
             'kegiatan_id' => $kegiatan_id,
@@ -340,17 +340,17 @@ class Kegiatan extends CI_Controller
         ];
 
 
-        $result = $this->db->get_where('all_kegiatan', $data);
+        $result = $this->db->get_where('all_kegiatan_pencacah', $data);
 
         if ($result->num_rows() < 1) {
             if ($cek_kuota < $intkuota) {
-                $this->db->insert('all_kegiatan', $data);
+                $this->db->insert('all_kegiatan_pencacah', $data);
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
             }
         } else {
-            $this->db->delete('all_kegiatan', $data);
+            $this->db->delete('all_kegiatan_pencacah', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
         }
     }

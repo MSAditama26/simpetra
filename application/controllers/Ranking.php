@@ -202,7 +202,7 @@ class Ranking extends CI_Controller
             $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
             $data['kriteria'] = $this->db->query($sql_kriteria)->result();
 
-            $sql_id_mitra = "SELECT all_kegiatan.id_mitra, mitra.nama_lengkap FROM all_kegiatan JOIN mitra ON all_kegiatan.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra, mitra.nama_lengkap FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
             $hasil = $this->Ranking_model->data_awal($kegiatan_id);

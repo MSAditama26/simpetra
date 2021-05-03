@@ -25,20 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `all_kegiatan`
+-- Table structure for table `all_kegiatan_pencacah`
 --
 
-CREATE TABLE `all_kegiatan` (
+CREATE TABLE `all_kegiatan_pencacah` (
   `id` int(11) NOT NULL,
   `kegiatan_id` int(11) NOT NULL,
   `id_mitra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `all_kegiatan`
+-- Dumping data for table `all_kegiatan_pencacah`
 --
 
-INSERT INTO `all_kegiatan` (`id`, `kegiatan_id`, `id_mitra`) VALUES
+INSERT INTO `all_kegiatan_pencacah` (`id`, `kegiatan_id`, `id_mitra`) VALUES
 (123, 23, 1001),
 (124, 26, 1002),
 (125, 28, 1002),
@@ -443,9 +443,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 --
 
 --
--- Indexes for table `all_kegiatan`
+-- Indexes for table `all_kegiatan_pencacah`
 --
-ALTER TABLE `all_kegiatan`
+ALTER TABLE `all_kegiatan_pencacah`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -531,9 +531,9 @@ ALTER TABLE `user_sub_menu`
 --
 
 --
--- AUTO_INCREMENT for table `all_kegiatan`
+-- AUTO_INCREMENT for table `all_kegiatan_pencacah`
 --
-ALTER TABLE `all_kegiatan`
+ALTER TABLE `all_kegiatan_pencacah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --

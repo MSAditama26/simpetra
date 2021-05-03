@@ -50,7 +50,7 @@ function check_pencacah($kegiatan_id, $id_mitra)
 
     $ci->db->where('kegiatan_id', $kegiatan_id);
     $ci->db->where('id_mitra', $id_mitra);
-    $result = $ci->db->get('all_kegiatan');
+    $result = $ci->db->get('all_kegiatan_pencacah');
 
     if ($result->num_rows() > 0) {
         return "checked='checked'";
