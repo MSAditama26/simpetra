@@ -314,7 +314,7 @@ class Kegiatan extends CI_Controller
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
         $data['kriteria'] = $this->db->get('kriteria')->result_array();
 
-        $sqlnilai = "SELECT all_penilaian.*, kriteria.nama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id  WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
+        $sqlnilai = "SELECT all_penilaian.*, kriteria.nama FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id  JOIN all_kegiatan_pencacah ON all_penilaian.all_kegiatan_pencacah_id = all_kegiatan_pencacah.id WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id AND all_kegiatan_pencacah.id_mitra = $id_mitra";
         $data['nilai'] = $this->db->query($sqlnilai)->result_array();
 
         $this->load->view('template/header', $data);
