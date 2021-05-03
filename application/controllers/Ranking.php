@@ -193,7 +193,14 @@ class Ranking extends CI_Controller
 
         $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
 
-        $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
+        $all_kegiatan_pencacah_id = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $kegiatan_id";
+
+        $sql_jumlah_penilaian_sementara = "SELECT * FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($all_kegiatan_pencacah_id)";
+
+        $jumlah_penilaian_sementara = $this->db->query($sql_jumlah_penilaian_sementara)->num_rows();
+
+        // var_dump($jumlah_penilaian);
+        // die;
 
         if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
 
@@ -236,7 +243,11 @@ class Ranking extends CI_Controller
 
         $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
 
-        $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
+        $all_kegiatan_pencacah_id = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $kegiatan_id";
+
+        $sql_jumlah_penilaian_sementara = "SELECT * FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($all_kegiatan_pencacah_id)";
+
+        $jumlah_penilaian_sementara = $this->db->query($sql_jumlah_penilaian_sementara)->num_rows();
 
         if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
 
@@ -247,9 +258,14 @@ class Ranking extends CI_Controller
             $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
             $data['kriteria'] = $this->db->query($sql_kriteria)->result();
 
-            $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
-            FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
-            WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY all_penilaian.id_mitra";
+            // $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            // FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            // WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY all_penilaian.id_mitra";
+            // $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra as id_mitra, mitra.nama_lengkap as nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            FROM all_penilaian JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id = all_penilaian.all_kegiatan_pencacah_id JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id GROUP BY id_mitra ORDER BY id_mitra";
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
             $hasil = $this->Ranking_model->utility($kegiatan_id);
@@ -284,15 +300,24 @@ class Ranking extends CI_Controller
 
         $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
 
-        $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
+        $all_kegiatan_pencacah_id = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $kegiatan_id";
+
+        $sql_jumlah_penilaian_sementara = "SELECT * FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($all_kegiatan_pencacah_id)";
+
+        $jumlah_penilaian_sementara = $this->db->query($sql_jumlah_penilaian_sementara)->num_rows();
 
         if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
 
             $data['kegiatan_id'] = $kegiatan_id;
 
-            $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
-            FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
-            WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
+            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra as id_mitra, mitra.nama_lengkap as nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            FROM all_penilaian JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id = all_penilaian.all_kegiatan_pencacah_id JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id GROUP BY id_mitra ORDER BY bobot DESC";
+
+            // $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            // FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            // WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
+
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
             $this->load->view('template/header', $data);
@@ -318,15 +343,23 @@ class Ranking extends CI_Controller
 
         $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
 
-        $jumlah_penilaian_sementara = $this->db->get_where('all_penilaian', ['kegiatan_id' => $kegiatan_id])->num_rows();
+        $all_kegiatan_pencacah_id = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $kegiatan_id";
+
+        $sql_jumlah_penilaian_sementara = "SELECT * FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($all_kegiatan_pencacah_id)";
+
+        $jumlah_penilaian_sementara = $this->db->query($sql_jumlah_penilaian_sementara)->num_rows();
 
         if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
 
             $data['kegiatan_id'] = $kegiatan_id;
 
-            $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
-            FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
-            WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
+            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra as id_mitra, mitra.nama_lengkap as nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            FROM all_penilaian JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id = all_penilaian.all_kegiatan_pencacah_id JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id GROUP BY id_mitra ORDER BY bobot DESC";
+
+            // $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            // FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            // WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
             $this->load->view('template/header', $data);

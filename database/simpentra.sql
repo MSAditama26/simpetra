@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2021 at 09:26 AM
+-- Generation Time: May 03, 2021 at 11:29 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `simpentra`
+-- Database: `simpentra2`
 --
 
 -- --------------------------------------------------------
@@ -39,13 +39,8 @@ CREATE TABLE `all_kegiatan_pencacah` (
 --
 
 INSERT INTO `all_kegiatan_pencacah` (`id`, `kegiatan_id`, `id_mitra`) VALUES
-(123, 23, 1001),
-(124, 26, 1002),
-(125, 28, 1002),
-(126, 29, 1002),
-(127, 29, 1005),
-(128, 30, 1001),
-(129, 30, 1004);
+(130, 37, 1001),
+(131, 37, 1002);
 
 -- --------------------------------------------------------
 
@@ -67,7 +62,8 @@ INSERT INTO `all_kegiatan_pengawas` (`id`, `kegiatan_id`, `id_pengawas`) VALUES
 (44, 23, 123421),
 (45, 23, 123459),
 (46, 26, 123421),
-(49, 30, 123421);
+(49, 30, 123421),
+(50, 37, 123421);
 
 -- --------------------------------------------------------
 
@@ -77,8 +73,7 @@ INSERT INTO `all_kegiatan_pengawas` (`id`, `kegiatan_id`, `id_pengawas`) VALUES
 
 CREATE TABLE `all_penilaian` (
   `id` int(11) NOT NULL,
-  `kegiatan_id` int(11) NOT NULL,
-  `id_mitra` int(11) NOT NULL,
+  `all_kegiatan_pencacah_id` int(11) NOT NULL,
   `kriteria_id` int(11) NOT NULL,
   `nilai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -87,27 +82,27 @@ CREATE TABLE `all_penilaian` (
 -- Dumping data for table `all_penilaian`
 --
 
-INSERT INTO `all_penilaian` (`id`, `kegiatan_id`, `id_mitra`, `kriteria_id`, `nilai`) VALUES
-(212, 30, 1001, 1, 4),
-(213, 30, 1001, 2, 3),
-(214, 30, 1001, 3, 5),
-(215, 30, 1001, 4, 4),
-(216, 30, 1001, 5, 3),
-(217, 30, 1001, 6, 4),
-(218, 30, 1001, 7, 4),
-(219, 30, 1001, 8, 3),
-(220, 30, 1001, 9, 5),
-(221, 30, 1001, 10, 4),
-(222, 30, 1004, 1, 4),
-(223, 30, 1004, 2, 5),
-(224, 30, 1004, 3, 5),
-(225, 30, 1004, 4, 2),
-(226, 30, 1004, 5, 4),
-(227, 30, 1004, 6, 3),
-(228, 30, 1004, 7, 4),
-(229, 30, 1004, 8, 4),
-(230, 30, 1004, 9, 2),
-(231, 30, 1004, 10, 4);
+INSERT INTO `all_penilaian` (`id`, `all_kegiatan_pencacah_id`, `kriteria_id`, `nilai`) VALUES
+(232, 130, 1, 4),
+(233, 130, 2, 5),
+(234, 130, 3, 3),
+(235, 130, 4, 5),
+(236, 130, 5, 4),
+(237, 130, 6, 3),
+(238, 130, 7, 5),
+(239, 130, 8, 4),
+(240, 130, 9, 5),
+(241, 130, 10, 4),
+(242, 131, 1, 4),
+(243, 131, 2, 5),
+(244, 131, 3, 3),
+(245, 131, 4, 4),
+(246, 131, 5, 5),
+(247, 131, 6, 3),
+(248, 131, 7, 4),
+(249, 131, 8, 5),
+(250, 131, 9, 3),
+(252, 131, 10, 4);
 
 -- --------------------------------------------------------
 
@@ -132,15 +127,7 @@ CREATE TABLE `kegiatan` (
 --
 
 INSERT INTO `kegiatan` (`id`, `nama`, `start`, `finish`, `k_pengawas`, `k_pencacah`, `jenis_kegiatan`, `seksi_id`, `ob`) VALUES
-(23, 'Survei1', '1619560800', '1619733600', 2, 4, 1, 0, 1),
-(26, 'Survei2', '1619388000', '1619647200', 2, 4, 1, 0, 0),
-(28, 'Survei8', '1619820000', '1620424800', 2, 3, 1, 1, 0),
-(29, 'Survei5', '1619733600', '1620338400', 2, 3, 1, 1, 0),
-(30, 'Survei6', '1619733600', '1621548000', 2, 2, 1, 1, 0),
-(33, 'Survei3', '1618610400', '1619733600', 2, 2, 1, 0, 0),
-(34, 'Survei4', '1619733600', '1621029600', 1, 4, 1, 0, 1),
-(35, 'Sensus1', '1619215200', '1619647200', 2, 100, 2, 0, 1),
-(36, 'Sensus 2', '1619733600', '1622066400', 10, 100, 2, 0, 1);
+(37, 'survei1', '1619992800', '1620424800', 1, 2, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -534,25 +521,25 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `all_kegiatan_pencacah`
 --
 ALTER TABLE `all_kegiatan_pencacah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `all_kegiatan_pengawas`
 --
 ALTER TABLE `all_kegiatan_pengawas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `all_penilaian`
 --
 ALTER TABLE `all_penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
