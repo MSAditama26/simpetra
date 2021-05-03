@@ -132,12 +132,12 @@ class Auth extends CI_Controller
             if ($user) {
                 $token = base64_encode(random_bytes(32));
                 $user_token = [
-                    'email' => $email,
                     'token' => $token,
-                    'date_created' => time()
+                    'date_created_token' => time()
                 ];
 
-                $this->db->insert('user_token', $user_token);
+                $this->db->where('email', $email);
+                $this->db->update('user', $user_token);
                 $this->_sendEmail($token, 'forgot');
 
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Please check your email for reset your password!</div>');
@@ -157,7 +157,7 @@ class Auth extends CI_Controller
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
         if ($user) {
-            $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+            $user_token = $this->db->get_where('user', ['token' => $token])->row_array();
 
             if ($user_token) {
                 $this->session->set_userdata('reset_email', $email);

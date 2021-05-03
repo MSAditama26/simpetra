@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2021 at 04:42 AM
+-- Generation Time: May 03, 2021 at 09:26 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -44,7 +44,8 @@ INSERT INTO `all_kegiatan` (`id`, `kegiatan_id`, `id_mitra`) VALUES
 (125, 28, 1002),
 (126, 29, 1002),
 (127, 29, 1005),
-(128, 30, 1001);
+(128, 30, 1001),
+(129, 30, 1004);
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ CREATE TABLE `all_kegiatan_pengawas` (
 INSERT INTO `all_kegiatan_pengawas` (`id`, `kegiatan_id`, `id_pengawas`) VALUES
 (44, 23, 123421),
 (45, 23, 123459),
-(46, 26, 123421);
+(46, 26, 123421),
+(49, 30, 123421);
 
 -- --------------------------------------------------------
 
@@ -80,6 +82,32 @@ CREATE TABLE `all_penilaian` (
   `kriteria_id` int(11) NOT NULL,
   `nilai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `all_penilaian`
+--
+
+INSERT INTO `all_penilaian` (`id`, `kegiatan_id`, `id_mitra`, `kriteria_id`, `nilai`) VALUES
+(212, 30, 1001, 1, 4),
+(213, 30, 1001, 2, 3),
+(214, 30, 1001, 3, 5),
+(215, 30, 1001, 4, 4),
+(216, 30, 1001, 5, 3),
+(217, 30, 1001, 6, 4),
+(218, 30, 1001, 7, 4),
+(219, 30, 1001, 8, 3),
+(220, 30, 1001, 9, 5),
+(221, 30, 1001, 10, 4),
+(222, 30, 1004, 1, 4),
+(223, 30, 1004, 2, 5),
+(224, 30, 1004, 3, 5),
+(225, 30, 1004, 4, 2),
+(226, 30, 1004, 5, 4),
+(227, 30, 1004, 6, 3),
+(228, 30, 1004, 7, 4),
+(229, 30, 1004, 8, 4),
+(230, 30, 1004, 9, 2),
+(231, 30, 1004, 10, 4);
 
 -- --------------------------------------------------------
 
@@ -106,9 +134,9 @@ CREATE TABLE `kegiatan` (
 INSERT INTO `kegiatan` (`id`, `nama`, `start`, `finish`, `k_pengawas`, `k_pencacah`, `jenis_kegiatan`, `seksi_id`, `ob`) VALUES
 (23, 'Survei1', '1619560800', '1619733600', 2, 4, 1, 0, 1),
 (26, 'Survei2', '1619388000', '1619647200', 2, 4, 1, 0, 0),
-(28, 'Survei8', '1619474400', '1619647200', 2, 3, 1, 1, 0),
+(28, 'Survei8', '1619820000', '1620424800', 2, 3, 1, 1, 0),
 (29, 'Survei5', '1619733600', '1620338400', 2, 3, 1, 1, 0),
-(30, 'Survei6', '1620424800', '1621548000', 2, 2, 1, 1, 1),
+(30, 'Survei6', '1619733600', '1621548000', 2, 2, 1, 1, 0),
 (33, 'Survei3', '1618610400', '1619733600', 2, 2, 1, 0, 0),
 (34, 'Survei4', '1619733600', '1621029600', 1, 4, 1, 0, 1),
 (35, 'Sensus1', '1619215200', '1619647200', 2, 100, 2, 0, 1),
@@ -258,31 +286,33 @@ CREATE TABLE `user` (
   `role_id` int(1) NOT NULL,
   `seksi_id` int(11) NOT NULL DEFAULT 0,
   `is_active` int(1) NOT NULL DEFAULT 1,
-  `date_created` int(11) NOT NULL
+  `date_created` int(11) NOT NULL,
+  `token` varchar(128) DEFAULT NULL,
+  `date_created_token` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `email`, `image`, `password`, `role_id`, `seksi_id`, `is_active`, `date_created`) VALUES
-(5, 'superadmin', 'superadmin@gmail.com', 'default1.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 1, 0, 1, 1611115520),
-(6, 'admin produksi', 'admin_produksi@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 1, 1, 1611285346),
-(10, 'operator produksi', 'operator_produksi@gmail.com', 'default.jpg', '$2y$10$n29GI32gleFClX42/UO/DuQERQ4/kLOP4Y2XVgt3RbaP97A6iqHPe', 3, 1, 1, 1611285346),
-(21, 'mitra1', 'mitra1@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971427),
-(22, 'mitra2', 'mitra2@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971457),
-(23, 'mitra3', 'mitra3@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971484),
-(26, 'operator sosial', 'operator_sosial@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 2, 1, 1616562229),
-(27, 'operator distribusi', 'operator_distribusi@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 3, 1, 1616562286),
-(28, 'operator nerwilis', 'operator_nerwilis@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 4, 1, 1616562325),
-(29, 'admin sosial', 'admin_sosial@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 2, 1, 1616562428),
-(30, 'admin distribusi', 'admin_distribusi@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 3, 1, 1616562463),
-(31, 'admin nerwilis', 'admin_nerwilis@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 4, 1, 1616562492),
-(32, 'mitra4', 'mitra4@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1617443495),
-(33, 'mitra5', 'mitra5@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1617445262),
-(42, 'Sonny A', 'sny171@yahoo.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 4, 0, 1, 0),
-(43, 'Aditama', 'sny998@yahoo.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 4, 0, 1, 0),
-(44, 'Sny', 'sny@stis.ac.id', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 4, 0, 1, 1617619662);
+INSERT INTO `user` (`id`, `nama`, `email`, `image`, `password`, `role_id`, `seksi_id`, `is_active`, `date_created`, `token`, `date_created_token`) VALUES
+(5, 'superadmin', 'superadmin@gmail.com', 'default1.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 1, 0, 1, 1611115520, '', 0),
+(6, 'admin produksi', 'admin_produksi@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 1, 1, 1611285346, '', 0),
+(10, 'operator produksi', 'operator_produksi@gmail.com', 'default.jpg', '$2y$10$n29GI32gleFClX42/UO/DuQERQ4/kLOP4Y2XVgt3RbaP97A6iqHPe', 3, 1, 1, 1611285346, '', 0),
+(21, 'mitra1', 'mitra1@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971427, '', 0),
+(22, 'mitra2', 'mitra2@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971457, '', 0),
+(23, 'mitra3', 'mitra3@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971484, '', 0),
+(26, 'operator sosial', 'operator_sosial@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 2, 1, 1616562229, '', 0),
+(27, 'operator distribusi', 'operator_distribusi@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 3, 1, 1616562286, '', 0),
+(28, 'operator nerwilis', 'operator_nerwilis@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 4, 1, 1616562325, '', 0),
+(29, 'admin sosial', 'admin_sosial@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 2, 1, 1616562428, '', 0),
+(30, 'admin distribusi', 'admin_distribusi@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 3, 1, 1616562463, '', 0),
+(31, 'admin nerwilis', 'admin_nerwilis@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 2, 4, 1, 1616562492, '', 0),
+(32, 'mitra4', 'mitra4@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1617443495, '', 0),
+(33, 'mitra5', 'mitra5@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1617445262, '', 0),
+(42, 'Sonny A', 'sny171@yahoo.com', 'default.jpg', '$2y$10$ZH/UkZqoNPu2xLLd06CEpuCmjTp7xX/gKj5kUEbxra7xR3UoZ69ia', 4, 0, 1, 1620026355, '/ROTuUxGRTKiia9frUI4AsZlWETf1iboUrOW3ik6jUo=', 1620026607),
+(43, 'Aditama', 'sny998@yahoo.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 4, 0, 1, 0, '', 0),
+(44, 'Sny', 'sny@stis.ac.id', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 4, 0, 1, 1617619662, '', 0);
 
 -- --------------------------------------------------------
 
@@ -408,32 +438,6 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (29, 8, 'Penghitungan', 'ranking/pilih_kegiatan', 'fas fa-fw fa-pen', 1),
 (32, 19, 'Jadwal', 'timeline/index', 'fas fa-fw fa-calendar-alt', 1);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `user_token`
---
-
-CREATE TABLE `user_token` (
-  `id` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `token` varchar(100) NOT NULL,
-  `date_created` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_token`
---
-
-INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
-(3, 'atama26.at@gmail.com', 'Wf/QlYQDgmwNMIQtErfc3lF1XFKujvoJAnZW2XCwzv4=', 1611301667),
-(4, 'atama26.at@gmail.com', 'hK8Beenhxhcr5jo/MrzaJIwfb9BL64jKqUWx+NoOQGw=', 1611559633),
-(5, 'atama26.at@gmail.com', 'I8+e39kbuYerN+zHUjyo4pmAbAm76iaBmwRHVANGWlw=', 1611559656),
-(6, 'kucingbahintalo42@gmail.com', 'oG1tvjY5a0REX7erqH31QjEtldX9w5MsbOMG+gzv8JE=', 1611559743),
-(7, 'atama26.at@gmail.com', 'L3kp2Wel+10VaSoDONyKrUpkjim0uho+q/hojrHwVDA=', 1611559861),
-(8, 'superadmin1@gmail.com', 'ElsMnKqZ8QiG04QiGv3AX7jpM+obXwDTrC9iAU2Vrxg=', 1611650168),
-(9, 'sny171@yahoo.com', '9pcDFeNCmvBrwNjpaMxjXeEuN60CUB8i7z4utYydOxM=', 1619345966);
-
 --
 -- Indexes for dumped tables
 --
@@ -523,12 +527,6 @@ ALTER TABLE `user_sub_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_token`
---
-ALTER TABLE `user_token`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -536,19 +534,19 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `all_kegiatan`
 --
 ALTER TABLE `all_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `all_kegiatan_pengawas`
 --
 ALTER TABLE `all_kegiatan_pengawas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `all_penilaian`
 --
 ALTER TABLE `all_penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
@@ -597,12 +595,6 @@ ALTER TABLE `user_role`
 --
 ALTER TABLE `user_sub_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT for table `user_token`
---
-ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
