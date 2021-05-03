@@ -37,7 +37,10 @@
                             <td>
                                 <?php for ($i = 1; $i < 6; $i++) : ?>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($kegiatan['id'], $mitra['id_mitra'], $k['id'], $value); ?> data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+                                        <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($all_kegiatan_pencacah['id'], $k['id'], $value); ?> data-all_kegiatan_pencacah_id="<?= $all_kegiatan_pencacah['id']; ?>" data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+
+
+                                        <!-- <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($kegiatan['id'], $mitra['id_mitra'], $k['id'], $value); ?> data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>"> -->
                                         <label class="form-check-label">&nbsp;&nbsp;<?= $i ?></label>
                                     </div>
                                 <?php endfor; ?>

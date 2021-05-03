@@ -133,6 +133,7 @@
      });
 
      $('.form-nilai-input').on('click', function() {
+         const allkegiatanpencacahId = $(this).data('all_kegiatan_pencacah_id');
          const kegiatanId = $(this).data('kegiatan_id');
          const mitraId = $(this).data('id_mitra');
          const kriteriaId = $(this).data('kriteria');
@@ -142,8 +143,7 @@
              url: "<?= base_url('penilaian/changenilai') ?>",
              type: 'post',
              data: {
-                 kegiatanId: kegiatanId,
-                 mitraId: mitraId,
+                 allkegiatanpencacahId: allkegiatanpencacahId,
                  kriteriaId: kriteriaId,
                  nilaiId: nilaiId
 
@@ -154,6 +154,29 @@
          });
 
      });
+
+     //  $('.form-nilai-input').on('click', function() {
+     //      const kegiatanId = $(this).data('kegiatan_id');
+     //      const mitraId = $(this).data('id_mitra');
+     //      const kriteriaId = $(this).data('kriteria');
+     //      const nilaiId = $(this).data('nilai');
+
+     //      $.ajax({
+     //          url: "<?= base_url('penilaian/changenilai') ?>",
+     //          type: 'post',
+     //          data: {
+     //              kegiatanId: kegiatanId,
+     //              mitraId: mitraId,
+     //              kriteriaId: kriteriaId,
+     //              nilaiId: nilaiId
+
+     //          },
+     //          success: function() {
+     //              document.location.href = "<?= base_url('penilaian/isi_nilai/'); ?>" + kegiatanId + "/" + mitraId;
+     //          }
+     //      });
+
+     //  });
  </script>
 
 

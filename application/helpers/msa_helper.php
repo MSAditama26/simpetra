@@ -70,12 +70,11 @@ function check_pengawas($kegiatan_id, $nip)
     }
 }
 
-function check_nilai($kegiatan_id, $id_mitra, $kriteria_id, $nilai)
+function check_nilai($all_kegiatan_pencacah_id, $kriteria_id, $nilai)
 {
     $ci = get_instance();
 
-    $ci->db->where('kegiatan_id', $kegiatan_id);
-    $ci->db->where('id_mitra', $id_mitra);
+    $ci->db->where('all_kegiatan_pencacah_id', $all_kegiatan_pencacah_id);
     $ci->db->where('kriteria_id', $kriteria_id);
     $ci->db->where('nilai', $nilai);
     $result = $ci->db->get('all_penilaian');
@@ -84,3 +83,18 @@ function check_nilai($kegiatan_id, $id_mitra, $kriteria_id, $nilai)
         return "checked='checked'";
     }
 }
+
+// function check_nilai($kegiatan_id, $id_mitra, $kriteria_id, $nilai)
+// {
+//     $ci = get_instance();
+
+//     $ci->db->where('kegiatan_id', $kegiatan_id);
+//     $ci->db->where('id_mitra', $id_mitra);
+//     $ci->db->where('kriteria_id', $kriteria_id);
+//     $ci->db->where('nilai', $nilai);
+//     $result = $ci->db->get('all_penilaian');
+
+//     if ($result->num_rows() > 0) {
+//         return "checked='checked'";
+//     }
+// }

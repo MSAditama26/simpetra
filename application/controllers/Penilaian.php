@@ -59,8 +59,13 @@ class Penilaian extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+        $kegiatan_id = $data['kegiatan']['id'];
 
         $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
+        $id_mitra = $data['mitra']['id_mitra'];
+
+        $data['all_kegiatan_pencacah'] = $this->db->get_where('all_kegiatan_pencacah', ['kegiatan_id' => $kegiatan_id, 'id_mitra' => $id_mitra])->row_array();
+
 
         $sql_kriteria = "SELECT * FROM kriteria ORDER BY id ASC";
         $data['kriteria'] = $this->db->query($sql_kriteria)->result_array();
@@ -74,21 +79,18 @@ class Penilaian extends CI_Controller
 
     public function changenilai()
     {
-        $kegiatan_id = $this->input->post('kegiatanId');
-        $id_mitra = $this->input->post('mitraId');
+        $all_kegiatan_pencacah_id = $this->input->post('allkegiatanpencacahId');
         $kriteria_id = $this->input->post('kriteriaId');
         $nilai = $this->input->post('nilaiId');
 
         $data = [
-            'kegiatan_id' => $kegiatan_id,
-            'id_mitra' => $id_mitra,
+            'all_kegiatan_pencacah_id' => $all_kegiatan_pencacah_id,
             'kriteria_id' => $kriteria_id,
             'nilai' => $nilai
         ];
 
         $data2 = [
-            'kegiatan_id' => $kegiatan_id,
-            'id_mitra' => $id_mitra,
+            'all_kegiatan_pencacah_id' => $all_kegiatan_pencacah_id,
             'kriteria_id' => $kriteria_id
         ];
 
@@ -97,10 +99,38 @@ class Penilaian extends CI_Controller
         if ($result->num_rows() < 1) {
             $this->db->insert('all_penilaian', $data);
         } else {
-            $query = "UPDATE all_penilaian SET nilai = $nilai WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra AND kriteria_id = $kriteria_id";
+            $query = "UPDATE all_penilaian SET nilai = $nilai WHERE all_kegiatan_pencacah_id = $all_kegiatan_pencacah_id  AND kriteria_id = $kriteria_id";
             $this->db->query($query);
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Nilai changed!</div>');
+
+        // $kegiatan_id = $this->input->post('kegiatanId');
+        // $id_mitra = $this->input->post('mitraId');
+        // $kriteria_id = $this->input->post('kriteriaId');
+        // $nilai = $this->input->post('nilaiId');
+
+        // $data = [
+        //     'kegiatan_id' => $kegiatan_id,
+        //     'id_mitra' => $id_mitra,
+        //     'kriteria_id' => $kriteria_id,
+        //     'nilai' => $nilai
+        // ];
+
+        // $data2 = [
+        //     'kegiatan_id' => $kegiatan_id,
+        //     'id_mitra' => $id_mitra,
+        //     'kriteria_id' => $kriteria_id
+        // ];
+
+        // $result = $this->db->get_where('all_penilaian', $data2);
+
+        // if ($result->num_rows() < 1) {
+        //     $this->db->insert('all_penilaian', $data);
+        // } else {
+        //     $query = "UPDATE all_penilaian SET nilai = $nilai WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra AND kriteria_id = $kriteria_id";
+        //     $this->db->query($query);
+        // }
+        // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Nilai changed!</div>');
     }
 
     public function pilihkegiatan()
@@ -179,7 +209,10 @@ class Penilaian extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpenilaian = "SELECT all_penilaian.*, kriteria.nama, subkriteria.konversi FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai WHERE all_penilaian.kegiatan_id = $kegiatan_id AND all_penilaian.id_mitra = $id_mitra ORDER BY kriteria_id ASC";
+        $sql_all_kegiatan_pencacah_id = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
+        $all_kegiatan_pencacah_id = implode($this->db->query($sql_all_kegiatan_pencacah_id)->row_array());
+
+        $sqlpenilaian = "SELECT all_penilaian.*, kriteria.nama, subkriteria.konversi FROM all_penilaian LEFT JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai WHERE all_penilaian.all_kegiatan_pencacah_id = $all_kegiatan_pencacah_id ORDER BY kriteria_id ASC";
         $data['penilaian'] = $this->db->query($sqlpenilaian)->result_array();
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
@@ -187,7 +220,7 @@ class Penilaian extends CI_Controller
 
         $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
 
-        $sqlrow = "SELECT count(*) FROM all_penilaian WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
+        $sqlrow = "SELECT count(*) FROM all_penilaian WHERE all_kegiatan_pencacah_id = $all_kegiatan_pencacah_id";
         $row = implode($this->db->query($sqlrow)->row_array());
 
         $role_id = $data['user']['role_id'];
