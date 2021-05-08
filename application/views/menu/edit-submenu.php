@@ -14,7 +14,7 @@
                 <div class="form-group row">
                     <label for="menu" class="col-sm-3 col-form-label">Menu</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="menu" name="menu" value="<?= $submenu['menu_id']; ?>" readonly>
+                        <input type="text" class="form-control" id="menu" name="menu" value="<?= $submenu['menu']; ?>" readonly>
                     </div>
                 </div>
                 <div class="form-group row">

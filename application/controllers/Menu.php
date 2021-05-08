@@ -98,7 +98,8 @@ class Menu extends CI_Controller
     {
         $data['title'] = 'Edit Submenu';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['submenu'] = $this->db->get_where('user_sub_menu', ['id' => $id])->row_array();
+        $query_submenu = "SELECT user_sub_menu.*, user_menu.menu FROM user_sub_menu JOIN user_menu ON user_sub_menu.menu_id = user_menu.id WHERE user_sub_menu.id = $id";
+        $data['submenu'] = $this->db->query($query_submenu)->row_array();
 
         $this->form_validation->set_rules('title', 'Title', 'required|trim');
         $this->form_validation->set_rules('url', 'Url', 'required|trim');

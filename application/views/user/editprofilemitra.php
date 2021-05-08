@@ -109,12 +109,7 @@
                         <?= form_error('bahasa', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="nilai" class="col-sm-3 col-form-label">Rata-rata Nilai</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="nilai" name="nilai" value="<?= $mitra['nilai']; ?>" readonly>
-                    </div>
-                </div>
+
             </div>
         </div>
         </form>
