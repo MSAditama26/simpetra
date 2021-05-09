@@ -9,51 +9,55 @@
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newUserModal">Add New User</a>
 
-            <table class="table table-borderless table-hover" id="mydata">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Date created</th>
-                        <th scope="col">Action</th>
-
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php $i = 1; ?>
-                    <?php foreach ($alluser as $as) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover" id="mydata">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <td><?= $as['nama']; ?></td>
-                            <td><?= $as['email']; ?></td>
-                            <td><?= $as['role']; ?></td>
-                            <?php if ($as['is_active'] == '1') : ?>
-                                <td><i class="fas fa-check" style="color:yellowgreen" title="Active"></i>
-                                </td>
-                            <?php else : ?>
-                                <td><i class="fas fa-times" style="color:red" title="Nonactive"></i>
-                                </td>
-                            <?php endif; ?>
-                            <td><?= date('d F Y', $as['date_created']); ?></td>
-                            <td>
-                                <?php if ($as['is_active'] == '1') : ?>
-                                    <a href="<?= base_url('admin/deactivated/') . $as['id']; ?>" class="badge badge-danger">deactivated?</a>
-                                <?php else : ?>
-                                    <a href="<?= base_url('admin/activated/') . $as['id']; ?>" class="badge badge-success">activated?</a>
-                                <?php endif; ?>
-                                <a> | </a>
-                                <a href=" <?= base_url('admin/deleteuser/') . $as['id']; ?>" class="badge badge-danger">delete</a>
-                            </td>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date created</th>
+                            <th scope="col">Action</th>
 
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php $i = 1; ?>
+                        <?php foreach ($alluser as $as) : ?>
+                            <tr align=center>
+                                <td><?= $as['nama']; ?></td>
+                                <td><?= $as['email']; ?></td>
+                                <td><?= $as['role']; ?></td>
+                                <?php if ($as['is_active'] == '1') : ?>
+                                    <td><i class="fas fa-check" style="color:yellowgreen" title="Active"></i>
+                                    </td>
+                                <?php else : ?>
+                                    <td><i class="fas fa-times" style="color:red" title="Nonactive"></i>
+                                    </td>
+                                <?php endif; ?>
+                                <td><?= date('d F Y', $as['date_created']); ?></td>
+                                <td>
+                                    <?php if ($as['is_active'] == '1') : ?>
+                                        <a href="<?= base_url('admin/deactivated/') . $as['id']; ?>" class="badge badge-danger">deactivated?</a>
+                                    <?php else : ?>
+                                        <a href="<?= base_url('admin/activated/') . $as['id']; ?>" class="badge badge-success">activated?</a>
+                                    <?php endif; ?>
+                                    <a> | </a>
+                                    <a href=" <?= base_url('admin/deleteuser/') . $as['id']; ?>" class="badge badge-danger">delete</a>
+                                </td>
+
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
+    <br>
 
 
 </div>
@@ -103,7 +107,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>

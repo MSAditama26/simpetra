@@ -25,4 +25,18 @@ class Menu_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('user_sub_menu');
     }
+
+    public function deactivated($id)
+    {
+        $this->db->set('is_active', 0);
+        $this->db->Where('id', $id);
+        $this->db->update('user_sub_menu');
+    }
+
+    public function activated($id)
+    {
+        $this->db->set('is_active', 1);
+        $this->db->Where('id', $id);
+        $this->db->update('user_sub_menu');
+    }
 }

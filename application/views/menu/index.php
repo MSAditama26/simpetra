@@ -9,32 +9,36 @@
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMenuModal">Add New Menu</a>
 
-            <table class="table table-borderless table-hover" id="mydata">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th scope="col">#</th>
-                        <th scope="col">Menu</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php $i = 1; ?>
-                    <?php foreach ($menu as $m) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover" id="mydata">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $m['menu']; ?></td>
-                            <td>
-                                <a href="<?= base_url('menu/editmenu/') . $m['id']; ?>" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('menu/deletemenu/') . $m['id']; ?>" class="badge badge-danger">delete</a>
-                            </td>
+                            <th scope="col">#</th>
+                            <th scope="col">Menu</th>
+                            <th scope="col">Action</th>
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php $i = 1; ?>
+                        <?php foreach ($menu as $m) : ?>
+                            <tr align=center>
+                                <th scope="row"><?= $i; ?></th>
+                                <td><?= $m['menu']; ?></td>
+                                <td>
+                                    <a href="<?= base_url('menu/editmenu/') . $m['id']; ?>" class="badge badge-success">edit</a>
+                                    <a href="<?= base_url('menu/deletemenu/') . $m['id']; ?>" class="badge badge-danger">delete</a>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
+    <br>
 
 
 </div>
@@ -61,7 +65,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>

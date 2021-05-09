@@ -31,13 +31,6 @@
                         <?= form_error('icon', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="is_active" class="col-sm-3 col-form-label">Active</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="is_active" name="is_active" value="<?= $submenu['is_active']; ?>">
-                        <?= form_error('is_active', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-3">
@@ -50,7 +43,7 @@
 
     </div>
 
-
+    <br>
 
 </div>
 <!-- /.container-fluid -->

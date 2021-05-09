@@ -7,59 +7,70 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMitraModal">Add New Mitra</a>
+            <div class="row" align=left style="color:#996433;">
+                <div class="col-sm-4">
+                    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMitraModal">Add New Mitra</a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="" class="btn btn-success">Import Excel</a>
+                </div>
+            </div>
 
-            <table class="table table-borderless table-hover" id="mydata">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th scope="col">#</th>
-                        <th scope="col">ID Mitra</th>
-                        <th scope="col">Nama Lengkap</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Alamat</th>
-                        <th scope="col">No. Telepon/HP</th>
-                        <th scope="col">Aksi</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php $i = 1; ?>
-                    <?php foreach ($mitra as $m) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover" id="mydata">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $m['id_mitra']; ?></td>
-                            <td><?= $m['nama_lengkap']; ?></td>
-                            <td><?= $m['email']; ?></td>
-                            <td><?= $m['alamat']; ?></td>
-                            <td><?= $m['no_hp']; ?></td>
-                            <td>
-                                <a href="<?= base_url('master/details_mitra/') . $m['id_mitra']; ?>" class="badge badge-primary">details</a>
-                                <a href="<?= base_url('master/editmitra/') . $m['id_mitra']; ?>" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('master/deletemitra/') . $m['id_mitra']; ?>" class="badge badge-danger">delete</a>
-                            </td>
-                            <?php if ($m['is_active'] == '1') : ?>
-                                <td>
-                                    <i class="fas fa-check" style="color:yellowgreen" title="Active"></i>
-                                    <a> | </a>
-                                    <a href="<?= base_url('master/deactivated/') . $m['id_mitra']; ?>" class="badge badge-danger">deactivated?</a>
-
-                                </td>
-                            <?php else : ?>
-                                <td>
-                                    <i class="fas fa-times" style="color:red" title="Nonactive"></i>
-                                    <a> | </a>
-                                    <a href="<?= base_url('master/activated/') . $m['id_mitra']; ?>" class="badge badge-success">activated?</a>
-                                </td>
-                            <?php endif; ?>
+                            <th scope="col">#</th>
+                            <th scope="col">ID Mitra</th>
+                            <th scope="col">Nama Lengkap</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">No. Telepon/HP</th>
+                            <th scope="col">Aksi</th>
+                            <th scope="col">Status</th>
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php $i = 1; ?>
+                        <?php foreach ($mitra as $m) : ?>
+                            <tr align=center>
+                                <th scope="row"><?= $i; ?></th>
+                                <td><?= $m['id_mitra']; ?></td>
+                                <td><?= $m['nama_lengkap']; ?></td>
+                                <td><?= $m['email']; ?></td>
+                                <td><?= $m['alamat']; ?></td>
+                                <td><?= $m['no_hp']; ?></td>
+                                <td>
+                                    <a href="<?= base_url('master/details_mitra/') . $m['id_mitra']; ?>" class="badge badge-primary">details</a>
+                                    <a href="<?= base_url('master/editmitra/') . $m['id_mitra']; ?>" class="badge badge-success">edit</a>
+                                    <a href="<?= base_url('master/deletemitra/') . $m['id_mitra']; ?>" class="badge badge-danger">delete</a>
+                                </td>
+                                <?php if ($m['is_active'] == '1') : ?>
+                                    <td>
+                                        <i class="fas fa-check" style="color:yellowgreen" title="Active"></i>
+                                        <a> | </a>
+                                        <a href="<?= base_url('master/deactivated/') . $m['id_mitra']; ?>" class="badge badge-danger">deactivated?</a>
+
+                                    </td>
+                                <?php else : ?>
+                                    <td>
+                                        <i class="fas fa-times" style="color:red" title="Nonactive"></i>
+                                        <a> | </a>
+                                        <a href="<?= base_url('master/activated/') . $m['id_mitra']; ?>" class="badge badge-success">activated?</a>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
+
         </div>
 
     </div>
-
+    <br>
 
 </div>
 <!-- /.container-fluid -->
@@ -115,7 +126,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>

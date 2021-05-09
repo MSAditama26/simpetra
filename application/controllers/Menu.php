@@ -104,7 +104,6 @@ class Menu extends CI_Controller
         $this->form_validation->set_rules('title', 'Title', 'required|trim');
         $this->form_validation->set_rules('url', 'Url', 'required|trim');
         $this->form_validation->set_rules('icon', 'Icon', 'required|trim');
-        $this->form_validation->set_rules('is_active', 'Is active', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -116,8 +115,7 @@ class Menu extends CI_Controller
             $data = [
                 'title' => $this->input->post('title'),
                 'url' => $this->input->post('url'),
-                'icon' => $this->input->post('icon'),
-                'is_active' => $this->input->post('is_active')
+                'icon' => $this->input->post('icon')
             ];
 
             $this->db->set($data);
@@ -140,6 +138,20 @@ class Menu extends CI_Controller
     {
         $this->Menu_model->deletesubmenu($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Sub Menu has been deleted!</div>');
+        redirect('menu/submenu');
+    }
+
+    public function deactivated($id)
+    {
+        $this->Menu_model->deactivated($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Submenu has been deactivated!</div>');
+        redirect('menu/submenu');
+    }
+
+    public function activated($id)
+    {
+        $this->Menu_model->activated($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Submenu has been activated!</div>');
         redirect('menu/submenu');
     }
 }
