@@ -12,10 +12,10 @@
                     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMitraModal">Add New Mitra</a>
                 </div>
                 <div class="col-sm-4">
-                    <a href="" class="btn btn-success mb-3" data-toggle="modal" data-target="#importModal">Import Data Mitra</a>
+                    <a href="" class="btn btn-success mb-3" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-upload"></i> Import Data Mitra</a>
                 </div>
                 <div class="col-sm-4">
-                    <a href="<?= base_url('excel/data_mitra.xlsx') ?>" class="btn btn-danger mb-3">Download Format Import</a>
+                    <a href="<?= base_url('excel/data_mitra.xlsx') ?>" class="btn btn-danger mb-3"><i class="fas fa-file-download"></i> Download Format Import</a>
                 </div>
             </div>
 
