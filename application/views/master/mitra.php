@@ -12,9 +12,14 @@
                     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMitraModal">Add New Mitra</a>
                 </div>
                 <div class="col-sm-4">
-                    <a href="" class="btn btn-success">Import Excel</a>
+                    <a href="" class="btn btn-success mb-3" data-toggle="modal" data-target="#importModal">Import Data Mitra</a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="<?= base_url('excel/data_mitra.xlsx') ?>" class="btn btn-danger mb-3">Download Format Import</a>
                 </div>
             </div>
+
+
 
             <div class="table-responsive">
                 <table class="table table-borderless table-hover" id="mydata">
@@ -128,6 +133,30 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import Data Mitra</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('master/import') ?>" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="excel" aria-describedby="sizing-addon2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Import Data</button>
                 </div>
             </form>
         </div>

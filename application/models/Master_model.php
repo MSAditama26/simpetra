@@ -34,4 +34,19 @@ class Master_model extends CI_Model
         $this->db->where('nip', $nip);
         $this->db->delete('pegawai');
     }
+
+    public function insert_batch($data)
+    {
+        $this->db->insert_batch('mitra', $data);
+
+        return $this->db->affected_rows();
+    }
+
+    public function check_id_mitra($id_mitra)
+    {
+        $this->db->where('id_mitra', $id_mitra);
+        $data = $this->db->get('mitra');
+
+        return $data->num_rows();
+    }
 }

@@ -77,6 +77,71 @@ class Master extends CI_Controller
         }
     }
 
+    public function import()
+    {
+        $this->form_validation->set_rules('excel', 'File', 'trim|required');
+        if ($_FILES['excel']['name'] == '') {
+            $this->session->set_flashdata('msg', 'File harus diisi');
+        } else {
+            $config['upload_path'] = './assets/excel/';
+            $config['allowed_types'] = 'xls|xlsx';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('excel')) {
+                $error = array('error' => $this->upload->display_errors());
+            } else {
+                $data = $this->upload->data();
+
+                error_reporting(E_ALL);
+                date_default_timezone_set('Asia/Jakarta');
+
+                include './assets/phpexcel/Classes/PHPExcel/IOFactory.php';
+
+                $inputFileName = './assets/excel/' . $data['file_name'];
+                $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+                $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+
+                $index = 0;
+                foreach ($sheetData as $key => $value) {
+                    if ($key != 1) {
+                        $check = $this->Master_model->check_id_mitra($value['A']);
+
+                        if ($check != 1) {
+                            $resultData[$index]['id_mitra'] = $value['A'];
+                            $resultData[$index]['nama_lengkap'] = $value['B'];
+                            $resultData[$index]['nama_panggilan'] = $value['C'];
+                            $resultData[$index]['email'] = $value['D'];
+                            $resultData[$index]['alamat'] = $value['E'];
+                            $resultData[$index]['no_hp'] = $value['F'];
+                            $resultData[$index]['no_wa'] = $value['G'];
+                            $resultData[$index]['no_tsel'] = $value['H'];
+                            $resultData[$index]['pekerjaan_utama'] = $value['I'];
+                            $resultData[$index]['kompetensi'] = $value['J'];
+                            $resultData[$index]['bahasa'] = $value['K'];
+                        }
+                    }
+                    $index++;
+                }
+
+                unlink('./assets/excel/' . $data['file_name']);
+
+                if (count($resultData) != 0) {
+                    $result = $this->Master_model->insert_batch($resultData);
+                    if ($result > 0) {
+                        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Mitra has been imported!</div>');
+                        redirect('master/mitra');
+                        echo json_encode($resultData);
+                        die;
+                    }
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Import failed!</div>');
+                    redirect('master/mitra');
+                }
+            }
+        }
+    }
+
     public function details_mitra($id_mitra)
     {
         $data['title'] = 'Details Mitra';
