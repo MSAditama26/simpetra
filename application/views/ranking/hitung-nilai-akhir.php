@@ -19,40 +19,43 @@
             <hr>
 
             <h3 style="color: #996433;">Tabel Nilai Akhir</h3>
-            <table class="table table-borderless table-hover">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th>Ranking</th>
-                        <th>Mitra</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php $i = 1; ?>
-                    <?php foreach ($id_mitra as $col) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <td>
-                                <?= $i; ?>
-                            </td>
-                            <td>
-                                <?= $col->nama_lengkap; ?>
-                            </td>
-                            <td>
-                                <?= number_format($col->bobot, 4); ?>
-                            </td>
-
-
+                            <th>Ranking</th>
+                            <th>Mitra</th>
+                            <th>Total</th>
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php $i = 1; ?>
+                        <?php foreach ($id_mitra as $col) : ?>
+                            <tr align=center>
+                                <td>
+                                    <?= $i; ?>
+                                </td>
+                                <td>
+                                    <?= $col->nama_lengkap; ?>
+                                </td>
+                                <td>
+                                    <?= number_format($col->bobot, 4); ?>
+                                </td>
 
-                </tbody>
-            </table>
+
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
 
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 

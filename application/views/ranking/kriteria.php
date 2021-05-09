@@ -16,35 +16,37 @@
             </div>
 
 
-
-            <table class="table table-borderless table-hover">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th scope="col">Prioritas</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Bobot</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php foreach ($kriteria as $k) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <th><?= $k['prioritas']; ?></th>
-                            <td><?= $k['nama']; ?></td>
-                            <td><?= number_format($k['bobot'], 4); ?></td>
-                            <td>
-                                <a href="<?= base_url('ranking/hitung_bobot_kriteria/') . $k['prioritas']; ?>" class="badge badge-primary">Perbarui bobot</a>
-                                <a href="<?= base_url('ranking/editkriteria/') . $k['id']; ?>" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('ranking/deletekriteria/') . $k['id']; ?>" class="badge badge-danger">delete</a>
-                            </td>
+                            <th scope="col">Prioritas</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Bobot</th>
+                            <th scope="col">Aksi</th>
                         </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php foreach ($kriteria as $k) : ?>
+                            <tr align=center>
+                                <th><?= $k['prioritas']; ?></th>
+                                <td><?= $k['nama']; ?></td>
+                                <td><?= number_format($k['bobot'], 4); ?></td>
+                                <td>
+                                    <a href="<?= base_url('ranking/hitung_bobot_kriteria/') . $k['prioritas']; ?>" class="badge badge-primary">Perbarui bobot</a>
+                                    <a href="<?= base_url('ranking/editkriteria/') . $k['id']; ?>" class="badge badge-success">edit</a>
+                                    <a href="<?= base_url('ranking/deletekriteria/') . $k['id']; ?>" class="badge badge-danger">delete</a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
-
+    <br>
 
 </div>
 <!-- /.container-fluid -->
@@ -79,7 +81,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>

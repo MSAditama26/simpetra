@@ -1,7 +1,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <div class="row">
+    <div class="row" style="color:#996433">
         <div class="col-lg-6">
             <?= form_open_multipart('user/edit'); ?>
             <div class="form-group row">
@@ -41,7 +41,7 @@
             </form>
         </div>
     </div>
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 </div>

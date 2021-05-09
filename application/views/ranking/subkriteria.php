@@ -10,34 +10,36 @@
                     <a href="<?= base_url('ranking/kriteria'); ?>" class="btn btn-success mb-3">Kriteria</a>
                 </div>
             </div>
-
-            <table class="table table-borderless table-hover">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th scope="col">Prioritas</th>
-                        <th scope="col">Nilai</th>
-                        <th scope="col">Deskripsi</th>
-                        <th scope="col">Bobot</th>
-                        <!-- <th scope="col">Aksi</th> -->
-
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php foreach ($subkriteria as $sk) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <th><?= $sk['prioritas']; ?></th>
-                            <td><?= $sk['nilai']; ?></td>
-                            <td><?= $sk['deskripsi']; ?></td>
-                            <td><?= number_format($sk['bobot'], 4); ?></td>
-                            <!-- <td><a href="<?= base_url('ranking/hitung_bobot_subkriteria/') . $sk['prioritas']; ?>" class="badge badge-primary">Perbarui bobot</a></td> -->
+                            <th scope="col">Prioritas</th>
+                            <th scope="col">Nilai</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Bobot</th>
+                            <!-- <th scope="col">Aksi</th> -->
+
                         </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php foreach ($subkriteria as $sk) : ?>
+                            <tr align=center>
+                                <th><?= $sk['prioritas']; ?></th>
+                                <td><?= $sk['nilai']; ?></td>
+                                <td><?= $sk['deskripsi']; ?></td>
+                                <td><?= number_format($sk['bobot'], 4); ?></td>
+                                <!-- <td><a href="<?= base_url('ranking/hitung_bobot_subkriteria/') . $sk['prioritas']; ?>" class="badge badge-primary">Perbarui bobot</a></td> -->
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
-
+    <br>
 
 </div>
 <!-- /.container-fluid -->

@@ -4,8 +4,8 @@
     <div class="row">
 
         <?= form_open_multipart('user/editprofilemitra'); ?>
-        <div class="row">
-            <div class="col-lg-6">
+        <div class="row" style=" color:#996433;">
+            <div class=" col-lg-6">
                 <div class="form-group row">
                     <div class="col-sm-3">Picture</div>
                     <div class="col-sm-8">
@@ -57,11 +57,7 @@
                 </div>
 
 
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    </div>
-                </div>
+
 
 
             </div>
@@ -109,12 +105,16 @@
                         <?= form_error('bahasa', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </div>
             </div>
         </div>
         </form>
     </div>
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 </div>

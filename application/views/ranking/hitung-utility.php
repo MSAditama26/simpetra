@@ -19,55 +19,58 @@
             <hr>
 
             <h3 style="color: #996433;">Tabel Utility</h3>
-            <table class="table table-borderless table-hover">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th>Mitra</th>
-
-                        <?php foreach ($kriteria as $header) : ?>
-                            <th>
-                                <?= $header->nama; ?>
-                            </th>
-                        <?php endforeach; ?>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php foreach ($id_mitra as $col) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <td>
-                                <?= $col->nama_lengkap; ?>
-                            </td>
-                            <?php foreach ($kriteria as $row) : ?>
-                                <td>
-                                    <?php foreach ($rekap as $r) : ?>
-                                        <?php foreach ($r->bobot as $cell) : ?>
+                            <th>Mitra</th>
 
-                                            <?php if ($row->id == $cell->kriteria_id && $col->id_mitra == $cell->id_mitra) : ?>
-                                                <?= number_format($cell->bobot, 4); ?>
-                                            <?php endif; ?>
-
-                                        <?php endforeach; ?>
-                                    <?php endforeach; ?>
-                                </td>
+                            <?php foreach ($kriteria as $header) : ?>
+                                <th>
+                                    <?= $header->nama; ?>
+                                </th>
                             <?php endforeach; ?>
-
-                            <td>
-                                <?= number_format($col->bobot, 4); ?>
-
-                            </td>
-
-
+                            <th>Total</th>
                         </tr>
-                    <?php endforeach; ?>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php foreach ($id_mitra as $col) : ?>
+                            <tr align=center>
+                                <td>
+                                    <?= $col->nama_lengkap; ?>
+                                </td>
+                                <?php foreach ($kriteria as $row) : ?>
+                                    <td>
+                                        <?php foreach ($rekap as $r) : ?>
+                                            <?php foreach ($r->bobot as $cell) : ?>
 
-                </tbody>
-            </table>
+                                                <?php if ($row->id == $cell->kriteria_id && $col->id_mitra == $cell->id_mitra) : ?>
+                                                    <?= number_format($cell->bobot, 4); ?>
+                                                <?php endif; ?>
+
+                                            <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                    </td>
+                                <?php endforeach; ?>
+
+                                <td>
+                                    <?= number_format($col->bobot, 4); ?>
+
+                                </td>
+
+
+                            </tr>
+                        <?php endforeach; ?>
+
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
 
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 

@@ -12,36 +12,39 @@
                 </div>
             </div>
 
-            <table class="table table-borderless table-hover" id="mydata">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th scope="col">#</th>
-                        <th scope="col">ID Mitra</th>
-                        <th scope="col">Nama Lengkap</th>
-                        <th scope="col">Aksi</th>
-
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php $i = 1; ?>
-                    <?php foreach ($mitra as $m) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover" id="mydata">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $m['id_mitra']; ?></td>
-                            <td><?= $m['nama_lengkap']; ?></td>
-                            <td>
-                                <a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a>
-                            </td>
+                            <th scope="col">#</th>
+                            <th scope="col">ID Mitra</th>
+                            <th scope="col">Nama Lengkap</th>
+                            <th scope="col">Aksi</th>
+
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php $i = 1; ?>
+                        <?php foreach ($mitra as $m) : ?>
+                            <tr align=center>
+                                <th scope="row"><?= $i; ?></th>
+                                <td><?= $m['id_mitra']; ?></td>
+                                <td><?= $m['nama_lengkap']; ?></td>
+                                <td>
+                                    <a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
 
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 

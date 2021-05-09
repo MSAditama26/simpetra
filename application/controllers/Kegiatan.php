@@ -431,19 +431,30 @@ class Kegiatan extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
     }
 
-    function details_kegiatan_pengawas($id)
+    function details_kegiatan_pengawas($kegiatan_id, $id)
     {
         $data['title'] = 'Details Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $id";
-        $data['details'] = $this->db->query($sql)->result_array();
-        $data['pengawas'] = $this->db->get_where('pegawai', ['nip' => $id])->row_array();
+        $now = time();
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('kegiatan/details-kegiatan-pengawas', $data);
-        $this->load->view('template/footer');
+        $sql = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $id AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
+        $data['details'] = $this->db->query($sql)->result_array();
+
+        $jumlahkegiatan = count($data['details']);
+
+        if ($jumlahkegiatan > 0) {
+
+            $data['pengawas'] = $this->db->get_where('pegawai', ['nip' => $id])->row_array();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('kegiatan/details-kegiatan-pengawas', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pengawas belum mengikuti kegiatan</div>');
+            redirect('kegiatan/tambah_pengawas/' . $kegiatan_id);
+        }
     }
 }

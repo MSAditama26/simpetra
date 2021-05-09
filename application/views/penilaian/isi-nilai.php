@@ -19,43 +19,46 @@
                 </div>
             </div>
 
-            <table class="table table-borderless table-hover">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-
-                        <th scope="col">Kriteria</th>
-                        <th scope="col">Nilai</th>
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-
-
-                    <?php $i = 1; ?>
-                    <?php foreach ($kriteria as $k) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <td><?= $k['nama']; ?></td>
-                            <td>
-                                <?php for ($i = 1; $i < 6; $i++) : ?>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($all_kegiatan_pencacah['id'], $k['id'], $value); ?> data-all_kegiatan_pencacah_id="<?= $all_kegiatan_pencacah['id']; ?>" data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
 
-
-                                        <!-- <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($kegiatan['id'], $mitra['id_mitra'], $k['id'], $value); ?> data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>"> -->
-                                        <label class="form-check-label">&nbsp;&nbsp;<?= $i ?></label>
-                                    </div>
-                                <?php endfor; ?>
-                            </td>
+                            <th scope="col">Kriteria</th>
+                            <th scope="col">Nilai</th>
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
 
-                </tbody>
-            </table>
+
+                        <?php $i = 1; ?>
+                        <?php foreach ($kriteria as $k) : ?>
+                            <tr align=center>
+                                <td><?= $k['nama']; ?></td>
+                                <td>
+                                    <?php for ($i = 1; $i < 6; $i++) : ?>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($all_kegiatan_pencacah['id'], $k['id'], $value); ?> data-all_kegiatan_pencacah_id="<?= $all_kegiatan_pencacah['id']; ?>" data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>">
+
+
+                                            <!-- <input class="form-nilai-input" type="checkbox" <?php $value = $i; ?> <?= check_nilai($kegiatan['id'], $mitra['id_mitra'], $k['id'], $value); ?> data-kegiatan_id="<?= $kegiatan['id']; ?>" data-id_mitra="<?= $mitra['id_mitra']; ?>" data-kriteria="<?= $k['id']; ?>" data-nilai="<?= $value; ?>"> -->
+                                            <label class="form-check-label">&nbsp;&nbsp;<?= $i ?></label>
+                                        </div>
+                                    <?php endfor; ?>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
 
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 

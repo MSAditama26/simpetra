@@ -9,61 +9,64 @@
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newsensusModal">Add New Sensus</a>
 
-            <table class="table table-borderless table-hover" id="mydata">
-                <thead style="background-color: #996433; color:#f9f2ec;">
-                    <tr align=center>
-                        <th scope="col">#</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Start</th>
-                        <th scope="col">Finish</th>
-                        <th scope="col">Jumlah Pengawas</th>
-                        <th scope="col">Jumlah Pencacah</th>
-                        <th scope="col">Aksi</th>
-                        <th scope="col">Status</th>
-
-                    </tr>
-                </thead>
-                <tbody style="background-color: #ecd8c6; color: #996433;">
-                    <?php $i = 1; ?>
-                    <?php foreach ($sensus as $s) : ?>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover" id="mydata">
+                    <thead style="background-color: #996433; color:#f9f2ec;">
                         <tr align=center>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $s['nama']; ?></td>
-                            <td><?= date('d F Y', $s['start']); ?></td>
-                            <td><?= date('d F Y', $s['finish']); ?></td>
-                            <td><?= $s['k_pengawas']; ?></td>
-                            <td><?= $s['k_pencacah']; ?></td>
-                            <?php $now = (time()); ?>
-                            <td>
-                                <?php if ($now > $s['start']) : ?>
-                                    <a class="badge badge-secondary">tambah pengawas</a>
-                                    <a class="badge badge-secondary">tambah pencacah</a>
-                                <?php else : ?>
-                                    <a href="<?= base_url('kegiatan/tambah_pengawas/') . $s['id']; ?>" class="badge badge-success">tambah pengawas</a>
-                                    <a href="<?= base_url('kegiatan/tambah_pencacah/') . $s['id']; ?>" class="badge badge-info">tambah pencacah</a>
-                                <?php endif; ?>
-                                <a href="<?= base_url('kegiatan/editsensus/') . $s['id']; ?>" class="badge badge-primary">edit</a>
-                                <a href="<?= base_url('kegiatan/deletesensus/') . $s['id']; ?>" class="badge badge-danger">delete</a>
-                            </td>
+                            <th scope="col">#</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Start</th>
+                            <th scope="col">Finish</th>
+                            <th scope="col">Jumlah Pengawas</th>
+                            <th scope="col">Jumlah Pencacah</th>
+                            <th scope="col">Aksi</th>
+                            <th scope="col">Status</th>
 
-
-                            <?php if ($now < $s['start']) : ?>
-                                <td><a class="badge badge-warning">belum mulai</a></td>
-                            <?php elseif ($now > $s['finish']) : ?>
-                                <td><a class="badge badge-danger">selesai</a></td>
-                            <?php else : ?>
-                                <td><a class="badge badge-primary">sedang berjalan</a></td>
-                            <?php endif; ?>
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                        <?php $i = 1; ?>
+                        <?php foreach ($sensus as $s) : ?>
+                            <tr align=center>
+                                <th scope="row"><?= $i; ?></th>
+                                <td><?= $s['nama']; ?></td>
+                                <td><?= date('d F Y', $s['start']); ?></td>
+                                <td><?= date('d F Y', $s['finish']); ?></td>
+                                <td><?= $s['k_pengawas']; ?></td>
+                                <td><?= $s['k_pencacah']; ?></td>
+                                <?php $now = (time()); ?>
+                                <td>
+                                    <?php if ($now > $s['start']) : ?>
+                                        <a class="badge badge-secondary">tambah pengawas</a>
+                                        <a class="badge badge-secondary">tambah pencacah</a>
+                                    <?php else : ?>
+                                        <a href="<?= base_url('kegiatan/tambah_pengawas/') . $s['id']; ?>" class="badge badge-success">tambah pengawas</a>
+                                        <a href="<?= base_url('kegiatan/tambah_pencacah/') . $s['id']; ?>" class="badge badge-info">tambah pencacah</a>
+                                    <?php endif; ?>
+                                    <a href="<?= base_url('kegiatan/editsensus/') . $s['id']; ?>" class="badge badge-primary">edit</a>
+                                    <a href="<?= base_url('kegiatan/deletesensus/') . $s['id']; ?>" class="badge badge-danger">delete</a>
+                                </td>
+
+
+                                <?php if ($now < $s['start']) : ?>
+                                    <td><a class="badge badge-warning">belum mulai</a></td>
+                                <?php elseif ($now > $s['finish']) : ?>
+                                    <td><a class="badge badge-danger">selesai</a></td>
+                                <?php else : ?>
+                                    <td><a class="badge badge-primary">sedang berjalan</a></td>
+                                <?php endif; ?>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>
 
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 
@@ -108,7 +111,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>

@@ -136,6 +136,8 @@
 
     <?php endif; ?>
 
+    <br>
+
 </div>
 <!-- /.container-fluid -->
 

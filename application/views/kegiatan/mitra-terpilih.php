@@ -27,40 +27,43 @@
 
 
                 <form method="post" action="">
-                    <table class="table table-borderless table-hover" id="mydata">
-                        <thead style="background-color: #996433; color:#f9f2ec;">
-                            <tr align=center>
-                                <th scope="col">#</th>
-                                <th scope="col">ID Mitra</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Kompetensi</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody style="background-color: #ecd8c6; color: #996433;">
-                            <?php $i = 1; ?>
-                            <?php foreach ($pencacah as $p) : ?>
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-hover" id="mydata">
+                            <thead style="background-color: #996433; color:#f9f2ec;">
                                 <tr align=center>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-pencacah-input" type="checkbox" <?= check_pencacah($kegiatan['id'], $p['id_mitra']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $p['id_mitra']; ?>">
-                                        </div>
-                                    </td>
-                                    <td><?= $p['id_mitra']; ?></td>
-                                    <td><?= $p['nama_lengkap']; ?></td>
-                                    <td><?= $p['alamat']; ?></td>
-                                    <td><?= $p['kompetensi']; ?></td>
-
-                                    <td>
-                                        <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $kegiatan['id'] . '/' . $p['id_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
-                                    </td>
-
+                                    <th scope="col">#</th>
+                                    <th scope="col">ID Mitra</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Kompetensi</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody style="background-color: #ecd8c6; color: #996433;">
+                                <?php $i = 1; ?>
+                                <?php foreach ($pencacah as $p) : ?>
+                                    <tr align=center>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-pencacah-input" type="checkbox" <?= check_pencacah($kegiatan['id'], $p['id_mitra']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $p['id_mitra']; ?>">
+                                            </div>
+                                        </td>
+                                        <td><?= $p['id_mitra']; ?></td>
+                                        <td><?= $p['nama_lengkap']; ?></td>
+                                        <td><?= $p['alamat']; ?></td>
+                                        <td><?= $p['kompetensi']; ?></td>
+
+                                        <td>
+                                            <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $kegiatan['id'] . '/' . $p['id_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
+                                        </td>
+
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </form>
             </div>
 
@@ -68,7 +71,7 @@
 
     </div>
 
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 

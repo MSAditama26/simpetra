@@ -19,36 +19,39 @@
                 </div>
 
                 <form method="post" action="">
-                    <table class="table table-borderless table-hover" id="mydata">
-                        <thead style="background-color: #996433; color:#f9f2ec;">
-                            <tr align=center>
-                                <th scope="col">Tambah</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody style="background-color: #ecd8c6; color: #996433;">
-
-                            <?php $i = 1; ?>
-                            <?php foreach ($pengawas as $p) : ?>
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-hover" id="mydata">
+                            <thead style="background-color: #996433; color:#f9f2ec;">
                                 <tr align=center>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-pengawas-input" type="checkbox" <?= check_pengawas($kegiatan['id'], $p['nip']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pengawas="<?= $p['nip']; ?>">
-                                        </div>
-                                    </td>
-                                    <td><?= $p['email']; ?></td>
-                                    <td><?= $p['nama']; ?></td>
-                                    <td>
-                                        <a href="<?= base_url('kegiatan/details_kegiatan_pengawas/') . $p['nip']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
-                                    </td>
-
+                                    <th scope="col">Tambah</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody style="background-color: #ecd8c6; color: #996433;">
+
+                                <?php $i = 1; ?>
+                                <?php foreach ($pengawas as $p) : ?>
+                                    <tr align=center>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-pengawas-input" type="checkbox" <?= check_pengawas($kegiatan['id'], $p['nip']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pengawas="<?= $p['nip']; ?>">
+                                            </div>
+                                        </td>
+                                        <td><?= $p['email']; ?></td>
+                                        <td><?= $p['nama']; ?></td>
+                                        <td>
+                                            <a href="<?= base_url('kegiatan/details_kegiatan_pengawas/') . $kegiatan['id'] . '/' . $p['nip']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
+                                        </td>
+
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </form>
             </div>
 
@@ -56,7 +59,7 @@
 
     </div>
 
-
+    <br>
 </div>
 <!-- /.container-fluid -->
 
