@@ -6,7 +6,7 @@
             <?= form_error('penilaian', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row" style="color:#996433;">
+            <div class="row" style="color:#00264d;">
                 <div class="col-lg-6">
                     <h2>Kegiatan: <?= $kegiatan['nama']; ?></h2>
                 </div>
@@ -14,7 +14,7 @@
 
             <div class="table-responsive">
                 <table class="table table-borderless table-hover" id="mydata">
-                    <thead style="background-color: #996433; color:#f9f2ec;">
+                    <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
                             <th scope="col">#</th>
                             <th scope="col">ID Mitra</th>
@@ -23,7 +23,7 @@
 
                         </tr>
                     </thead>
-                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                    <tbody style="background-color: #ffffff; color: #00264d;">
                         <?php $i = 1; ?>
                         <?php foreach ($mitra as $m) : ?>
                             <tr align=center>

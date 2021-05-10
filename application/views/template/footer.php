@@ -1,7 +1,7 @@
  <!-- Footer -->
- <footer class="sticky-footer" style="background-color: #e6ccb3;">
+ <footer class="sticky-footer" style="background-color: #b3b3b3;">
      <div class="container my-auto">
-         <div class="copyright text-center my-auto" style="color:  #603f20">
+         <div class="copyright text-center my-auto" style="color:  #003366">
              <span>Copyright &copy; MSA 2021</span>
          </div>
      </div>

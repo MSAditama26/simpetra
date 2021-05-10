@@ -1,7 +1,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <div class="row" style="color:#996433;">
+    <div class="row" style="color:#00264d;">
         <div class="col-lg-6">
             <?= $this->session->flashdata('message'); ?>
             <form action="<?= base_url('user/changepassword'); ?>" method="post">

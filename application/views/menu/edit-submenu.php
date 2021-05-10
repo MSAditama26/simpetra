@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-lg-6" style="color:#996433;">
+        <div class="col-lg-6" style="color:#00264d;">
             <form action="" method="post">
                 <div class="form-group row">
                     <label for="title" class="col-sm-3 col-form-label">Title</label>

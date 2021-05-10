@@ -6,7 +6,7 @@
             <?= form_error('kriteria', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row" style="color:#996433;">
+            <div class="row" style="color:#00264d;">
                 <div class="col-lg-6">
                     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newKriteriaModal">Add New Kriteria</a>
                 </div>
@@ -18,7 +18,7 @@
 
             <div class="table-responsive">
                 <table class="table table-borderless table-hover">
-                    <thead style="background-color: #996433; color:#f9f2ec;">
+                    <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
                             <th scope="col">Prioritas</th>
                             <th scope="col">Nama</th>
@@ -26,7 +26,7 @@
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                    <tbody style="background-color: #ffffff; color: #00264d;">
                         <?php foreach ($kriteria as $k) : ?>
                             <tr align=center>
                                 <th><?= $k['prioritas']; ?></th>

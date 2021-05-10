@@ -9,7 +9,7 @@
 
     <?php if ($user['role_id'] == 5) : ?>
 
-        <div class="card shadow" style="background-color: #ecd8c6; ">
+        <div class="card shadow" style="background-color: #ffffff; ">
             <div class=" row">
                 <div class="col-lg-2 mb-2 mt-2" align=center>
                     <br>
@@ -18,7 +18,7 @@
                     <p class="card-text"><small class="text-muted">User since <?= date('d F Y', $user['date_created']); ?></small></p>
                 </div>
                 <div class="col-lg-5 mb-2 mt-2">
-                    <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
+                    <table class="table table-borderless" style="background-color: #ffffff; color:#00264d;">
                         <thead>
                             <tr align=center>
 
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="col-lg-5 mb-2 mt-2">
-                    <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
+                    <table class="table table-borderless" style="background-color: #ffffff; color:#00264d;">
                         <thead>
                             <tr align=center>
 
@@ -96,7 +96,7 @@
         </div>
 
     <?php else : ?>
-        <div class="card shadow col-lg-6" style="background-color: #ecd8c6; color:#996433;">
+        <div class="card shadow col-lg-6" style="background-color: #ffffff; color:#00264d;">
             <div class="row">
                 <div class="col-lg-2 mt-2" align=center>
                     <hr>
@@ -105,7 +105,7 @@
 
                 </div>
                 <div class="col-lg-10 mt-2">
-                    <table class="table table-borderless" style="background-color: #ecd8c6; color:#996433;">
+                    <table class="table table-borderless" style="background-color: #ffffff; color:#00264d;">
                         <thead>
                             <tr align=center>
 

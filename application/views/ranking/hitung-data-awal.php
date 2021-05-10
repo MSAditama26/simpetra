@@ -5,7 +5,7 @@
         <div class="col-lg">
             <?= form_error('hitung', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
-            <div class="row" align=center style="color:#996433;">
+            <div class="row" align=center style="color:#00264d;">
                 <div class="col-sm">
                     <a href="<?= base_url('ranking/data_awal/') . $kegiatan_id ?>" class="btn btn-primary">Tabel Data Awal</a>
                 </div>
@@ -18,10 +18,10 @@
             </div>
             <hr>
 
-            <h3 style="color: #996433;">Tabel Data Awal</h3>
+            <h3 style="color: #00264d;">Tabel Data Awal</h3>
             <div class="table-responsive">
                 <table class="table table-borderless table-hover">
-                    <thead style="background-color: #996433; color:#f9f2ec;">
+                    <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
                             <th>Mitra</th>
 
@@ -32,7 +32,7 @@
                             <?php endforeach; ?>
                         </tr>
                     </thead>
-                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                    <tbody style="background-color: #ffffff; color: #00264d;">
                         <?php foreach ($id_mitra as $col1) : ?>
                             <tr align=center>
                                 <td>

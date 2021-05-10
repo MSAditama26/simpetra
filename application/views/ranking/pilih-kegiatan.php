@@ -7,7 +7,7 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="table-responsive">
                 <table class="table table-borderless table-hover" id="mydata">
-                    <thead style="background-color: #996433; color:#f9f2ec;">
+                    <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
 
                             <th scope="col">Nama Kegiatan</th>
@@ -16,7 +16,7 @@
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                    <tbody style="background-color: #ffffff; color: #00264d;">
 
 
                         <?php $i = 1; ?>

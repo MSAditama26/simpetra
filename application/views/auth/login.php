@@ -7,7 +7,7 @@
         <div class="col-lg-6 mt-5">
 
 
-            <div class="card o-hidden border-0 shadow-lg my-5" style="background-color: #e6ccb3;">
+            <div class="card o-hidden border-0 shadow-lg my-5" style="background-color: #b3b3b3;">
                 <div class="card-body p-0">
                     <div class="text-right mr-2 mt-2">
                         <a href="" data-toggle="modal" data-target="#askModal"><i class="fas fa-question-circle" title="Panduan"></i></a>

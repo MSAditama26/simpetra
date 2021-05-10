@@ -5,14 +5,14 @@
         <div class="col-lg">
 
             <?= $this->session->flashdata('message'); ?>
-            <div class="row" style="color:#996433;">
+            <div class="row" style="color:#00264d;">
                 <div class="col-lg-6">
                     <h2>Mitra: <?= $id_mitra; ?></h2>
                 </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-borderless table-hover" id="mydata">
-                    <thead style="background-color: #996433; color:#f9f2ec;">
+                    <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
 
                             <th scope="col">Nama Kegiatan</th>
@@ -22,7 +22,7 @@
                             <th scope="col">Nilai</th>
                         </tr>
                     </thead>
-                    <tbody style="background-color: #ecd8c6; color: #996433;">
+                    <tbody style="background-color: #ffffff; color: #00264d;">
 
 
                         <?php $i = 1; ?>

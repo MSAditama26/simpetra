@@ -157,7 +157,7 @@ class Master extends CI_Controller
 
     public function editmitra($id_mitra)
     {
-        $data['title'] = 'Edit Pegawai';
+        $data['title'] = 'Edit Mitra';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 

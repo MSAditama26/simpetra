@@ -4,7 +4,7 @@
     <div class="row">
 
         <?= form_open_multipart('user/editprofilemitra'); ?>
-        <div class="row" style=" color:#996433;">
+        <div class="row" style=" color:#00264d;">
             <div class=" col-lg-6">
                 <div class="form-group row">
                     <div class="col-sm-3">Picture</div>
