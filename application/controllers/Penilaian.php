@@ -16,9 +16,12 @@ class Penilaian extends CI_Controller
         $data['title'] = 'Penilaian';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $nama = $data['user']['nama'];
+        $email = $data['user']['email'];
 
-        $sql_nip = "SELECT nip FROM pegawai WHERE nama = '$nama'";
+        $sql_nama = "SELECT nama FROM pegawai WHERE email LIKE '$email'";
+        $data['nama'] = implode($this->db->query($sql_nama)->row_array());
+
+        $sql_nip = "SELECT nip FROM pegawai WHERE email LIKE '$email'";
         $nip = implode($this->db->query($sql_nip)->row_array());
 
         // var_dump($nip);
@@ -156,9 +159,10 @@ class Penilaian extends CI_Controller
             $this->load->view('template/footer');
         } else if ($data['user']['role_id'] == 4) {
 
-            $nama = $data['user']['nama'];
+            // $nama = $data['user']['nama'];
+            $email = $data['user']['email'];
 
-            $sql_nip = "SELECT pegawai.nip FROM pegawai JOIN user WHERE pegawai.nama LIKE '%$nama%'";
+            $sql_nip = "SELECT pegawai.nip FROM pegawai JOIN user WHERE pegawai.email LIKE '$email'";
             $nip = implode($this->db->query($sql_nip)->row_array());
 
             $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pengawas ON kegiatan.id = all_kegiatan_pengawas.kegiatan_id WHERE all_kegiatan_pengawas.id_pengawas = $nip";

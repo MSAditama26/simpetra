@@ -144,8 +144,9 @@ class Admin extends CI_Controller
         $data['alluser'] = $this->db->query($query)->result_array();
         $data['role'] = $this->db->get('user_role')->result_array();
         $data['seksi'] = $this->db->get('seksi')->result_array();
+        $data['pegawai'] = $this->db->get('pegawai')->result_array();
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
         $this->form_validation->set_rules('role_id', 'Role_id', 'required|trim');
 
@@ -157,7 +158,7 @@ class Admin extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $data = [
-                'nama' => $this->input->post('nama'),
+
                 'email' => $this->input->post('email'),
                 'role_id' => $this->input->post('role_id'),
                 'seksi_id' => $this->input->post('seksi_id'),

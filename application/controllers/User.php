@@ -14,6 +14,7 @@ class User extends CI_Controller
     {
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['pegawai'] = $this->db->get_where('pegawai', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get_where('mitra', ['email' => $this->session->userdata('email')])->row_array();
 
         // $id = $data['mitra']['id_mitra'];
@@ -35,7 +36,7 @@ class User extends CI_Controller
         $data['title'] = 'Edit Profile';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->form_validation->set_rules('nama', 'Full Name', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -44,10 +45,11 @@ class User extends CI_Controller
             $this->load->view('user/edit', $data);
             $this->load->view('template/footer');
         } else {
-            $nama = $this->input->post('nama');
+            // $nama = $this->input->post('nama');
             $email = $this->input->post('email');
 
-            $upload_image = $_FILES['image']['nama'];
+            $upload_image = $_FILES['image'];
+
 
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';
@@ -70,7 +72,7 @@ class User extends CI_Controller
                 }
             }
 
-            $this->db->set('nama', $nama);
+            $this->db->set('email', $email);
             $this->db->where('email', $email);
             $this->db->update('user');
 
@@ -119,11 +121,10 @@ class User extends CI_Controller
             ];
 
             $data2 = [
-                'nama' => $this->input->post('nama_lengkap'),
                 'email' => $this->input->post('email')
             ];
 
-            $upload_image = $_FILES['image']['nama'];
+            $upload_image = $_FILES['image'];
 
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';

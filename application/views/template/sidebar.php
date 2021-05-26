@@ -56,8 +56,9 @@
                  </li>
              <?php endforeach ?>
 
-             <!-- Divider -->
-             <hr class="sidebar-divider mt-3">
+             <!-- Divider
+             <hr class="sidebar-divider mt-3"> -->
+             <br>
 
          <?php endforeach ?>
 

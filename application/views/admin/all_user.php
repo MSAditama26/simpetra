@@ -13,7 +13,6 @@
                 <table class="table table-borderless table-hover" id="mydata">
                     <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
-                            <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
                             <th scope="col">Status</th>
@@ -26,7 +25,6 @@
                         <?php $i = 1; ?>
                         <?php foreach ($alluser as $as) : ?>
                             <tr align=center>
-                                <td><?= $as['nama']; ?></td>
                                 <td><?= $as['email']; ?></td>
                                 <td><?= $as['role']; ?></td>
                                 <?php if ($as['is_active'] == '1') : ?>
@@ -80,16 +78,18 @@
             <form action="<?= base_url('admin/alluser') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                        <select name="email" id="email" class="form-control">
+                            <option value="">Select Pegawai</option>
+                            <?php foreach ($pegawai as $p) : ?>
+                                <option value="<?= $p['email']; ?>"><?= $p['nama']; ?></option>
+                            <?php endforeach ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <select name="role_id" id="role_id" class="form-control">
                             <option value="">Select Role</option>
                             <?php foreach ($role as $r) : ?>
-                                <?php if ($r['id'] < 5) : ?>
+                                <?php if ($r['id'] == 3) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['role']; ?></option>
                                 <?php endif; ?>
                             <?php endforeach ?>

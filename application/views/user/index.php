@@ -95,6 +95,45 @@
             </div>
         </div>
 
+    <?php elseif ($user['role_id'] == 1) : ?>
+        <div class="card shadow col-lg-6" style="background-color: #ffffff; color:#00264d;">
+            <div class="row">
+                <div class="col-lg-2 mt-2" align=center>
+                    <hr>
+                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail" width="100" height="100">
+                    <hr>
+
+                </div>
+                <div class="col-lg-10 mt-2">
+                    <table class="table table-borderless" style="background-color: #ffffff; color:#00264d;">
+                        <thead>
+                            <tr align=center>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <th>Nama</th>
+                                <td><?= $pegawai['nama']; ?></td>
+                            </tr> -->
+                            <tr>
+                                <th>Email</th>
+                                <td><?= $user['email']; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Since</th>
+                                <td><?= date('d F Y', $user['date_created']); ?></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
     <?php else : ?>
         <div class="card shadow col-lg-6" style="background-color: #ffffff; color:#00264d;">
             <div class="row">
@@ -114,7 +153,7 @@
                         <tbody>
                             <tr>
                                 <th>Nama</th>
-                                <td><?= $user['nama']; ?></td>
+                                <td><?= $pegawai['nama']; ?></td>
                             </tr>
                             <tr>
                                 <th>Email</th>
@@ -132,7 +171,6 @@
 
             </div>
         </div>
-
 
     <?php endif; ?>
 

@@ -17,16 +17,20 @@ class Timeline extends CI_Controller
 
         $role_id = $data['user']['role_id'];
         $now = time();
-        $nama = $data['user']['nama'];
+        // $nama = $data['user']['nama'];
+        $email = $data['user']['email'];
 
         if ($role_id == 5) {
 
-            $sql_id_mitra = "SELECT id_mitra FROM mitra WHERE nama_lengkap LIKE '$nama'";
-            $id_mitra = implode($this->db->query($sql_id_mitra)->row_array());
+            // $sql_id_mitra = "SELECT id_mitra FROM mitra WHERE nama_lengkap LIKE '$nama'";
+            $sql_email = "SELECT id_mitra FROM mitra WHERE email LIKE '$email'";
+            // var_dump($this->db->query($sql_email)->row_array());
+            // die;
+            $id_mitra = implode($this->db->query($sql_email)->row_array());
             $sql_kegiatan = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.kegiatan_id = kegiatan.id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
             $data['kegiatan'] = $this->db->query($sql_kegiatan)->result_array();
         } elseif ($role_id == 4) {
-            $sql_nip = "SELECT nip FROM pegawai WHERE nama LIKE '$nama'";
+            $sql_nip = "SELECT nip FROM pegawai WHERE email LIKE '$email'";
             $nip = implode($this->db->query($sql_nip)->row_array());
             $sql_kegiatan = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pengawas ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $nip AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now))ORDER BY kegiatan.start";
             $data['kegiatan'] = $this->db->query($sql_kegiatan)->result_array();
