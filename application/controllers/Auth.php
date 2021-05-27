@@ -15,8 +15,11 @@ class Auth extends CI_Controller
             redirect('user');
         }
 
+        $data['role'] = $this->db->get('user_role')->result_array();
+
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('role_id', 'Role', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Login';
@@ -32,9 +35,12 @@ class Auth extends CI_Controller
     {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
+        $role_id = $this->input->post('role_id');
 
-        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+        $user = $this->db->get_where('user', ['email' => $email, 'role_id' => $role_id])->row_array();
+        // $count = $this->db->get_where('user', ['email' => $email])->num_rows();
 
+        // if ($count == 1) {
         if ($user) {
 
             if ($user['is_active'] == 1) {
@@ -63,6 +69,13 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not registered!</div>');
             redirect('auth');
         }
+        // } elseif ($count > 1) {
+        //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pilih Role!</div>');
+        //     redirect('auth');
+        // } else {
+        //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not registered!</div>');
+        //     redirect('auth');
+        // }
     }
 
 

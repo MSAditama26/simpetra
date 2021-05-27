@@ -33,6 +33,17 @@
                                         <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
                                         <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
+                                    <div class="form-group">
+                                        <select name="role_id" id="role_id" class="form-control-sm">
+                                            <option value="">Login sebagai :</option>
+                                            <?php foreach ($role as $r) : ?>
+
+                                                <option value="<?= $r['id']; ?>"><?= $r['role']; ?></option>
+
+                                            <?php endforeach ?>
+                                        </select>
+                                        <?= form_error('role_id', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>
@@ -66,6 +77,7 @@
                 <p>
                     - Text area yang pertama untuk input email.<br>
                     - Text area yang kedua untuk input password.<br>
+                    - Pilih role akses dengan klik "login sebagai :"
                     - Jika pertama kali login, password default yaitu "12345678", tanpa petik.<br>
                     - Silahkan mengganti password setelah berhasil login untuk pertama kalinya.<br>
                     - Jika lupa password, silahkan menggunakan fitur "forgot password" yang berada dibawah.
