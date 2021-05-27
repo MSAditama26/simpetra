@@ -77,7 +77,7 @@
                 <p>
                     - Text area yang pertama untuk input email.<br>
                     - Text area yang kedua untuk input password.<br>
-                    - Pilih role akses dengan klik "login sebagai :"
+                    - Pilih role akses dengan klik "login sebagai :"<br>
                     - Jika pertama kali login, password default yaitu "12345678", tanpa petik.<br>
                     - Silahkan mengganti password setelah berhasil login untuk pertama kalinya.<br>
                     - Jika lupa password, silahkan menggunakan fitur "forgot password" yang berada dibawah.
