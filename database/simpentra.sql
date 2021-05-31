@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2021 at 03:32 AM
+-- Generation Time: May 31, 2021 at 06:37 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -303,7 +303,8 @@ INSERT INTO `user` (`id`, `email`, `image`, `password`, `role_id`, `seksi_id`, `
 (42, 'sny171@yahoo.com', 'default.jpg', '$2y$10$ZH/UkZqoNPu2xLLd06CEpuCmjTp7xX/gKj5kUEbxra7xR3UoZ69ia', 4, 0, 1, 1620026355, 'FZVj1sCP/Qf9GQW6T4Lkq3MmTOxUr5GYLXjzqssU6Sw=', 1621063755),
 (43, 'sny998@yahoo.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 4, 0, 1, 0, '', 0),
 (44, 'sny@stis.ac.id', 'default2.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 1, 1, 1617619662, '', 0),
-(45, 'superadmin@gmail.com', 'corn-5325205_19201.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 1, 0, 1, 1621989189, NULL, NULL);
+(45, 'superadmin@gmail.com', 'corn-5325205_19201.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 1, 0, 1, 1621989189, NULL, NULL),
+(46, 'sny171@yahoo.com', '', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 1, 1, 1622034958, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -560,7 +561,7 @@ ALTER TABLE `seksi`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
