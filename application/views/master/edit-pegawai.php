@@ -7,7 +7,7 @@
                 <div class="form-group row">
                     <label for="nip" class="col-sm-2 col-form-label">NIP</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nip" name="nip" value="<?= $pegawai['nip']; ?>">
+                        <input type="text" class="form-control" id="nip" name="nip" value="<?= $pegawai['nip']; ?>" readonly>
                         <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="email" name="email" value="<?= $pegawai['email']; ?>">
+                        <input type="text" class="form-control" id="email" name="email" value="<?= $pegawai['email']; ?>" readonly>
                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>

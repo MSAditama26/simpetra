@@ -18,7 +18,7 @@
                             <th scope="col">Nilai</th>
                             <th scope="col">Deskripsi</th>
                             <th scope="col">Bobot</th>
-                            <!-- <th scope="col">Aksi</th> -->
+                            <!-- <th scope="col">Action</th> -->
 
                         </tr>
                     </thead>

@@ -313,6 +313,9 @@ class Master extends CI_Controller
 
     function deletepegawai($nip)
     {
+        $query = "SELECT email FROM pegawai WHERE nip = $nip";
+        $email = IMPLODE($this->db->query($query)->row_array());
+        $this->Master_model->deletepegawaifromuser($email);
         $this->Master_model->deletepegawai($nip);
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pegawai has been deleted!</div>');

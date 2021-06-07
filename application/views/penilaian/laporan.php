@@ -59,7 +59,7 @@
 
         table {
             border-collapse: collapse;
-            width: 60%;
+            width: 50%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -103,7 +103,7 @@
                 <?php foreach ($penilaian as $p) : ?>
                     <tr align=center>
                         <td><?= $i ?></td>
-                        <td><?= $p['nama']; ?></td>
+                        <td align="left"><?= $p['nama']; ?></td>
                         <td><?= $p['konversi']; ?></td>
                     </tr>
                     <?php $i++; ?>

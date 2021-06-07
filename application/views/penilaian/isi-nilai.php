@@ -34,7 +34,7 @@
                         <?php $i = 1; ?>
                         <?php foreach ($kriteria as $k) : ?>
                             <tr align=center>
-                                <td><?= $k['nama']; ?></td>
+                                <td align="left"><?= $k['nama']; ?></td>
                                 <td>
                                     <?php for ($i = 1; $i < 6; $i++) : ?>
                                         <div class="form-check form-check-inline">

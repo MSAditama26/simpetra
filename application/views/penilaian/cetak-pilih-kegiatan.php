@@ -14,7 +14,7 @@
                             <th scope="col">Nama Kegiatan</th>
                             <th scope="col">Start</th>
                             <th scope="col">Finish</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody style="background-color: #ffffff; color: #00264d;">

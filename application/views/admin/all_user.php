@@ -29,19 +29,17 @@
                                 <td><?= $as['role']; ?></td>
                                 <?php if ($as['is_active'] == '1') : ?>
                                     <td><i class="fas fa-check" style="color:yellowgreen" title="Active"></i>
+                                        <a> | </a>
+                                        <a href="<?= base_url('admin/deactivated/') . $as['id']; ?>" class="badge badge-danger">deactivated?</a>
                                     </td>
                                 <?php else : ?>
                                     <td><i class="fas fa-times" style="color:red" title="Nonactive"></i>
+                                        <a> | </a>
+                                        <a href="<?= base_url('admin/activated/') . $as['id']; ?>" class="badge badge-success">activated?</a>
                                     </td>
                                 <?php endif; ?>
                                 <td><?= date('d F Y', $as['date_created']); ?></td>
                                 <td>
-                                    <?php if ($as['is_active'] == '1') : ?>
-                                        <a href="<?= base_url('admin/deactivated/') . $as['id']; ?>" class="badge badge-danger">deactivated?</a>
-                                    <?php else : ?>
-                                        <a href="<?= base_url('admin/activated/') . $as['id']; ?>" class="badge badge-success">activated?</a>
-                                    <?php endif; ?>
-                                    <a> | </a>
                                     <a href=" <?= base_url('admin/deleteuser/') . $as['id']; ?>" class="badge badge-danger">delete</a>
                                 </td>
 

@@ -78,14 +78,13 @@ class Auth extends CI_Controller
         // }
     }
 
-
     private function _sendEmail($token, $type)
     {
         $config = [
             'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'icasicas3@gmail.com',
-            'smtp_pass' => 'PolstatSTIS',
+            'smtp_host' => 'ssl://bigcarica3.fastcloud.id',
+            'smtp_user' => 'sny@bps3509.com',
+            'smtp_pass' => 'adminbps3509',
             'smtp_port' =>  465,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
@@ -95,7 +94,7 @@ class Auth extends CI_Controller
         $this->load->library('email', $config);
         $this->email->initialize($config);
 
-        $this->email->from('icasicas3@gmail.com', 'Administrator Simitra');
+        $this->email->from('sny@bps3509.com', 'Administrator Simpentra');
         $this->email->to($this->input->post('email'));
 
         if ($type == 'verify') {
@@ -114,6 +113,42 @@ class Auth extends CI_Controller
             die;
         }
     }
+
+    // private function _sendEmail($token, $type)
+    // {
+    //     $config = [
+    //         'protocol'  => 'smtp',
+    //         'smtp_host' => 'ssl://smtp.googlemail.com',
+    //         'smtp_user' => 'icasicas3@gmail.com',
+    //         'smtp_pass' => 'PolstatSTIS',
+    //         'smtp_port' =>  465,
+    //         'mailtype'  => 'html',
+    //         'charset'   => 'utf-8',
+    //         'newline'   => "\r\n"
+    //     ];
+
+    //     $this->load->library('email', $config);
+    //     $this->email->initialize($config);
+
+    //     $this->email->from('icasicas3@gmail.com', 'Administrator Simitra');
+    //     $this->email->to($this->input->post('email'));
+
+    //     if ($type == 'verify') {
+    //         $this->email->subject('Account Verifiction');
+    //         $this->email->message('Click this link to verify your account : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token)  . '">Activate</a>');
+    //     } else if ($type == 'forgot') {
+    //         $this->email->subject('Reset Password');
+    //         $this->email->message('Click this link to reset your password : <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token)  . '">Reset Password</a>');
+    //     }
+
+
+    //     if ($this->email->send()) {
+    //         return true;
+    //     } else {
+    //         echo $this->email->print_debugger();
+    //         die;
+    //     }
+    // }
 
 
     public function logout()

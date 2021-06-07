@@ -5,12 +5,6 @@
         <div class="col-lg-6" style="color:#00264d;">
             <form action="" method="post">
                 <div class="form-group row">
-                    <label for="id" class="col-sm-2 col-form-label">ID</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="id" name="id" value="<?= $role['id']; ?>" readonly>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="role" class="col-sm-2 col-form-label">Role</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="role" name="role" value="<?= $role['role']; ?>">

@@ -31,7 +31,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">No. Telepon/HP</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Action</th>
                             <th scope="col">Status</th>
                         </tr>
                     </thead>

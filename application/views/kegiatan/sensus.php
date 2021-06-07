@@ -19,7 +19,7 @@
                             <th scope="col">Finish</th>
                             <th scope="col">Jumlah Pengawas</th>
                             <th scope="col">Jumlah Pencacah</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Action</th>
                             <th scope="col">Status</th>
 
                         </tr>

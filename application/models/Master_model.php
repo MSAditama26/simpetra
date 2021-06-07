@@ -35,6 +35,12 @@ class Master_model extends CI_Model
         $this->db->delete('pegawai');
     }
 
+    public function deletepegawaifromuser($email)
+    {
+        $this->db->where('email', $email);
+        $this->db->delete('user');
+    }
+
     public function insert_batch($data)
     {
         $this->db->insert_batch('mitra', $data);

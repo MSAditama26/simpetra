@@ -19,7 +19,7 @@
                             <th scope="col">#</th>
                             <th scope="col">ID Mitra</th>
                             <th scope="col">Nama Lengkap</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Action</th>
 
                         </tr>
                     </thead>

@@ -23,14 +23,14 @@
                             <th scope="col">Prioritas</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Bobot</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody style="background-color: #ffffff; color: #00264d;">
                         <?php foreach ($kriteria as $k) : ?>
                             <tr align=center>
                                 <th><?= $k['prioritas']; ?></th>
-                                <td><?= $k['nama']; ?></td>
+                                <td align="left"><?= $k['nama']; ?></td>
                                 <td><?= number_format($k['bobot'], 4); ?></td>
                                 <td>
                                     <a href="<?= base_url('ranking/hitung_bobot_kriteria/') . $k['prioritas']; ?>" class="badge badge-primary">Perbarui bobot</a>

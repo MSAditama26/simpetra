@@ -187,6 +187,9 @@ class Kegiatan extends CI_Controller
     function deletesurvei($id)
     {
         $this->Kegiatan_model->deletesurvei($id);
+        $this->Kegiatan_model->deletesurvei_all_kegiatan_pencacah($id);
+        $this->Kegiatan_model->deletesurvei_all_kegiatan_pengawas($id);
+        // $this->Kegiatan_model->deletesurvei_all_penilaian($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Survei has been deleted!</div>');
         redirect('kegiatan/survei');
     }
@@ -194,6 +197,8 @@ class Kegiatan extends CI_Controller
     function deletesensus($id)
     {
         $this->Kegiatan_model->deletesensus($id);
+        $this->Kegiatan_model->deletesensus_all_kegiatan_pencacah($id);
+        $this->Kegiatan_model->deletesensus_all_kegiatan_pengawas($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Sensus has been deleted!</div>');
         redirect('kegiatan/sensus');
     }

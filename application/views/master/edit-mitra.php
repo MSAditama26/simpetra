@@ -7,7 +7,7 @@
                 <div class="form-group row">
                     <label for="id_mitra" class="col-sm-2 col-form-label">ID Mitra</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="id_mitra" name="id_mitra" value="<?= $mitra['id_mitra']; ?>">
+                        <input type="text" class="form-control" id="id_mitra" name="id_mitra" value="<?= $mitra['id_mitra']; ?>" readonly>
                         <?= form_error('id_mitra', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="email" name="email" value="<?= $mitra['email']; ?>">
+                        <input type="text" class="form-control" id="email" name="email" value="<?= $mitra['email']; ?>" readonly>
                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>

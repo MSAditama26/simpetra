@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-lg">
+        <div class="col-lg-5">
 
             <?= $this->session->flashdata('message'); ?>
             <div class="row" style="color:#00264d;">
@@ -27,7 +27,7 @@
                         <?php $i = 1; ?>
                         <?php foreach ($nilai as $n) : ?>
                             <tr align=center>
-                                <td><?= $n['nama']; ?></td>
+                                <td align="left"><?= $n['nama']; ?></td>
 
                                 <?php if ($n['nilai'] == 5) : ?>
                                     <td> 90 </td>
