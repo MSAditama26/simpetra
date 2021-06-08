@@ -241,6 +241,8 @@ class Penilaian extends CI_Controller
                 redirect('penilaian/pilihmitra/' . $kegiatan_id);
             }
         } else {
+
+
             $this->load->view('penilaian/laporan', $data);
         }
     }

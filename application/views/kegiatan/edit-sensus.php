@@ -1,5 +1,6 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    <?= $this->session->flashdata('message'); ?>
 
     <div class="row">
         <div class="col-lg-6" style="color:#00264d;">
@@ -40,17 +41,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="ob" class="col-sm-3 col-form-label">OB?</label>
+                    <label for="ob" class="col-sm-3 col-form-label">Satuan Honor</label>
                     <div class="col-sm-8">
-                        <?php if ($survei['ob'] == '1') : ?>
-                            <label for="" class="col-sm-2 col-form-label">Ya</label>
-                        <?php else : ?>
-                            <label for="" class="col-sm-2 col-form-label">Tidak</label>
-                        <?php endif; ?>
                         <select name="ob" id="ob" class="form-control">
-                            <option value="">OB ?</option>
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
+                            <?php if ($sensus['ob'] == 1) : ?>
+                                <option value="1">Orang Bulan (OB)</option>
+                                <option value="0">Selain OB</option>
+                            <?php elseif ($sensus['ob'] == 0) : ?>
+                                <option value="0">Selain OB</option>
+                                <option value="1">Orang Bulan (OB)</option>
+                            <?php endif; ?>
                         </select>
                         <?= form_error('ob', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>

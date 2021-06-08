@@ -33,7 +33,8 @@
                                 <td>
                                     <?php if ($now < $nama_kegiatan['start']) : ?>
 
-                                        <a class="badge badge-secondary">Isi nilai</a>
+                                        <!-- <a class="badge badge-secondary">Isi nilai</a> -->
+                                        <a href="<?= base_url('penilaian/isi_nilai/') . $nama_kegiatan['id'] . "/" . $k['id_mitra'] ?>" class="badge badge-primary">Isi nilai</a>
 
                                     <?php else : ?>
 

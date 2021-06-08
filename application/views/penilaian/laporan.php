@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <title><?= $kegiatan['nama']; ?>-<?= $mitra['nama_lengkap']; ?>-Laporan Penilaian Kinerja</title>
+    <meta charset="utf-8">
+    <title><?= $kegiatan['nama']; ?> - <?= $mitra['nama_lengkap']; ?> - Laporan Penilaian Kinerja</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </>
     <style>
         body {
             width: 100%;
@@ -84,9 +84,10 @@
 <body>
     <div class="page">
         <h2 align="center">Laporan Penilaian Kinerja Mitra</h2>
+        <br>
         <h3 align="left">Kegiatan : <?= $kegiatan['nama']; ?> <br> Nama : <?= $mitra['nama_lengkap']; ?></h3>
 
-        <div style="width:50%; margin:auto;">
+        <div style="width:40%; margin:auto;">
             <canvas id="myChart"></canvas>
         </div>
         <br>
@@ -113,7 +114,7 @@
         </table>
         <br>
         <br>
-        <table>
+        <table style="width: 60%;">
             <tr>
                 <th align=left>&nbsp&nbsp&nbspPenilai</th>
                 <th align=right>Yang dinilai</th>
@@ -123,7 +124,7 @@
         <br>
         <br>
         <br>
-        <table>
+        <table style="width: 60%;">
             <tr>
                 <th align=left>(...............)</th>
                 <th align=right>(...............)</th>
@@ -136,6 +137,7 @@
 
 <script>
     var ctx = document.getElementById("myChart").getContext('2d');
+
     var myChart = new Chart(ctx, {
         type: 'radar',
         data: {

@@ -65,9 +65,14 @@ class Kegiatan extends CI_Controller
                 'ob' => $this->input->post('ob')
             ];
 
-            $this->db->insert('kegiatan', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New survei added!</div>');
-            redirect('kegiatan/survei');
+            if (strtotime($this->input->post('finish')) > strtotime($this->input->post('start'))) {
+                $this->db->insert('kegiatan', $data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New survei added!</div>');
+                redirect('kegiatan/survei');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Waktu kegiatan salah!</div>');
+                redirect('kegiatan/survei');
+            }
         }
     }
 
@@ -101,9 +106,14 @@ class Kegiatan extends CI_Controller
                 'jenis_kegiatan' => '2',
                 'ob' => $this->input->post('ob')
             ];
-            $this->db->insert('kegiatan', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New sensus added!</div>');
-            redirect('kegiatan/sensus');
+            if (strtotime($this->input->post('finish')) > strtotime($this->input->post('start'))) {
+                $this->db->insert('kegiatan', $data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New survei added!</div>');
+                redirect('kegiatan/sensus');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Waktu kegiatan salah!</div>');
+                redirect('kegiatan/sensus');
+            }
         }
     }
 
@@ -136,12 +146,17 @@ class Kegiatan extends CI_Controller
                 'ob' => $this->input->post('ob')
             ];
 
-            $this->db->set($data);
-            $this->db->where('id', $id);
-            $this->db->update('kegiatan');
+            if (strtotime($this->input->post('finish')) > strtotime($this->input->post('start'))) {
+                $this->db->set($data);
+                $this->db->where('id', $id);
+                $this->db->update('kegiatan');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Survei has been updated!</div>');
-            redirect('kegiatan/survei');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Survei has been updated!</div>');
+                redirect('kegiatan/survei');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Waktu kegiatan salah!</div>');
+                redirect('kegiatan/editsurvei/' . $id);
+            }
         }
     }
 
@@ -174,12 +189,17 @@ class Kegiatan extends CI_Controller
                 'ob' => $this->input->post('ob')
             ];
 
-            $this->db->set($data);
-            $this->db->where('id', $id);
-            $this->db->update('kegiatan');
+            if (strtotime($this->input->post('finish')) > strtotime($this->input->post('start'))) {
+                $this->db->set($data);
+                $this->db->where('id', $id);
+                $this->db->update('kegiatan');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Survei has been updated!</div>');
-            redirect('kegiatan/sensus');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Survei has been updated!</div>');
+                redirect('kegiatan/sensus');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Waktu kegiatan salah!</div>');
+                redirect('kegiatan/editsensus/' . $id);
+            }
         }
     }
 
@@ -414,11 +434,11 @@ class Kegiatan extends CI_Controller
 
     function tambah_pengawas_ke_user($nip)
     {
-        $sqlnamapegawai = "SELECT nama FROM pegawai WHERE nip = $nip";
-        $namapegawai = implode($this->db->query($sqlnamapegawai)->row_array());
+        $sqlnamapegawai = "SELECT email FROM pegawai WHERE nip = $nip";
+        $emailpegawai = implode($this->db->query($sqlnamapegawai)->row_array());
 
 
-        $sqlcekpegawai = "SELECT * FROM user WHERE nama = '$namapegawai' AND role_id = 4";
+        $sqlcekpegawai = "SELECT * FROM user WHERE email = '$emailpegawai' AND role_id = 4";
         $cekpegawai = $this->db->query($sqlcekpegawai);
 
         $pegawai = $this->db->get_where('pegawai', ['nip' => $nip])->row_array();

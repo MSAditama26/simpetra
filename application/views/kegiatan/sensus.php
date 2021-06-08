@@ -103,9 +103,9 @@
                     </div>
                     <div class="form-group">
                         <select name="ob" id="ob" class="form-control">
-                            <option value="">OB ?</option>
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
+                            <option value="">Satuan Honor</option>
+                            <option value="1">Orang Bulan (OB)</option>
+                            <option value="0">Selain OB</option>
 
                         </select>
                     </div>

@@ -114,6 +114,7 @@ class Ranking extends CI_Controller
         $this->db->update('kriteria');
 
         redirect('ranking/kriteria');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Bobot Kriteria Changed!</div>');
     }
 
     function subkriteria()
