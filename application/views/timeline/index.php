@@ -5,7 +5,11 @@
     <div class="card shadow">
         <div class="row">
             <div class="col-lg mt-2 ml-2 mr-2 mb-2">
-                <div id="chart_div" style="height: 500px;"></div>
+                <?php if ($jlhk > 0) : ?>
+                    <div id="chart_div" style="height: 500px;"></div>
+                <?php else : ?>
+                    <div style="height: 500px;">Tidak ada kegiatan</div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

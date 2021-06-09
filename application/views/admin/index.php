@@ -93,7 +93,11 @@
         <div class="col-xl">
             <div class="card shadow">
                 <div class="card-body">
-                    <div id="chart_div" style="height: 400px;"></div>
+                    <?php if ($jlhk > 0) : ?>
+                        <div id="chart_div" style="height: 400px;"></div>
+                    <?php else : ?>
+                        <div style="height: 300px;">Tidak ada kegiatan</div>
+                    <?php endif; ?>
                 </div>
 
 

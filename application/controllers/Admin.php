@@ -30,6 +30,8 @@ class Admin extends CI_Controller
 
         $sql = "SELECT kegiatan.* FROM kegiatan WHERE ((start <= $now AND finish >= $now) OR (start > $now)) ORDER BY start";
 
+        $data['jlhk'] = $this->db->query($sql)->num_rows();
+
         $data['details'] = $this->db->query($sql)->result_array();
 
         $this->load->view('template/header', $data);
