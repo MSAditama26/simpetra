@@ -381,7 +381,11 @@ class Kegiatan extends CI_Controller
         if ($result->num_rows() < 1) {
             if ($cek_kuota < $intkuota) {
                 $this->db->insert('all_kegiatan_pencacah', $data);
-                $this->db->insert('user', $data2);
+                $check = $this->Kegiatan_model->check_email($email);
+                if ($check < 1) {
+                    $this->db->insert('user', $data2);
+                }
+
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');

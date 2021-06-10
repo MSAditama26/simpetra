@@ -45,4 +45,12 @@ class Kegiatan_model extends CI_Model
         $this->db->where('kegiatan_id', $id);
         $this->db->delete('all_kegiatan_pengawas');
     }
+
+    public function check_email($email)
+    {
+        $this->db->where('email', $email);
+        $data = $this->db->get('user');
+
+        return $data->num_rows();
+    }
 }
