@@ -114,22 +114,41 @@
         </table>
         <br>
         <br>
-        <table style="width: 60%;">
+        <br>
+        <br>
+        <table style="width: 100%;">
             <tr>
-                <th align=left>&nbsp&nbsp&nbspPenilai</th>
-                <th align=right>Yang dinilai</th>
+                <th align=center>Penilai
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <?= $penilai['nama']; ?>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th align=center>Yang dinilai
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <?= $mitra['nama_lengkap']; ?>
+                </th>
             </tr>
         </table>
-        <br>
+        <!-- <br>
         <br>
         <br>
         <br>
         <table style="width: 60%;">
             <tr>
-                <th align=left>(...............)</th>
-                <th align=right>(...............)</th>
+                <th align=center><?= $penilai['nama']; ?></th>
+                <th align=center><?= $mitra['nama_lengkap']; ?></th>
             </tr>
-        </table>
+        </table> -->
     </div>
 </body>
 

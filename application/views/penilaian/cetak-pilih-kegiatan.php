@@ -27,7 +27,7 @@
                                 <td><?= date('d F Y', $k['start']); ?></td>
                                 <td><?= date('d F Y', $k['finish']); ?></td>
                                 <td>
-                                    <a href="<?= base_url('penilaian/pilihmitra/') . $k['id']; ?>" class="badge badge-primary">Pilih mitra</a>
+                                    <a href="<?= base_url('penilaian/pilihmitra/') . $k['id'] . '/' . $nip; ?>" class="badge badge-primary">Pilih mitra</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

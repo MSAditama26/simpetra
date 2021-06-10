@@ -31,7 +31,7 @@
                                 <td><?= $m['id_mitra']; ?></td>
                                 <td><?= $m['nama_lengkap']; ?></td>
                                 <td>
-                                    <a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $m['id_mitra'] ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a>
+                                    <a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $nip . '/' . $m['id_mitra'] ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $kegiatan['id'] . '/' . $nip . '/' . $m['id_mitra'] ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

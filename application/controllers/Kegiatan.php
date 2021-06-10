@@ -428,6 +428,8 @@ class Kegiatan extends CI_Controller
             }
         } else {
             $this->db->delete('all_kegiatan_pengawas', $data);
+            $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = 0 WHERE kegiatan_id = $kegiatan_id AND id_pengawas = $nip";
+            $this->db->query($query);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
         }
     }
