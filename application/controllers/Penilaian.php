@@ -150,7 +150,7 @@ class Penilaian extends CI_Controller
 
             $data['id_mitra'] = $id_mitra;
 
-            $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pencacah ON kegiatan.id = all_kegiatan_pencacah.kegiatan_id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra";
+            $sql = "SELECT kegiatan.*, all_kegiatan_pencacah.id_pengawas FROM kegiatan JOIN all_kegiatan_pencacah ON kegiatan.id = all_kegiatan_pencacah.kegiatan_id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra";
             $data['kegiatan'] = $this->db->query($sql)->result_array();
 
             $this->load->view('template/header', $data);
@@ -258,6 +258,7 @@ class Penilaian extends CI_Controller
             $this->load->view('penilaian/laporan', $data);
         }
     }
+
 
     public function arsip()
     {

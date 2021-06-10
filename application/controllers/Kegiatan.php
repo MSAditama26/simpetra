@@ -365,12 +365,23 @@ class Kegiatan extends CI_Controller
             'id_mitra' => $id_mitra
         ];
 
+        $queryemail = "SELECT email FROM mitra WHERE id_mitra = $id_mitra";
+        $email = implode($this->db->query($queryemail)->row_array());
+        $data2 = [
+
+            'email' => $email,
+            'role_id' => '5',
+            'date_created' => time()
+
+        ];
+
 
         $result = $this->db->get_where('all_kegiatan_pencacah', $data);
 
         if ($result->num_rows() < 1) {
             if ($cek_kuota < $intkuota) {
                 $this->db->insert('all_kegiatan_pencacah', $data);
+                $this->db->insert('user', $data2);
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');

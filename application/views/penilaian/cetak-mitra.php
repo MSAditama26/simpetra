@@ -27,7 +27,7 @@
                                 <td><?= date('d F Y', $k['start']); ?></td>
                                 <td><?= date('d F Y', $k['finish']); ?></td>
                                 <td>
-                                    <a href="<?= base_url('penilaian/download/') . $k['id'] . '/' . $id_mitra ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $k['id'] . '/' . $id_mitra ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a>
+                                    <a href="<?= base_url('penilaian/download/') . $k['id'] . '/' . $k['id_pengawas'] . '/' . $id_mitra ?>" class="fa fa-fw fa-download text-success" target="_blank"></a><span> </span><a href="<?= base_url('penilaian/download/') . $k['id'] . '/' . $k['id_pengawas'] . '/' . $id_mitra ?>" class="badge badge-success" target="_blank"> Download hasil penilaian</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

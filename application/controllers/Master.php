@@ -73,7 +73,7 @@ class Master extends CI_Controller
 
             if ($check < 1) {
                 $this->db->insert('mitra', $data);
-                $this->db->insert('user', $data2);
+                // $this->db->insert('user', $data2);
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New mitra added!</div>');
                 redirect('master/mitra');
             } else {
