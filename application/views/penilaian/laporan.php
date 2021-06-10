@@ -188,8 +188,14 @@
                     min: 50,
                     max: 100
                 }
-            }
+            },
+            bezierCurve: false,
+            animation: false
 
         },
+
+
     });
+
+    window.print();
 </script>
