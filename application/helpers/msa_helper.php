@@ -70,6 +70,20 @@ function check_pengawas($kegiatan_id, $nip)
     }
 }
 
+function check_pencacahpengawas($kegiatan_id, $nip, $id_mitra)
+{
+    $ci = get_instance();
+
+    $ci->db->where('kegiatan_id', $kegiatan_id);
+    $ci->db->where('id_pengawas', $nip);
+    $ci->db->where('id_mitra', $id_mitra);
+    $result = $ci->db->get('all_kegiatan_pencacah');
+
+    if ($result->num_rows() > 0) {
+        return "checked='checked'";
+    }
+}
+
 function check_nilai($all_kegiatan_pencacah_id, $kriteria_id, $nilai)
 {
     $ci = get_instance();

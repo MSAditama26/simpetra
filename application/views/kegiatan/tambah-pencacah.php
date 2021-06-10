@@ -9,14 +9,14 @@
 
             <div>
                 <div class="row" style="color:#00264d;">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4" align=left>
                         <h2><?= $kegiatan['nama']; ?></h2>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4" align=center>
                         <h2>Jumlah = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pencacah']; ?></h2>
                     </div>
-                    <div class="col-lg-3">
-                        <a href="<?= base_url('kegiatan/mitraterpilih/') . $kegiatan['id'] ?>" class="btn btn-info">Mitra terpilih</a>
+                    <div class="col-lg-4" align=right>
+                        <a href="<?= base_url('kegiatan/mitraterpilih/') . $kegiatan['id'] ?>" class="btn btn-info">Mitra Terpilih</a>
                     </div>
 
 

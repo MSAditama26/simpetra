@@ -48,9 +48,9 @@ class Master_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function check_id_mitra($id_mitra)
+    public function check_email($email)
     {
-        $this->db->where('id_mitra', $id_mitra);
+        $this->db->where('email', $email);
         $data = $this->db->get('mitra');
 
         return $data->num_rows();

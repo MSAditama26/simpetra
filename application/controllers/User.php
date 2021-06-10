@@ -90,7 +90,6 @@ class User extends CI_Controller
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat');
-        $this->form_validation->set_rules('no_hp', 'No. HP', 'required');
         $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required');
         $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required');
         $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama');
@@ -107,12 +106,11 @@ class User extends CI_Controller
 
             $email = $this->input->post('email');
             $data = [
-                'id_mitra' => $this->input->post('id_mitra'),
+                // 'id_mitra' => $this->input->post('id_mitra'),
                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                 'nama_panggilan' => $this->input->post('nama_panggilan'),
                 'email' => $this->input->post('email'),
                 'alamat' => $this->input->post('alamat'),
-                'no_hp' => $this->input->post('no_hp'),
                 'no_wa' => $this->input->post('no_wa'),
                 'no_tsel' => $this->input->post('no_tsel'),
                 'pekerjaan_utama' => $this->input->post('pekerjaan_utama'),

@@ -386,7 +386,7 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Tambah Pengawas';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpengawas = "SELECT * FROM pegawai";
+        $sqlpengawas = "SELECT pegawai.* FROM pegawai";
         $data['pengawas'] = $this->db->query($sqlpengawas)->result_array();
 
         $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pengawas WHERE kegiatan_id = $id";
@@ -432,6 +432,26 @@ class Kegiatan extends CI_Controller
         }
     }
 
+    function pengawasterpilih($kegiatan_id)
+    {
+        $data['title'] = 'Pencacah Terpilih';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sqlpengawas = "SELECT pegawai.* FROM all_kegiatan_pengawas JOIN pegawai ON all_kegiatan_pengawas.id_pengawas = pegawai.nip WHERE all_kegiatan_pengawas.kegiatan_id = $kegiatan_id";
+        $data['pengawas'] = $this->db->query($sqlpengawas)->result_array();
+
+        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pengawas WHERE kegiatan_id = $kegiatan_id";
+        $data['kuota'] = $this->db->query($sqlkuota)->row_array();
+
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/pengawas-terpilih', $data);
+        $this->load->view('template/footer');
+    }
+
     function tambah_pengawas_ke_user($nip)
     {
         $sqlnamapegawai = "SELECT email FROM pegawai WHERE nip = $nip";
@@ -444,7 +464,7 @@ class Kegiatan extends CI_Controller
         $pegawai = $this->db->get_where('pegawai', ['nip' => $nip])->row_array();
 
         $data2 = [
-            'nama' => $pegawai['nama'],
+
             'email' => $pegawai['email'],
             'role_id' => '4',
             'date_created' => time()
@@ -481,5 +501,70 @@ class Kegiatan extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pengawas belum mengikuti kegiatan</div>');
             redirect('kegiatan/tambah_pengawas/' . $kegiatan_id);
         }
+    }
+
+    function tambah_pencacah_pengawas($kegiatan_id, $nip)
+    {
+        $data['title'] = 'Tambah Pencacah';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sqlpengawas = "SELECT * FROM pegawai WHERE nip = $nip";
+        $data['pengawas'] = $this->db->query($sqlpengawas)->row_array();
+
+        $sqlpencacah = "SELECT all_kegiatan_pencacah.*, mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id AND all_kegiatan_pencacah.id_pengawas = 0";
+        $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();
+
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/tambah-pencacah-pengawas', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function changepencacahpengawas()
+    {
+        $kegiatan_id = $this->input->post('kegiatanId');
+        $nip = $this->input->post('nip');
+        $id_mitra = $this->input->post('id_mitra');
+
+        $data = [
+            'kegiatan_id' => $kegiatan_id,
+            'id_pengawas' => $nip,
+            'id_mitra' => $id_mitra
+        ];
+
+        $result = $this->db->get_where('all_kegiatan_pencacah', $data);
+
+        if ($result->num_rows() < 1) {
+
+            $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = $nip WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
+            $this->db->query($query);
+        } else {
+            $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = 0 WHERE kegiatan_id = $kegiatan_id AND id_mitra = $id_mitra";
+            $this->db->query($query);
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
+    }
+
+    function pencacahterpilih($kegiatan_id, $nip)
+    {
+        $data['title'] = 'Pencacah Terpilih';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sqlpengawas = "SELECT * FROM pegawai WHERE nip = $nip";
+        $data['pengawas'] = $this->db->query($sqlpengawas)->row_array();
+
+        $sqlpencacah = "SELECT all_kegiatan_pencacah.*, mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id AND all_kegiatan_pencacah.id_pengawas = $nip";
+        $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();
+
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/pencacah-terpilih', $data);
+        $this->load->view('template/footer');
     }
 }

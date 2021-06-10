@@ -48,8 +48,8 @@
                                 <td><?= $mitra['alamat']; ?></td>
                             </tr>
                             <tr>
-                                <th>No. HP</th>
-                                <td><?= $mitra['no_hp']; ?></td>
+                                <th>No. Whatsapp</th>
+                                <td><?= $mitra['no_wa']; ?></td>
                             </tr>
 
                         </tbody>
@@ -64,10 +64,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>No. Whatsapp</th>
-                                <td><?= $mitra['no_wa']; ?></td>
-                            </tr>
+
                             <tr>
                                 <th>No. Telkomsel</th>
                                 <td><?= $mitra['no_tsel']; ?></td>

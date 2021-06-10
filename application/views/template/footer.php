@@ -132,6 +132,26 @@
 
      });
 
+     $('.form-pencacahpengawas-input').on('click', function() {
+         const kegiatanId = $(this).data('kegiatan');
+         const nip = $(this).data('pengawas');
+         const id_mitra = $(this).data('pencacah');
+
+         $.ajax({
+             url: "<?= base_url('kegiatan/changepencacahpengawas') ?>",
+             type: 'post',
+             data: {
+                 kegiatanId: kegiatanId,
+                 nip: nip,
+                 id_mitra: id_mitra,
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('kegiatan/tambah_pencacah_pengawas/'); ?>" + kegiatanId + '/' + nip;
+             }
+         });
+
+     });
+
      $('.form-nilai-input').on('click', function() {
          const allkegiatanpencacahId = $(this).data('all_kegiatan_pencacah_id');
          const kegiatanId = $(this).data('kegiatan_id');

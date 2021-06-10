@@ -63,13 +63,7 @@
             </div>
 
             <div class="col-lg-6">
-                <div class="form-group row">
-                    <label for="no_hp" class="col-sm-3 col-form-label">No. HP</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $mitra['no_hp']; ?>">
-                        <?= form_error('no_hp', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
-                </div>
+
                 <div class="form-group row">
                     <label for="no_wa" class="col-sm-3 col-form-label">No. Whatsapp</label>
                     <div class="col-sm-8">

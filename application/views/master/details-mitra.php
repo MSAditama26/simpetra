@@ -35,10 +35,6 @@
                         <th>Alamat</th>
                         <td><?= $mitra['alamat']; ?></td>
                     </tr>
-                    <tr>
-                        <th>No. HP</th>
-                        <td><?= $mitra['no_hp']; ?></td>
-                    </tr>
                 </tbody>
             </table>
         </div>

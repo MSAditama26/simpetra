@@ -1,21 +1,5 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg">
-            <div class="row" style="color:#00264d;">
-                <div class="col-lg-4" align=left>
-                    <h2><?= $kegiatan['nama']; ?></h2>
-                </div>
-                <div class="col-lg-4" align=center>
-                    <h2>Jumlah = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pencacah']; ?></h2>
-                </div>
-                <div class="col-lg-4" align=right>
-                    <a href="<?= base_url('kegiatan/tambah_pencacah/') . $kegiatan['id'] ?>" class="btn btn-primary">Tambah Pencacah</a>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-lg">
@@ -24,9 +8,22 @@
             <?= $this->session->flashdata('message'); ?>
 
             <div>
+                <div class="row" style="color:#00264d;">
+                    <div class="col-lg-4" align=left>
+                        <h2><?= $kegiatan['nama']; ?></h2>
+                    </div>
+                    <div class="col-lg-4" align=center>
+                        <h3>Pengawas : <?= $pengawas['nama']; ?></h3>
+                    </div>
+                    <div class="col-lg-4" align=right>
+                        <a href="<?= base_url('kegiatan/tambah_pencacah_pengawas/') . $kegiatan['id'] . '/' . $pengawas['nip']  ?>" class="btn btn-primary">Tambah Pencacah</a>
+                    </div>
 
+
+                </div>
 
                 <form method="post" action="">
+
                     <div class="table-responsive">
                         <table class="table table-borderless table-hover" id="mydata">
                             <thead style="background-color: #00264d; color:#e6e6e6;">
@@ -34,9 +31,6 @@
                                     <th scope="col">#</th>
                                     <th scope="col">ID Mitra</th>
                                     <th scope="col">Nama</th>
-                                    <th scope="col">Alamat</th>
-                                    <th scope="col">Kompetensi</th>
-                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody style="background-color: #ffffff; color: #00264d;">
@@ -45,17 +39,11 @@
                                     <tr align=center>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-pencacah-input" type="checkbox" <?= check_pencacah($kegiatan['id'], $p['id_mitra']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pencacah="<?= $p['id_mitra']; ?>">
+                                                <input class="form-pencacahpengawas-input" type="checkbox" <?= check_pencacahpengawas($kegiatan['id'], $pengawas['nip'], $p['id_mitra']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pengawas="<?= $pengawas['nip']; ?>" data-pencacah="<?= $p['id_mitra']; ?>">
                                             </div>
                                         </td>
                                         <td><?= $p['id_mitra']; ?></td>
                                         <td><?= $p['nama_lengkap']; ?></td>
-                                        <td><?= $p['alamat']; ?></td>
-                                        <td><?= $p['kompetensi']; ?></td>
-
-                                        <td>
-                                            <a href="<?= base_url('kegiatan/details_kegiatan_mitra/') . $kegiatan['id'] . '/' . $p['id_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
-                                        </td>
 
                                     </tr>
                                     <?php $i++; ?>

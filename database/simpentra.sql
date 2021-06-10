@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2021 at 02:07 AM
+-- Generation Time: Jun 10, 2021 at 09:33 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `all_kegiatan_pencacah` (
   `id` int(11) NOT NULL,
   `kegiatan_id` int(11) NOT NULL,
+  `id_pengawas` varchar(128) NOT NULL DEFAULT '0',
   `id_mitra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -42,7 +43,7 @@ CREATE TABLE `all_kegiatan_pencacah` (
 
 CREATE TABLE `all_kegiatan_pengawas` (
   `id` int(11) NOT NULL,
-  `kegiatan_id` int(11) NOT NULL,
+  `kegiatan_id` varchar(128) NOT NULL,
   `id_pengawas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -113,7 +114,7 @@ INSERT INTO `kriteria` (`id`, `prioritas`, `nama`, `bobot`) VALUES
 --
 
 CREATE TABLE `mitra` (
-  `id_mitra` varchar(128) NOT NULL,
+  `id_mitra` int(11) NOT NULL,
   `nama_lengkap` varchar(128) NOT NULL,
   `nama_panggilan` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -127,21 +128,6 @@ CREATE TABLE `mitra` (
   `is_active` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `mitra`
---
-
-INSERT INTO `mitra` (`id_mitra`, `nama_lengkap`, `nama_panggilan`, `email`, `alamat`, `no_hp`, `no_wa`, `no_tsel`, `pekerjaan_utama`, `kompetensi`, `bahasa`, `is_active`) VALUES
-('1001', 'mitra1', 'mitra1', 'mitra1@gmail.com', 'jwdnknd', '1234', '1234', '1234', 'qwsqq', 'qSQD', 'Indonesia', 1),
-('1002', 'mitra2', 'mitra2', 'mitra2@gmail.com', 'kjeekj', '123456', '123456', '1234567', 'Kuli', 'tidak ada', 'Jawa', 1),
-('1003', 'mitra3', 'mtr3', 'mitra3@gmail.com', 'kner', '123456', '123456', '123456', 'jfnnff', 'kkdkf', 'Indonesia', 1),
-('1004', 'mitra4', 'mitr4', 'mitra4@gmail.com', 'sdff', '1234', '1234', '1234', 'kdlmlmf', 'fwjhfkw', 'Madura', 1),
-('1006', 'mitra6', 'mi6', 'mitra6@gmail.com', 'dsf', '123', '123', '23', 'kmdkm', 'nwdkn', 'mnn', 1),
-('1007', 'mitra7', 'mit7', 'mitra7@gmail.com', 'lmll', '123', '123', '123', 'lmlfm', 'wkefmkf', 'wmfek', 1),
-('1008', 'mitra8', 'mi8', 'mitra8@gmail.com', 'dsf', '123', '123', '23', 'kmdkm', 'nwdkn', 'mnn', 1),
-('1009', 'mitra9', 'mit9', 'mitra9@gmail.com', 'lmll', '38463', '', '', '', '', 'wmfek', 1),
-('1010', 'mitra10', 'mi10', 'mitra10@gmail.com', 'dsf', '123', '123', '23', 'kmdkm', '', '', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -154,14 +140,6 @@ CREATE TABLE `pegawai` (
   `email` varchar(128) NOT NULL,
   `jabatan` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pegawai`
---
-
-INSERT INTO `pegawai` (`nip`, `nama`, `email`, `jabatan`) VALUES
-('123421', 'Sonny A', 'sny171@yahoo.com', 'Seksi Statistik Produksi'),
-('123459', 'Aditama', 'sny998@yahoo.com', 'Seksi Statistik Distribusi');
 
 -- --------------------------------------------------------
 
@@ -233,14 +211,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `image`, `password`, `role_id`, `seksi_id`, `is_active`, `date_created`, `token`, `date_created_token`) VALUES
-(21, 'mitra1@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971427, '', 0),
-(22, 'mitra2@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971457, '', 0),
-(23, 'mitra3@gmail.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 5, 0, 1, 1613971484, '', 0),
-(32, 'mitra4@gmail.com', 'IMG20200912173840_(2)11.jpg', '$2y$10$vZdSqxXWMB6MH2r6f/mvgePyysDMb.kRFwhu2BniPjEfAl10xLBpa', 5, 0, 1, 1617443495, '', 0),
-(42, 'sny171@yahoo.com', 'logo_msa.png', '$2y$10$ZH/UkZqoNPu2xLLd06CEpuCmjTp7xX/gKj5kUEbxra7xR3UoZ69ia', 4, 0, 1, 1620026355, 'FZVj1sCP/Qf9GQW6T4Lkq3MmTOxUr5GYLXjzqssU6Sw=', 1621063755),
-(43, 'sny998@yahoo.com', 'default.jpg', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 4, 0, 1, 0, '', 0),
-(45, 'superadmin@gmail.com', 'logo_msa1.png', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 1, 0, 1, 1621989189, NULL, NULL),
-(46, 'sny171@yahoo.com', 'logo_msa.png', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 3, 1, 1, 1622034958, NULL, NULL);
+(45, 'superadmin@gmail.com', 'logo_msa1.png', '$2y$10$LbxrTcSA4dSZlSnoPWUUoeb7b6xBZD.tE/fsBxydlgn.q6aqV18nO', 1, 0, 1, 1621989189, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -461,31 +432,37 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `all_kegiatan_pencacah`
 --
 ALTER TABLE `all_kegiatan_pencacah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `all_kegiatan_pengawas`
 --
 ALTER TABLE `all_kegiatan_pengawas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `all_penilaian`
 --
 ALTER TABLE `all_penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=276;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `mitra`
+--
+ALTER TABLE `mitra`
+  MODIFY `id_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1023;
 
 --
 -- AUTO_INCREMENT for table `seksi`
@@ -497,7 +474,7 @@ ALTER TABLE `seksi`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`

@@ -40,13 +40,6 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="no_hp" class="col-sm-2 col-form-label">No. HP</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $mitra['no_hp']; ?>">
-                        <?= form_error('no_hp', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="no_wa" class="col-sm-2 col-form-label">No. WA</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="no_wa" name="no_wa" value="<?= $mitra['no_wa']; ?>">

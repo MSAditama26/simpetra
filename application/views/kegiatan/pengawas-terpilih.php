@@ -16,7 +16,7 @@
                         <h2>Jumlah = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pengawas']; ?></h2>
                     </div>
                     <div class="col-lg-4" align=right>
-                        <a href="<?= base_url('kegiatan/pengawasterpilih/') . $kegiatan['id'] ?>" class="btn btn-info">Pengawas Terpilih</a>
+                        <a href="<?= base_url('kegiatan/tambah_pengawas/') . $kegiatan['id'] ?>" class="btn btn-primary">Tambah Pengawas</a>
                     </div>
 
                 </div>

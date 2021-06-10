@@ -29,12 +29,11 @@ class Master extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get('mitra')->result_array();
 
-        $this->form_validation->set_rules('id_mitra', 'ID Mitra', 'required|trim');
+        // $this->form_validation->set_rules('id_mitra', 'ID Mitra', 'required|trim');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
         $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
-        $this->form_validation->set_rules('no_hp', 'No. HP', 'required|trim');
         $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required|trim');
         $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required|trim');
         $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama', 'required|trim');
@@ -50,12 +49,11 @@ class Master extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $data = [
-                'id_mitra' => $this->input->post('id_mitra'),
+                // 'id_mitra' => $this->input->post('id_mitra'),
                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                 'nama_panggilan' => $this->input->post('nama_panggilan'),
                 'email' => $this->input->post('email'),
                 'alamat' => $this->input->post('alamat'),
-                'no_hp' => $this->input->post('no_hp'),
                 'no_wa' => $this->input->post('no_wa'),
                 'no_tsel' => $this->input->post('no_tsel'),
                 'pekerjaan_utama' => $this->input->post('pekerjaan_utama'),
@@ -64,16 +62,24 @@ class Master extends CI_Controller
             ];
 
             $data2 = [
-                'nama' => $this->input->post('nama_lengkap'),
+
                 'email' => $this->input->post('email'),
                 'role_id' => '5',
                 'date_created' => time()
 
             ];
-            $this->db->insert('mitra', $data);
-            $this->db->insert('user', $data2);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New mitra added!</div>');
-            redirect('master/mitra');
+
+            $check = $this->Master_model->check_email($this->input->post('email'));
+
+            if ($check < 1) {
+                $this->db->insert('mitra', $data);
+                $this->db->insert('user', $data2);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New mitra added!</div>');
+                redirect('master/mitra');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Mitra sudah ada!</div>');
+                redirect('master/mitra');
+            }
         }
     }
 
@@ -105,20 +111,19 @@ class Master extends CI_Controller
                 $index = 0;
                 foreach ($sheetData as $key => $value) {
                     if ($key != 1) {
-                        $check = $this->Master_model->check_id_mitra($value['A']);
+                        $check = $this->Master_model->check_email($value['C']);
 
                         if ($check != 1) {
-                            $resultData[$index]['id_mitra'] = $value['A'];
-                            $resultData[$index]['nama_lengkap'] = $value['B'];
-                            $resultData[$index]['nama_panggilan'] = $value['C'];
-                            $resultData[$index]['email'] = $value['D'];
-                            $resultData[$index]['alamat'] = $value['E'];
-                            $resultData[$index]['no_hp'] = $value['F'];
-                            $resultData[$index]['no_wa'] = $value['G'];
-                            $resultData[$index]['no_tsel'] = $value['H'];
-                            $resultData[$index]['pekerjaan_utama'] = $value['I'];
-                            $resultData[$index]['kompetensi'] = $value['J'];
-                            $resultData[$index]['bahasa'] = $value['K'];
+                            // $resultData[$index]['id_mitra'] = $value['A'];
+                            $resultData[$index]['nama_lengkap'] = $value['A'];
+                            $resultData[$index]['nama_panggilan'] = $value['B'];
+                            $resultData[$index]['email'] = $value['C'];
+                            $resultData[$index]['alamat'] = $value['D'];
+                            $resultData[$index]['no_wa'] = $value['E'];
+                            $resultData[$index]['no_tsel'] = $value['F'];
+                            $resultData[$index]['pekerjaan_utama'] = $value['G'];
+                            $resultData[$index]['kompetensi'] = $value['H'];
+                            $resultData[$index]['bahasa'] = $value['I'];
                         }
                     }
                     $index++;
@@ -161,12 +166,11 @@ class Master extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['mitra'] = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
 
-        $this->form_validation->set_rules('id_mitra', 'ID Mitra', 'required|trim');
+        // $this->form_validation->set_rules('id_mitra', 'ID Mitra', 'required|trim');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
         $this->form_validation->set_rules('nama_panggilan', 'Nama Panggilan', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
-        $this->form_validation->set_rules('no_hp', 'No. HP', 'required|trim');
         $this->form_validation->set_rules('no_wa', 'No. Whatsaap', 'required|trim');
         $this->form_validation->set_rules('no_tsel', 'No. Telkomsel', 'required|trim');
         $this->form_validation->set_rules('pekerjaan_utama', 'Pekerjaan Utama', 'required|trim');
@@ -181,12 +185,11 @@ class Master extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $data = [
-                'id_mitra' => $this->input->post('id_mitra'),
+                // 'id_mitra' => $this->input->post('id_mitra'),
                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                 'nama_panggilan' => $this->input->post('nama_panggilan'),
                 'email' => $this->input->post('email'),
                 'alamat' => $this->input->post('alamat'),
-                'no_hp' => $this->input->post('no_hp'),
                 'no_wa' => $this->input->post('no_wa'),
                 'no_tsel' => $this->input->post('no_tsel'),
                 'pekerjaan_utama' => $this->input->post('pekerjaan_utama'),

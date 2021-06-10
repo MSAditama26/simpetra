@@ -30,7 +30,7 @@
                             <th scope="col">Nama Lengkap</th>
                             <th scope="col">Email</th>
                             <th scope="col">Alamat</th>
-                            <th scope="col">No. Telepon/HP</th>
+                            <th scope="col">No. Whatsapp</th>
                             <th scope="col">Action</th>
                             <th scope="col">Status</th>
                         </tr>
@@ -44,7 +44,7 @@
                                 <td><?= $m['nama_lengkap']; ?></td>
                                 <td><?= $m['email']; ?></td>
                                 <td><?= $m['alamat']; ?></td>
-                                <td><?= $m['no_hp']; ?></td>
+                                <td><?= $m['no_wa']; ?></td>
                                 <td>
                                     <a href="<?= base_url('master/details_mitra/') . $m['id_mitra']; ?>" class="badge badge-primary">details</a>
                                     <a href="<?= base_url('master/editmitra/') . $m['id_mitra']; ?>" class="badge badge-success">edit</a>
@@ -96,9 +96,9 @@
             </div>
             <form action="<?= base_url('master/mitra') ?>" method="post">
                 <div class="modal-body">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input type="text" class="form-control" id="id_mitra" name="id_mitra" placeholder="ID Mitra">
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Nama Lengkap">
                     </div>
@@ -110,9 +110,6 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="No. HP">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="no_wa" name="no_wa" placeholder="No. Whatsapp">
