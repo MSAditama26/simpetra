@@ -232,6 +232,56 @@ class Ranking extends CI_Controller
         }
     }
 
+    function normalized($kegiatan_id)
+    {
+        $data['title'] = 'Perhitungan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $k_pencacah = "SELECT k_pencacah FROM kegiatan WHERE id = $kegiatan_id";
+        $result_k_pencacah = implode($this->db->query($k_pencacah)->row_array());
+
+        $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
+
+        $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
+
+        $all_kegiatan_pencacah_id = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $kegiatan_id";
+
+        $sql_jumlah_penilaian_sementara = "SELECT * FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($all_kegiatan_pencacah_id)";
+
+        $jumlah_penilaian_sementara = $this->db->query($sql_jumlah_penilaian_sementara)->num_rows();
+
+        // var_dump($jumlah_penilaian);
+        // die;
+
+        if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
+
+            $data['kegiatan_id'] = $kegiatan_id;
+
+            $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
+            $data['kriteria'] = $this->db->query($sql_kriteria)->result();
+
+            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra, mitra.nama_lengkap FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $hasil = $this->Ranking_model->normalized($kegiatan_id);
+            $data['rekap'] = $hasil['data'];
+
+
+
+            // var_dump($data['rekap']);
+            // die;
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('ranking/hitung-normalized', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
+            redirect('ranking/pilih_kegiatan');
+        }
+    }
+
     function utility($kegiatan_id)
     {
         $data['title'] = 'Perhitungan';
@@ -264,13 +314,14 @@ class Ranking extends CI_Controller
             // WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY all_penilaian.id_mitra";
             // $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
-            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra as id_mitra, mitra.nama_lengkap as nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
-            FROM all_penilaian JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id = all_penilaian.all_kegiatan_pencacah_id JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
-            WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id GROUP BY id_mitra ORDER BY id_mitra";
+            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra, mitra.nama_lengkap FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
 
             $hasil = $this->Ranking_model->utility($kegiatan_id);
             $data['rekap'] = $hasil['data'];
+
+            // var_dump($data['rekap']);
+            // die;
 
             // $total_utility = $this->Ranking_model->total_utility($kegiatan_id);
             // $data['total'] = $total_utility;
@@ -282,6 +333,64 @@ class Ranking extends CI_Controller
             $this->load->view('template/sidebar', $data);
             $this->load->view('template/topbar', $data);
             $this->load->view('ranking/hitung-utility', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
+            redirect('ranking/pilih_kegiatan');
+        }
+    }
+
+    function total($kegiatan_id)
+    {
+        $data['title'] = 'Perhitungan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $k_pencacah = "SELECT k_pencacah FROM kegiatan WHERE id = $kegiatan_id";
+        $result_k_pencacah = implode($this->db->query($k_pencacah)->row_array());
+
+        $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
+
+        $jumlah_penilaian = ((int) $result_k_pencacah) * $jumlah_kriteria;
+
+        $all_kegiatan_pencacah_id = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $kegiatan_id";
+
+        $sql_jumlah_penilaian_sementara = "SELECT * FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($all_kegiatan_pencacah_id)";
+
+        $jumlah_penilaian_sementara = $this->db->query($sql_jumlah_penilaian_sementara)->num_rows();
+
+        if ($jumlah_penilaian_sementara == $jumlah_penilaian) {
+
+            $data['jumlah_kriteria'] = $jumlah_kriteria;
+
+            $data['kegiatan_id'] = $kegiatan_id;
+
+            $sql_kriteria = "SELECT * FROM kriteria ORDER BY id";
+            $data['kriteria'] = $this->db->query($sql_kriteria)->result();
+
+            // $sql_id_mitra = "SELECT all_penilaian.id_mitra, mitra.nama_lengkap, SUM(kriteria.bobot*subkriteria.bobot) as bobot 
+            // FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
+            // WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY all_penilaian.id_mitra";
+            // $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $sql_id_mitra = "SELECT all_kegiatan_pencacah.id_mitra, mitra.nama_lengkap FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE kegiatan_id = $kegiatan_id ORDER BY id_mitra";
+            $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $hasil = $this->Ranking_model->total($kegiatan_id);
+            $data['rekap'] = $hasil['data'];
+
+            // var_dump($data['rekap']);
+            // die;
+
+            // $total_utility = $this->Ranking_model->total_utility($kegiatan_id);
+            // $data['total'] = $total_utility;
+
+            // var_dump($data['id_mitra']);
+            // die;
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('ranking/hitung-total', $data);
             $this->load->view('template/footer');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
@@ -320,6 +429,11 @@ class Ranking extends CI_Controller
             // WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
 
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+            $hasil = $this->Ranking_model->ranking($kegiatan_id);
+            $data['rekap'] = $hasil['data'];
+
+            // var_dump($data['rekap']);
+            // die;
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
@@ -362,6 +476,9 @@ class Ranking extends CI_Controller
             // FROM all_penilaian JOIN mitra ON all_penilaian.id_mitra = mitra.id_mitra JOIN kriteria ON all_penilaian.kriteria_id = kriteria.id JOIN subkriteria ON all_penilaian.nilai = subkriteria.nilai
             // WHERE all_penilaian.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.id_mitra ORDER BY bobot DESC";
             $data['id_mitra'] = $this->db->query($sql_id_mitra)->result();
+
+            $hasil = $this->Ranking_model->ranking($kegiatan_id);
+            $data['rekap'] = $hasil['data'];
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
