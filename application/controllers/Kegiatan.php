@@ -206,19 +206,29 @@ class Kegiatan extends CI_Controller
 
     function deletesurvei($id)
     {
-        $this->Kegiatan_model->deletesurvei($id);
+        $q1 = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $id";
+
+        $q2 = "DELETE FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($q1)";
+        $q22 = $this->db->query($q2);
+
         $this->Kegiatan_model->deletesurvei_all_kegiatan_pencacah($id);
         $this->Kegiatan_model->deletesurvei_all_kegiatan_pengawas($id);
-        // $this->Kegiatan_model->deletesurvei_all_penilaian($id);
+
+        $this->Kegiatan_model->deletesurvei($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Survei has been deleted!</div>');
         redirect('kegiatan/survei');
     }
 
     function deletesensus($id)
     {
-        $this->Kegiatan_model->deletesensus($id);
+        $q1 = "SELECT id FROM all_kegiatan_pencacah WHERE kegiatan_id = $id";
+
+        $q2 = "DELETE FROM all_penilaian WHERE all_kegiatan_pencacah_id IN ($q1)";
+        $q22 = $this->db->query($q2);
+
         $this->Kegiatan_model->deletesensus_all_kegiatan_pencacah($id);
         $this->Kegiatan_model->deletesensus_all_kegiatan_pengawas($id);
+        $this->Kegiatan_model->deletesensus($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Sensus has been deleted!</div>');
         redirect('kegiatan/sensus');
     }
@@ -376,6 +386,8 @@ class Kegiatan extends CI_Controller
         ];
 
 
+
+
         $result = $this->db->get_where('all_kegiatan_pencacah', $data);
 
         if ($result->num_rows() < 1) {
@@ -385,12 +397,28 @@ class Kegiatan extends CI_Controller
                 if ($check < 1) {
                     $this->db->insert('user', $data2);
                 }
+                // $all_kegiatan_pencacah_id = $this->db->get_where('all_kegiatan_pencacah', ['kegiatan_id' => $kegiatan_id, 'id_mitra' => $id_mitra])->row_array();
+                // $data3 = [
+
+                //     'all_kegiatan_pencacah_id' => $all_kegiatan_pencacah_id['id']
+
+                // ];
+                // $this->db->insert('ranking', $data3);
 
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
             }
         } else {
+
+            $all_kegiatan_pencacah_id = $this->db->get_where('all_kegiatan_pencacah', ['kegiatan_id' => $kegiatan_id, 'id_mitra' => $id_mitra])->row_array();
+            $data3 = [
+
+                'all_kegiatan_pencacah_id' => $all_kegiatan_pencacah_id['id']
+
+            ];
+            // $this->db->delete('ranking', $data3);
+            $this->db->delete('all_penilaian', $data3);
             $this->db->delete('all_kegiatan_pencacah', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pencacah changed!</div>');
         }
@@ -442,9 +470,10 @@ class Kegiatan extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
             }
         } else {
-            $this->db->delete('all_kegiatan_pengawas', $data);
             $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = 0 WHERE kegiatan_id = $kegiatan_id AND id_pengawas = $nip";
             $this->db->query($query);
+
+            $this->db->delete('all_kegiatan_pengawas', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
         }
     }

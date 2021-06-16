@@ -33,7 +33,7 @@
 
                             <?php foreach ($kriteria as $header) : ?>
                                 <th>
-                                    <?= $header->nama; ?>
+                                    <?= $header['nama']; ?>
                                 </th>
                             <?php endforeach; ?>
                             <th>Total</th>
@@ -43,15 +43,15 @@
                         <?php foreach ($id_mitra as $col) : ?>
                             <tr align=center>
                                 <td>
-                                    <?= $col->nama_lengkap; ?>
+                                    <?= $col['nama_lengkap']; ?>
                                 </td>
                                 <?php foreach ($kriteria as $row) : ?>
                                     <td>
                                         <?php foreach ($rekap as $r) : ?>
-                                            <?php foreach ($r->bobot as $cell) : ?>
+                                            <?php foreach ($r['bobot'] as $cell) : ?>
 
-                                                <?php if ($row->id == $cell->kriteria_id && $col->id_mitra == $cell->id_mitra) : ?>
-                                                    <?= number_format($cell->ut, 4); ?>
+                                                <?php if ($row['id'] == $cell['kriteria_id'] && $col['id_mitra'] == $cell['id_mitra']) : ?>
+                                                    <?= number_format($cell['ut'], 4); ?>
                                                 <?php endif; ?>
 
                                             <?php endforeach; ?>
@@ -61,19 +61,12 @@
 
 
 
-                                <?php $temp = 0; ?>
-                                <?php foreach ($rekap as $r) : ?>
-                                    <?php foreach ($r->bobot as $cell) : ?>
-
-                                        <?php if ($col->id_mitra == $cell->id_mitra) : ?>
-                                            <?php $temp = $temp + number_format($cell->ut, 4); ?>
-                                        <?php endif; ?>
-
-                                    <?php endforeach; ?>
-                                <?php endforeach; ?>
-                                <?php $temp++; ?>
                                 <td>
-                                    <?= $temp - 1; ?>
+
+                                    <?= number_format($col['tot'], 4); ?>
+
+
+
                                 </td>
 
 
@@ -81,6 +74,11 @@
 
                             </tr>
                         <?php endforeach; ?>
+
+
+                        <!-- redirect('ranking/savetotal/' . $kegiatan_id . '/' . $col->id_mitra . '/' . ($temp - 1)); -->
+
+
 
                     </tbody>
                 </table>

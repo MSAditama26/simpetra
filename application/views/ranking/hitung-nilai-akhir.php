@@ -36,28 +36,18 @@
                     </thead>
                     <tbody style="background-color: #ffffff; color: #00264d;">
                         <?php $i = 1; ?>
-                        <?php foreach ($id_mitra as $col) : ?>
+                        <?php foreach ($hq as $col) : ?>
                             <tr align=center>
                                 <td>
                                     <?= $i; ?>
                                 </td>
                                 <td>
-                                    <?= $col->nama_lengkap; ?>
+                                    <?= $col['nama_lengkap']; ?>
                                 </td>
-                                <?php $temp = 0; ?>
-                                <?php foreach ($rekap as $r) : ?>
-                                    <?php foreach ($r->bobot as $cell) : ?>
-
-                                        <?php if ($col->id_mitra == $cell->id_mitra) : ?>
-                                            <?php $temp = $temp + number_format($cell->ut, 4); ?>
-                                        <?php endif; ?>
-
-                                    <?php endforeach; ?>
-                                <?php endforeach; ?>
-                                <?php $temp++; ?>
                                 <td>
-                                    <?= $temp - 1; ?>
+                                    <?= number_format($col['tot'], 4); ?>
                                 </td>
+
 
 
                             </tr>
