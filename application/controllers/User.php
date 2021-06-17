@@ -14,7 +14,11 @@ class User extends CI_Controller
     {
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['pegawai'] = $this->db->get_where('pegawai', ['email' => $this->session->userdata('email')])->row_array();
+
+        $email = $this->session->userdata('email');
+
+        $sqlpegawai = "SELECT pegawai.nama as nama, pegawai.email as email FROM pegawai WHERE pegawai.email = '$email' UNION (SELECT mitra.nama_lengkap as nama, mitra.email as email FROM mitra WHERE mitra.email = '$email')";
+        $data['pegawai'] = $this->db->query($sqlpegawai)->row_array();
         $data['mitra'] = $this->db->get_where('mitra', ['email' => $this->session->userdata('email')])->row_array();
 
         // $id = $data['mitra']['id_mitra'];

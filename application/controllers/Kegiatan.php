@@ -250,14 +250,18 @@ class Kegiatan extends CI_Controller
 
             $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
 
-            $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 ";
+            $sql_id_mitra_pengawas = "SELECT id_pengawas FROM all_kegiatan_pengawas WHERE kegiatan_id = $id";
+
+            $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 AND (mitra.id_mitra NOT IN ($sql_id_mitra_pengawas))";
         } else {
             //jika $id kegiatan non ob
             $sql_id_kegiatan = "SELECT kegiatan.id FROM kegiatan WHERE ((((kegiatan.start < $waktu->start AND kegiatan.finish < $waktu->start) OR (kegiatan.start > $waktu->finish AND kegiatan.finish > $waktu->finish)) AND kegiatan.ob = 1) OR kegiatan.ob != 1) AND kegiatan.id != $id  ";
 
             $sql_id_mitra = "SELECT mitra.id_mitra FROM mitra JOIN all_kegiatan_pencacah ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id NOT IN ($sql_id_kegiatan) AND mitra.is_active GROUP BY mitra.id_mitra ";
 
-            $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 ";
+            $sql_id_mitra_pengawas = "SELECT id_pengawas FROM all_kegiatan_pengawas WHERE kegiatan_id = $id";
+
+            $sql_pencacah = "SELECT mitra.* FROM mitra WHERE (mitra.id_mitra NOT IN ($sql_id_mitra)) AND mitra.is_active = 1 AND (mitra.id_mitra NOT IN ($sql_id_mitra_pengawas))";
         }
 
         $data['pencacah'] = $this->db->query($sql_pencacah)->result_array();
@@ -444,6 +448,28 @@ class Kegiatan extends CI_Controller
         $this->load->view('template/footer');
     }
 
+    function tambah_pengawas_mitra($id)
+    {
+        $data['title'] = 'Tambah Pengawas';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql_pengawas_mitra = "SELECT id_mitra FROM all_kegiatan_pencacah WHERE kegiatan_id = $id";
+
+        $sqlpengawas = "SELECT mitra.* FROM mitra WHERE id_mitra NOT IN ($sql_pengawas_mitra)";
+        $data['pengawas'] = $this->db->query($sqlpengawas)->result_array();
+
+        $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pengawas WHERE kegiatan_id = $id";
+        $data['kuota'] = $this->db->query($sqlkuota)->row_array();
+
+        $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $id])->row_array();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('kegiatan/tambah-pengawas-dari-mitra', $data);
+        $this->load->view('template/footer');
+    }
+
     public function changepengawas()
     {
         $kegiatan_id = $this->input->post('kegiatanId');
@@ -478,12 +504,47 @@ class Kegiatan extends CI_Controller
         }
     }
 
+    public function changepengawas_mitra()
+    {
+        $kegiatan_id = $this->input->post('kegiatanId');
+        $id_mitra = $this->input->post('id_mitra');
+
+        $kuota = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();
+        $intkuota = (int) $kuota['k_pengawas'];
+
+
+        $cek_kuota = $this->db->get_where('all_kegiatan_pengawas', ['kegiatan_id' => $kegiatan_id])->num_rows();
+
+        $data = [
+            'kegiatan_id' => $kegiatan_id,
+            'id_pengawas' => $id_mitra
+        ];
+
+        $result = $this->db->get_where('all_kegiatan_pengawas', $data);
+
+        if ($result->num_rows() < 1) {
+            if ($cek_kuota < $intkuota) {
+                $this->db->insert('all_kegiatan_pengawas', $data);
+                redirect('kegiatan/tambah_pengawas_mitra_ke_user/' . $id_mitra);
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kuota penuh!</div>');
+            }
+        } else {
+            $query = "UPDATE all_kegiatan_pencacah SET id_pengawas = 0 WHERE kegiatan_id = $kegiatan_id AND id_pengawas = $id_mitra";
+            $this->db->query($query);
+
+            $this->db->delete('all_kegiatan_pengawas', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
+        }
+    }
+
     function pengawasterpilih($kegiatan_id)
     {
         $data['title'] = 'Pencacah Terpilih';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpengawas = "SELECT pegawai.* FROM all_kegiatan_pengawas JOIN pegawai ON all_kegiatan_pengawas.id_pengawas = pegawai.nip WHERE all_kegiatan_pengawas.kegiatan_id = $kegiatan_id";
+        $sqlpengawas = "SELECT pegawai.nip as nip, pegawai.email as email, pegawai.nama as nama FROM all_kegiatan_pengawas JOIN pegawai ON all_kegiatan_pengawas.id_pengawas = pegawai.nip WHERE all_kegiatan_pengawas.kegiatan_id = $kegiatan_id UNION (SELECT mitra.id_mitra as nip, mitra.email as email, mitra.nama_lengkap as nama FROM all_kegiatan_pengawas JOIN mitra ON all_kegiatan_pengawas.id_pengawas = mitra.id_mitra WHERE all_kegiatan_pengawas.kegiatan_id = $kegiatan_id)";
+
         $data['pengawas'] = $this->db->query($sqlpengawas)->result_array();
 
         $sqlkuota = "SELECT count(kegiatan_id) as kegiatan_id FROM all_kegiatan_pengawas WHERE kegiatan_id = $kegiatan_id";
@@ -522,6 +583,31 @@ class Kegiatan extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
     }
 
+    function tambah_pengawas_mitra_ke_user($id_mitra)
+    {
+        $sqlnamapegawai = "SELECT email FROM mitra WHERE id_mitra = $id_mitra";
+        $emailpegawai = implode($this->db->query($sqlnamapegawai)->row_array());
+
+
+        $sqlcekpegawai = "SELECT * FROM user WHERE email = '$emailpegawai' AND role_id = 4";
+        $cekpegawai = $this->db->query($sqlcekpegawai);
+
+        $mitra = $this->db->get_where('mitra', ['id_mitra' => $id_mitra])->row_array();
+
+        $data2 = [
+
+            'email' => $mitra['email'],
+            'role_id' => '4',
+            'date_created' => time()
+        ];
+
+        if ($cekpegawai->num_rows() < 1) {
+            $this->db->insert('user', $data2);
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengawas changed!</div>');
+    }
+
+
     function details_kegiatan_pengawas($kegiatan_id, $id)
     {
         $data['title'] = 'Details Kegiatan';
@@ -549,12 +635,39 @@ class Kegiatan extends CI_Controller
         }
     }
 
+    function details_kegiatan_pengawas_mitra($kegiatan_id, $id)
+    {
+        $data['title'] = 'Details Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $now = time();
+
+        $sql = "SELECT all_kegiatan_pengawas.*, kegiatan.* FROM all_kegiatan_pengawas INNER JOIN kegiatan ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $id AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now)) ORDER BY kegiatan.start";
+        $data['details'] = $this->db->query($sql)->result_array();
+
+        $jumlahkegiatan = count($data['details']);
+
+        if ($jumlahkegiatan > 0) {
+
+            $data['pengawas'] = $this->db->get_where('pegawai', ['nip' => $id])->row_array();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('kegiatan/details-kegiatan-pengawas', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pengawas belum mengikuti kegiatan</div>');
+            redirect('kegiatan/tambah_pengawas_mitra/' . $kegiatan_id);
+        }
+    }
+
     function tambah_pencacah_pengawas($kegiatan_id, $nip)
     {
         $data['title'] = 'Tambah Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpengawas = "SELECT * FROM pegawai WHERE nip = $nip";
+        $sqlpengawas = "SELECT pegawai.nip as nip, pegawai.nama as nama, pegawai.email as email FROM pegawai WHERE nip = $nip UNION SELECT mitra.id_mitra as nip, mitra.nama_lengkap as nama, mitra.email as email FROM mitra WHERE id_mitra = $nip ";
         $data['pengawas'] = $this->db->query($sqlpengawas)->row_array();
 
         $sqlpencacah = "SELECT all_kegiatan_pencacah.*, mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id AND all_kegiatan_pencacah.id_pengawas = 0";
@@ -599,7 +712,7 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Pencacah Terpilih';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpengawas = "SELECT * FROM pegawai WHERE nip = $nip";
+        $sqlpengawas = "SELECT pegawai.nip as nip, pegawai.nama as nama, pegawai.email as email FROM pegawai WHERE nip = $nip UNION SELECT mitra.id_mitra as nip, mitra.nama_lengkap as nama, mitra.email as email FROM mitra WHERE id_mitra = $nip ";
         $data['pengawas'] = $this->db->query($sqlpengawas)->row_array();
 
         $sqlpencacah = "SELECT all_kegiatan_pencacah.*, mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id AND all_kegiatan_pencacah.id_pengawas = $nip";

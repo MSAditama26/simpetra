@@ -70,6 +70,7 @@ function check_pengawas($kegiatan_id, $nip)
     }
 }
 
+
 function check_pencacahpengawas($kegiatan_id, $nip, $id_mitra)
 {
     $ci = get_instance();

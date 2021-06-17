@@ -16,7 +16,7 @@
                         <h2>Jumlah = <?= $kuota['kegiatan_id']; ?> / <?= $kegiatan['k_pengawas']; ?></h2>
                     </div>
                     <div class="col-sm" align=right>
-                        <a href="<?= base_url('kegiatan/tambah_pengawas_mitra/') . $kegiatan['id'] ?>" class="btn btn-warning">Tambah Pengawas Dari Mitra</a>
+                        <a href="<?= base_url('kegiatan/tambah_pengawas/') . $kegiatan['id'] ?>" class="btn btn-warning">Tambah Pengawas Dari Pegawai</a>
                     </div>
                     <div class="col-sm" align=right>
                         <a href="<?= base_url('kegiatan/pengawasterpilih/') . $kegiatan['id'] ?>" class="btn btn-info">Pengawas Terpilih</a>
@@ -42,13 +42,13 @@
                                     <tr align=center>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-pengawas-input" type="checkbox" <?= check_pengawas($kegiatan['id'], $p['nip']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pengawas="<?= $p['nip']; ?>">
+                                                <input class="form-pengawas-mitra-input" type="checkbox" <?= check_pengawas($kegiatan['id'], $p['id_mitra']); ?> data-kegiatan="<?= $kegiatan['id']; ?>" data-pengawas="<?= $p['id_mitra']; ?>">
                                             </div>
                                         </td>
                                         <td><?= $p['email']; ?></td>
-                                        <td><?= $p['nama']; ?></td>
+                                        <td><?= $p['nama_lengkap']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('kegiatan/details_kegiatan_pengawas/') . $kegiatan['id'] . '/' . $p['nip']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
+                                            <a href="<?= base_url('kegiatan/details_kegiatan_pengawas_mitra/') . $kegiatan['id'] . '/' . $p['id_mitra']; ?>" class="badge badge-primary">kegiatan yang diikuti</a>
                                         </td>
 
                                     </tr>

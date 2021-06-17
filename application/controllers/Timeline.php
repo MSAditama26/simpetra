@@ -31,7 +31,7 @@ class Timeline extends CI_Controller
             $data['jlhk'] = $this->db->query($sql_kegiatan)->num_rows();
             $data['kegiatan'] = $this->db->query($sql_kegiatan)->result_array();
         } elseif ($role_id == 4) {
-            $sql_nip = "SELECT nip FROM pegawai WHERE email LIKE '$email'";
+            $sql_nip = "SELECT nip FROM pegawai WHERE email LIKE '$email' UNION (SELECT id_mitra as nip FROM mitra WHERE email LIKE '$email')";
             $nip = implode($this->db->query($sql_nip)->row_array());
             $sql_kegiatan = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pengawas ON all_kegiatan_pengawas.kegiatan_id = kegiatan.id WHERE all_kegiatan_pengawas.id_pengawas = $nip AND ((kegiatan.start <= $now AND kegiatan.finish >= $now) OR (kegiatan.start > $now))ORDER BY kegiatan.start";
             $data['jlhk'] = $this->db->query($sql_kegiatan)->num_rows();

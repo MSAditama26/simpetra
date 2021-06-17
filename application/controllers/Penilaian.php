@@ -18,10 +18,10 @@ class Penilaian extends CI_Controller
 
         $email = $data['user']['email'];
 
-        $sql_nama = "SELECT nama FROM pegawai WHERE email LIKE '$email'";
+        $sql_nama = "SELECT nama FROM pegawai WHERE email LIKE '$email' UNION (SELECT nama_lengkap as nama FROM mitra WHERE email LIKE '$email')";
         $data['nama'] = implode($this->db->query($sql_nama)->row_array());
 
-        $sql_nip = "SELECT nip FROM pegawai WHERE email LIKE '$email'";
+        $sql_nip = "SELECT nip FROM pegawai WHERE email LIKE '$email' UNION (SELECT id_mitra as nip FROM mitra WHERE email LIKE '$email')";
         $nip = implode($this->db->query($sql_nip)->row_array());
 
         $data['nip'] = $nip;
@@ -163,7 +163,7 @@ class Penilaian extends CI_Controller
             // $nama = $data['user']['nama'];
             $email = $data['user']['email'];
 
-            $sql_nip = "SELECT pegawai.nip FROM pegawai JOIN user WHERE pegawai.email LIKE '$email'";
+            $sql_nip = "SELECT pegawai.nip FROM pegawai JOIN user WHERE pegawai.email LIKE '$email' UNION (SELECT mitra.id_mitra as nip FROM mitra JOIN user WHERE mitra.email LIKE '$email')";
             $nip = implode($this->db->query($sql_nip)->row_array());
 
             $data['nip'] = $nip;
@@ -233,7 +233,7 @@ class Penilaian extends CI_Controller
 
         $jumlah_kriteria = $this->db->get('kriteria')->num_rows();
 
-        $sqlpenilai = "SELECT nama, nip FROM pegawai WHERE nip = $nip";
+        $sqlpenilai = "SELECT nama, nip FROM pegawai WHERE nip = $nip UNION (SELECT mitra.nama_lengkap as nama, mitra.id_mitra as nip FROM mitra WHERE id_mitra = $nip)";
         $data['penilai'] = $this->db->query($sqlpenilai)->row_array();
 
         $sqlrow = "SELECT count(*) FROM all_penilaian WHERE all_kegiatan_pencacah_id = $all_kegiatan_pencacah_id";
