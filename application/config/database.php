@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'simpentra',
+	'hostname' => 'localhost:3306',
+	'username' => 'bpscom',
+	'password' => 'cendrawasih350920',
+	'database' => 'bpscom_simpentra',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

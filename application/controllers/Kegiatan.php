@@ -333,7 +333,7 @@ class Kegiatan extends CI_Controller
 
         $sql = "SELECT kegiatan.* FROM all_kegiatan_pencacah INNER JOIN kegiatan ON all_kegiatan_pencacah.kegiatan_id = kegiatan.id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra";
 
-        $data['id_mitra'] = $id_mitra;
+        $data['id_mitra'] = $this->db->get_where('mitra',['id_mitra' => $id_mitra])->row_array();
 
         $data['details'] = $this->db->query($sql)->result_array();
 
@@ -540,7 +540,7 @@ class Kegiatan extends CI_Controller
 
     function pengawasterpilih($kegiatan_id)
     {
-        $data['title'] = 'Pencacah Terpilih';
+        $data['title'] = 'Pengawas Terpilih';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $sqlpengawas = "SELECT pegawai.nip as nip, pegawai.email as email, pegawai.nama as nama FROM all_kegiatan_pengawas JOIN pegawai ON all_kegiatan_pengawas.id_pengawas = pegawai.nip WHERE all_kegiatan_pengawas.kegiatan_id = $kegiatan_id UNION (SELECT mitra.id_mitra as nip, mitra.email as email, mitra.nama_lengkap as nama FROM all_kegiatan_pengawas JOIN mitra ON all_kegiatan_pengawas.id_pengawas = mitra.id_mitra WHERE all_kegiatan_pengawas.kegiatan_id = $kegiatan_id)";
@@ -667,7 +667,7 @@ class Kegiatan extends CI_Controller
         $data['title'] = 'Tambah Pencacah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sqlpengawas = "SELECT pegawai.nip as nip, pegawai.nama as nama, pegawai.email as email FROM pegawai WHERE nip = $nip UNION SELECT mitra.id_mitra as nip, mitra.nama_lengkap as nama, mitra.email as email FROM mitra WHERE id_mitra = $nip ";
+        $sqlpengawas = "SELECT pegawai.nip as nip, pegawai.nama as nama, pegawai.email as email FROM pegawai WHERE nip = $nip UNION (SELECT mitra.id_mitra as nip, mitra.nama_lengkap as nama, mitra.email as email FROM mitra WHERE id_mitra = $nip)";
         $data['pengawas'] = $this->db->query($sqlpengawas)->row_array();
 
         $sqlpencacah = "SELECT all_kegiatan_pencacah.*, mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id AND all_kegiatan_pencacah.id_pengawas = 0";
@@ -715,7 +715,7 @@ class Kegiatan extends CI_Controller
         $sqlpengawas = "SELECT pegawai.nip as nip, pegawai.nama as nama, pegawai.email as email FROM pegawai WHERE nip = $nip UNION SELECT mitra.id_mitra as nip, mitra.nama_lengkap as nama, mitra.email as email FROM mitra WHERE id_mitra = $nip ";
         $data['pengawas'] = $this->db->query($sqlpengawas)->row_array();
 
-        $sqlpencacah = "SELECT all_kegiatan_pencacah.*, mitra.* FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id AND all_kegiatan_pencacah.id_pengawas = $nip";
+        $sqlpencacah = "SELECT all_kegiatan_pencacah.id_mitra, mitra.nama_lengkap FROM all_kegiatan_pencacah JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE (all_kegiatan_pencacah.kegiatan_id = $kegiatan_id) AND (all_kegiatan_pencacah.id_pengawas = $nip)";
         $data['pencacah'] = $this->db->query($sqlpencacah)->result_array();
 
         $data['kegiatan'] = $this->db->get_where('kegiatan', ['id' => $kegiatan_id])->row_array();

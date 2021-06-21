@@ -7,7 +7,7 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="row" style="color:#00264d;">
                 <div class="col-lg-6">
-                    <h2>Mitra: <?= $id_mitra['id_mitra']; ?></h2>
+                    <h2>Mitra: <?= $id_mitra['nama_lengkap']; ?></h2>
                 </div>
             </div>
 

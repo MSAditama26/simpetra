@@ -7,7 +7,7 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="row" style="color:#00264d;">
                 <div class="col-lg-6">
-                    <h2>Mitra: <?= $id_mitra; ?></h2>
+                    <h2>Mitra: <?= $id_mitra['nama_lengkap']; ?></h2>
                 </div>
             </div>
             <div class="table-responsive">
@@ -39,7 +39,7 @@
                                 <?php else : ?>
                                     <td><a class="badge badge-primary">sedang berjalan</a></td>
                                 <?php endif; ?>
-                                <td><a href="<?= base_url('kegiatan/details_nilai_perkegiatan/') . $id_mitra . '/' . $d['id'] ?>" class="badge badge-primary">Lihat nilai</a></td>
+                                <td><a href="<?= base_url('kegiatan/details_nilai_perkegiatan/') . $id_mitra['id_mitra'] . '/' . $d['id'] ?>" class="badge badge-primary">Lihat nilai</a></td>
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>

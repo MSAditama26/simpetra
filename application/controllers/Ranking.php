@@ -425,7 +425,7 @@ class Ranking extends CI_Controller
 
             $data['hq'] = $this->db->query($q)->result_array();
             $data['kegiatan_id'] = $kegiatan_id;
-            // var_dump($hq);
+            // var_dump($kegiatan_id);
             // die;
 
             $this->load->view('template/header', $data);
@@ -441,7 +441,7 @@ class Ranking extends CI_Controller
 
     function nilai_akhir_ranking($kegiatan_id)
     {
-        $data['title'] = 'Perhitungan';
+        $data['title'] = 'Ranking';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $k_pencacah = "SELECT k_pencacah FROM kegiatan WHERE id = $kegiatan_id";
@@ -465,11 +465,11 @@ class Ranking extends CI_Controller
             $q = "SELECT all_kegiatan_pencacah.id_mitra, mitra.nama_lengkap, sum(all_penilaian.t_bobot) as tot FROM all_penilaian JOIN all_kegiatan_pencacah ON all_penilaian.all_kegiatan_pencacah_id = all_kegiatan_pencacah.id JOIN mitra ON all_kegiatan_pencacah.id_mitra = mitra.id_mitra WHERE all_kegiatan_pencacah.kegiatan_id = $kegiatan_id GROUP BY all_penilaian.all_kegiatan_pencacah_id ORDER BY tot DESC";
 
             $data['hq'] = $this->db->query($q)->result_array();
-            $data['kegiatan_id'] = $kegiatan_id;
+              $data['kegiatan_id'] = $this->db->get_where('kegiatan', ['id'=> $kegiatan_id])->row_array();
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
             $this->load->view('template/topbar', $data);
-            $this->load->view('ranking/hitung-nilai-akhir', $data);
+            $this->load->view('ranking/ranking', $data);
             $this->load->view('template/footer');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');

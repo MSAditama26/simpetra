@@ -222,7 +222,7 @@
      $(document).ready(function() {
          $('#mydata').DataTable({
              paging: true,
-             searching: false,
+             searching: true,
              ordering: true,
              pagingType: "full_numbers"
          });

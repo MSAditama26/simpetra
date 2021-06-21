@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-6">
 
             <?= $this->session->flashdata('message'); ?>
             <div class="row" style="color:#00264d;">
