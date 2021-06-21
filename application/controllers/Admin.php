@@ -167,20 +167,20 @@ class Admin extends CI_Controller
                 'date_created' => time()
 
             ];
-            
+
             $email = $this->input->post('email');
             $role_id = $this->input->post('role_id');
-            
+
             $sqlcek = "SELECT * FROM user WHERE email = '$email' AND role_id = $role_id";
             $cek = $this->db->query($sqlcek)->num_rows();
-            
+
             if ($cek < 1) {
                 $this->db->insert('user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New user added!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New user added!</div>');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User udah ada!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User sudah ada!</div>');
             }
-            
+
             redirect('admin/alluser');
         }
     }
